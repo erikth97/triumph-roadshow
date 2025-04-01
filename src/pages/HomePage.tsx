@@ -1,10 +1,11 @@
 import HeroSection from '@/components/sections/HeroSection';
+import InfoSection from '@/components/sections/InfoSection';
 
 const HomePage = () => {
     return (
         <>
             <HeroSection />
-            {/* Aquí irán las demás secciones */}
+            <InfoSection />
         </>
     );
 };
