@@ -35,8 +35,8 @@ const HeroSection = () => {
                     <source src="/videos/triumph-hero.mp4" type="video/mp4" />
                     Tu navegador no soporta videos.
                 </video>
-                {/* Overlay para mejorar la legibilidad del texto */}
-                <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+                {/* Overlay con opacidad ajustada para mejor balance entre legibilidad y visibilidad del video */}
+                <div className="absolute inset-0 bg-black bg-opacity-40"></div>
             </div>
 
             {/* Contenido del hero */}
@@ -44,7 +44,7 @@ const HeroSection = () => {
                 <img
                     src="/images/DRS-BLANCO.png"
                     alt="Demo Road Show Triumph"
-                    className="w-64 md:w-80 mb-10"
+                    className="w-64 md:w-80 mb-6" /* Reducido de mb-10 a mb-6 para disminuir el espacio */
                 />
 
                 <motion.h1
@@ -57,7 +57,7 @@ const HeroSection = () => {
                 </motion.h1>
 
                 <motion.p
-                    className="text-xl md:text-2xl mb-12 max-w-3xl"
+                    className="text-xl md:text-2xl mb-16 max-w-3xl" /* Aumentado de mb-12 a mb-16 para dar más espacio antes del botón */
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4, duration: 0.8 }}
@@ -68,12 +68,12 @@ const HeroSection = () => {
 
                 <motion.button
                     onClick={scrollToRegistration}
-                    className="flex flex-col items-center gap-2"
+                    className="flex flex-col items-center"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6, duration: 0.8 }}
                 >
-                    <span className="uppercase font-bold text-lg hover:text-[#D11A2A] transition-colors">
+                    <span className="uppercase font-bold text-lg tracking-wider mb-1"> {/* Añadido tracking-wider y mb-1 para un espaciado más preciso */}
                         Regístrate Ahora
                     </span>
                     <motion.div
@@ -82,7 +82,7 @@ const HeroSection = () => {
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-8 w-8"
+                            className="h-7 w-7" /* Reducido de h-8 w-8 para un aspecto más ligero */
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
