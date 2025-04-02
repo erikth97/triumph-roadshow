@@ -1,0 +1,16 @@
+@import "@glidejs/glide/dist/css/glide.core.min.css";
+
+/* Personalización de los indicadores y controles */
+.features-carousel .glide__bullet--active span {
+    background-color: #D11A2A !important;
+    opacity: 1;
+}
+
+.features-carousel .glide__arrow {
+    transition: all 0.3s ease;
+}
+
+.features-carousel .glide__arrow:hover {
+    background-color: #D11A2A;
+    border-color: #D11A2A;
+}
