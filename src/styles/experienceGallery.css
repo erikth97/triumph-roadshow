@@ -1,0 +1,35 @@
+/* En styles/experienceGallery.css */
+
+/* Estilos para el botón de play */
+.border-l-16 {
+    border-left-width: 16px;
+}
+
+/* Animación para el modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+.modal-animation-enter {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.modal-content-enter {
+    animation: scaleIn 0.3s ease forwards;
+}
