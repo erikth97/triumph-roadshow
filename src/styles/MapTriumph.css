@@ -1,0 +1,30 @@
+.scroll-container {
+    max-height: 25vw; 
+    overflow-y: auto; 
+    scrollbar-width: thin; 
+    scrollbar-color: rgba(255, 255, 255, 0.5) transparent; 
+    direction: rtl; 
+  }
+  
+  /* Estilo para navegadores basados en WebKit (Chrome, Edge, Safari) */
+  .scroll-container::-webkit-scrollbar {
+    width: 4px; 
+  }
+  
+  .scroll-container::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5); 
+    border-radius: 4px; 
+  }
+  
+  .scroll-container::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.8); 
+  }
+  
+  .scroll-container::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+  
+  /* Asegura que el contenido no se invierta al usar 'direction: rtl' */
+  .scroll-container > * {
+    direction: ltr; 
+  }
