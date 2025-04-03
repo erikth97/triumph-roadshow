@@ -1,5 +1,5 @@
-import React, { useState, useRef, useCallback } from 'react';
-import { experienceGalleryImages, videoPath, videoPosterPath } from '../../lib/constants/galleryData';
+import React, { useState, useCallback } from 'react';
+import { experienceGalleryImages, videoPosterPath } from '../../lib/constants/galleryData';
 import { preloadImageBatch } from '../../lib/utils/imageUtils';
 import { GalleryImage } from '../../lib/constants/galleryData';
 
@@ -7,19 +7,16 @@ const TriumphExperienceGallery: React.FC = () => {
     const [isVideoOpen, setIsVideoOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
     const [showAllImages, setShowAllImages] = useState(false);
-    const videoRef = useRef<HTMLVideoElement>(null);
+
+    // YouTube video ID
+    const youtubeVideoId = '2LyKT-TtBhI';
+    const youtubeThumbnail = `https://img.youtube.com/vi/${youtubeVideoId}/maxresdefault.jpg`;
 
     const initialImages = experienceGalleryImages.slice(0, 6);
     const imagesToShow = showAllImages ? experienceGalleryImages : initialImages;
 
     const handleVideoToggle = () => {
         setIsVideoOpen(!isVideoOpen);
-        if (!isVideoOpen && videoRef.current) {
-            videoRef.current.play();
-        } else if (videoRef.current) {
-            videoRef.current.pause();
-            videoRef.current.currentTime = 0;
-        }
     };
 
     const handleImageClick = (image: GalleryImage) => {
@@ -72,18 +69,15 @@ const TriumphExperienceGallery: React.FC = () => {
                         </div>
                     </div>
 
-                    <video
-                        ref={videoRef}
+                    <img
                         className="w-full h-full object-cover"
-                        src={videoPath}
-                        poster={videoPosterPath}
-                        muted
-                        loop
+                        src={youtubeThumbnail}
+                        alt="Experiencia Triumph video thumbnail"
                     />
                 </div>
             </div>
 
-            {/* Video modal */}
+            {/* YouTube Video modal */}
             {isVideoOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center">
                     <div
@@ -91,12 +85,14 @@ const TriumphExperienceGallery: React.FC = () => {
                         onClick={handleVideoToggle}
                     />
                     <div className="relative z-10 w-11/12 md:w-4/5 lg:w-3/4 max-w-5xl aspect-video">
-                        <video
-                            className="w-full h-full object-contain"
-                            src={videoPath}
-                            autoPlay
-                            controls
-                        />
+                        <iframe
+                            className="w-full h-full"
+                            src={`https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1`}
+                            title="Experiencia Triumph"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        ></iframe>
                         <button
                             className="absolute top-4 right-4 text-white text-2xl bg-black bg-opacity-50 w-10 h-10 rounded-full flex items-center justify-center"
                             onClick={handleVideoToggle}
