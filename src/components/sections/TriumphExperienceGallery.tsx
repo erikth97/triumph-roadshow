@@ -61,7 +61,7 @@ const TriumphExperienceGallery: React.FC = () => {
 
                 <div className="relative w-full max-w-6xl mx-auto aspect-video overflow-hidden rounded-lg cursor-pointer group">
                     <div
-                        className="absolute inset-0 flex items-center justify-center z-10 bg-black bg-opacity-40 group-hover:bg-opacity-20 transition-all"
+                        className="absolute inset-0 flex items-center justify-center z-10 bg-opacity-40 group-hover:bg-opacity-20 transition-all"
                         onClick={handleVideoToggle}
                     >
                         <div className="w-20 h-20 rounded-full bg-white bg-opacity-80 flex items-center justify-center transition-transform duration-300 group-hover:scale-125">
