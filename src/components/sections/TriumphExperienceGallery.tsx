@@ -1,67 +1,68 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { experienceGalleryImages, videoPath, videoPosterPath } from '../../lib/constants/galleryData';
 import { preloadImageBatch } from '../../lib/utils/imageUtils';
 import { GalleryImage } from '../../lib/constants/galleryData';
 
 const TriumphExperienceGallery: React.FC = () => {
-    // Estado para el video modal
     const [isVideoOpen, setIsVideoOpen] = useState(false);
-
-    // Estado para la imagen seleccionada
     const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
-
-    // Estado para mostrar todas las imágenes
     const [showAllImages, setShowAllImages] = useState(false);
-
-    // Referencia al video
     const videoRef = useRef<HTMLVideoElement>(null);
 
-    // Imágenes iniciales (mostrar primeras 6, que ahora serán 2 filas completas de 3)
     const initialImages = experienceGalleryImages.slice(0, 6);
-
-    // Imágenes a mostrar basadas en el estado
     const imagesToShow = showAllImages ? experienceGalleryImages : initialImages;
 
-    // Manejador para abrir/cerrar el video
     const handleVideoToggle = () => {
         setIsVideoOpen(!isVideoOpen);
         if (!isVideoOpen && videoRef.current) {
             videoRef.current.play();
         } else if (videoRef.current) {
             videoRef.current.pause();
-            videoRef.current.currentTime = 0; // Reset video position cuando se cierra
+            videoRef.current.currentTime = 0;
         }
     };
 
-    // Manejador para seleccionar una imagen
     const handleImageClick = (image: GalleryImage) => {
         setSelectedImage(image);
     };
 
-    // Manejador para cerrar la imagen expandida
     const handleCloseImage = () => {
         setSelectedImage(null);
     };
 
-    // Manejador para mostrar todas las imágenes
     const handleShowAllImages = () => {
-        // Precargar las imágenes restantes antes de mostrarlas
         const remainingImageUrls = experienceGalleryImages.slice(6).map(img => img.src);
         preloadImageBatch(remainingImageUrls, 3).then(() => {
             setShowAllImages(true);
         });
     };
 
+    // Función para navegar entre imágenes
+    const navigateImage = useCallback((direction: 'next' | 'prev') => {
+        if (!selectedImage) return;
+
+        const currentIndex = experienceGalleryImages.findIndex(img => img.id === selectedImage.id);
+        if (currentIndex === -1) return;
+
+        let newIndex;
+        if (direction === 'next') {
+            newIndex = (currentIndex + 1) % experienceGalleryImages.length;
+        } else {
+            newIndex = (currentIndex - 1 + experienceGalleryImages.length) % experienceGalleryImages.length;
+        }
+
+        setSelectedImage(experienceGalleryImages[newIndex]);
+    }, [selectedImage]);
+
     return (
         <section className="w-full bg-black text-white py-12">
-            {/* Componente de video */}
+            {/* Video component */}
             <div className="container mx-auto px-6 md:px-12 mb-12">
                 <h2 className="text-4xl md:text-5xl font-bold text-center mb-10">
                     Así se vive la <span className="italic">#EXPERIENCIATRIUMPH</span>
                 </h2>
 
                 <div className="relative w-full max-w-6xl mx-auto aspect-video overflow-hidden rounded-lg cursor-pointer group">
-                    {/* Overlay para el video con botón de play - mejorado con efectos de grupo */}
                     <div
                         className="absolute inset-0 flex items-center justify-center z-10 bg-black bg-opacity-40 group-hover:bg-opacity-20 transition-all"
                         onClick={handleVideoToggle}
@@ -71,7 +72,6 @@ const TriumphExperienceGallery: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Video base (sin expandir) */}
                     <video
                         ref={videoRef}
                         className="w-full h-full object-cover"
@@ -83,14 +83,14 @@ const TriumphExperienceGallery: React.FC = () => {
                 </div>
             </div>
 
-            {/* Modal de video expandido */}
+            {/* Video modal */}
             {isVideoOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center modal-animation-enter">
+                <div className="fixed inset-0 z-50 flex items-center justify-center">
                     <div
                         className="absolute inset-0 bg-black bg-opacity-75 backdrop-blur-sm"
                         onClick={handleVideoToggle}
                     />
-                    <div className="relative z-10 w-11/12 md:w-4/5 lg:w-3/4 max-w-5xl aspect-video modal-content-enter">
+                    <div className="relative z-10 w-11/12 md:w-4/5 lg:w-3/4 max-w-5xl aspect-video">
                         <video
                             className="w-full h-full object-contain"
                             src={videoPath}
@@ -107,13 +107,14 @@ const TriumphExperienceGallery: React.FC = () => {
                 </div>
             )}
 
-            {/* Componente de galería */}
+            {/* Gallery */}
             <div className="container mx-auto px-6 md:px-12 max-w-7xl">
-                {/* Grid de 3 columnas manteniendo las alturas anteriores */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 auto-rows-[220px] md:auto-rows-[350px]">
+                {/* Simplified grid structure to avoid vibration */}
+                <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                     {imagesToShow.map((image) => (
                         <div
                             key={image.id}
+                            style={{ height: '350px' }}
                             className="relative overflow-hidden cursor-pointer rounded-md"
                             onClick={() => handleImageClick(image)}
                         >
@@ -127,20 +128,18 @@ const TriumphExperienceGallery: React.FC = () => {
                     ))}
                 </div>
 
-                {/* Botón "Ver más" con efectos visuales ajustados según la imagen de referencia */}
+                {/* View more button */}
                 {!showAllImages && (
-                    <div className="relative">
-                        {/* Degradado con blur similar a la imagen de referencia */}
+                    <div className="relative h-40 mt-2">
                         <div
                             className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black to-transparent opacity-90"
                             style={{ top: '-150px', height: '200px' }}
                         />
-                        {/* Overlay de blur separado para mejor control */}
                         <div
                             className="absolute inset-x-0 bottom-0 backdrop-blur-[1px]"
                             style={{ top: '-130px', height: '180px' }}
                         />
-                        <div className="flex justify-center items-center relative z-10 pt-8 pb-12">
+                        <div className="absolute inset-x-0 bottom-0 pt-8 flex justify-center items-center">
                             <button
                                 className="px-8 py-3 rounded-full border-2 border-white text-white hover:bg-white hover:text-black transition-all duration-300 hover:scale-110"
                                 onClick={handleShowAllImages}
@@ -157,24 +156,49 @@ const TriumphExperienceGallery: React.FC = () => {
                 )}
             </div>
 
-            {/* Modal para imagen expandida mejorado con mayor desenfoque */}
+            {/* Image modal with navigation */}
             {selectedImage && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center">
                     <div
                         className="absolute inset-0 bg-gradient-to-b from-transparent via-black to-black opacity-85 backdrop-blur-[8px]"
                         onClick={handleCloseImage}
                     />
-                    <div className="relative z-10 w-auto h-auto max-w-[95vw] max-h-[85vh] p-2 animate-zoom-in">
-                        <img
-                            src={selectedImage.src}
-                            alt={selectedImage.alt}
-                            className="max-w-full max-h-[85vh] object-contain"
-                        />
+                    <div className="relative z-10 w-auto max-w-[95vw] max-h-[85vh] flex items-center justify-center">
+                        {/* Previous button */}
                         <button
-                            className="absolute top-2 right-2 text-white text-2xl bg-gray-500 bg-opacity-25 backdrop-blur-sm hover:bg-opacity-40 w-10 h-10 rounded-full flex items-center justify-center transition-colors"
-                            onClick={handleCloseImage}
+                            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 md:-translate-x-16 text-white text-4xl hover:text-gray-300 w-12 h-12 rounded-full flex items-center justify-center transition-colors"
+                            onClick={() => navigateImage('prev')}
                         >
-                            &times;
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+
+                        {/* Image container with close button */}
+                        <div className="relative">
+                            <img
+                                src={selectedImage.src}
+                                alt={selectedImage.alt}
+                                className="max-w-full max-h-[85vh] object-contain"
+                            />
+
+                            {/* Close button repositioned to top-right corner of the image */}
+                            <button
+                                className="absolute top-2 right-2 text-white text-2xl hover:text-gray-300 w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+                                onClick={handleCloseImage}
+                            >
+                                &times;
+                            </button>
+                        </div>
+
+                        {/* Next button */}
+                        <button
+                            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 md:translate-x-16 text-white text-4xl hover:text-gray-300 w-12 h-12 rounded-full flex items-center justify-center transition-colors"
+                            onClick={() => navigateImage('next')}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
                         </button>
                     </div>
                 </div>

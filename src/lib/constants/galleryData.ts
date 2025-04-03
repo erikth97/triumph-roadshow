@@ -18,10 +18,10 @@ export const experienceGalleryImages: GalleryImage[] = [
     { id: 11, src: '/images/experience-gallery/1O1A1050.webp', alt: 'Triumph experience image 11' },
     { id: 12, src: '/images/experience-gallery/1O1A1147.webp', alt: 'Triumph experience image 12' },
     { id: 13, src: '/images/experience-gallery/1O1A1398.webp', alt: 'Triumph experience image 13' },
-    { id: 14, src: '', alt: 'Triumph experience image 14' },
+    { id: 14, src: '/images/experience-gallery/1O1A9951.webp', alt: 'Triumph experience image 14' },
     { id: 15, src: '/images/experience-gallery/1O1A1786.webp', alt: 'Triumph experience image 15' },
     { id: 16, src: '/images/experience-gallery/1O1A1831.webp', alt: 'Triumph experience image 16' },
-    { id: 17, src: '/images/experience-gallery/1O1A99051.webp', alt: 'Triumph experience image 17' },
+    { id: 17, src: '/images/experience-gallery/DJI_20250222154426_0043_D.webp', alt: 'Triumph experience image 17' },
     { id: 18, src: '/images/experience-gallery/1O1A9928.webp', alt: 'Triumph experience image 18' }
 ];
 
