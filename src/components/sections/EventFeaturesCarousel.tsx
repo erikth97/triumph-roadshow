@@ -5,7 +5,7 @@ declare module '@glidejs/glide';
 import Glide from "@glidejs/glide";
 
 // Importamos las imágenes correctamente con rutas relativas
-import slide01 from "../../assets/images/features/SLIDE_05.png";
+import slide01 from "../../assets/images/features/SLIDE_01.jpg";
 import slide02 from "../../assets/images/features/SLIDE_02.jpg";
 import slide03 from "../../assets/images/features/SLIDE_03.jpg";
 import slide04 from "../../assets/images/features/SLIDE_04.jpg";
@@ -85,7 +85,7 @@ const EventFeaturesCarousel = () => {
                                         className="w-full h-full object-cover"
                                     />
                                     {/* Overlay para mejorar legibilidad del texto */}
-                                    <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+                                    <div className="absolute inset-0 bg-opacity-50"></div>
                                 </div>
 
                                 {/* Contenido - Aseguramos que esté por encima con z-index */}
