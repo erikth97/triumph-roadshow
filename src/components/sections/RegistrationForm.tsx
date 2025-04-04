@@ -222,6 +222,7 @@ const RegistrationForm: React.FC = () => {
                     )}
 
                     {/* Cilindrada - Select */}
+                    {tieneMotocicleta === 'si' && (
                     <div className="mb-8">
                         <div className="relative">
                             <select
@@ -256,6 +257,7 @@ const RegistrationForm: React.FC = () => {
                         </div>
                         {errors.cilindrada && <p className="mt-1 text-red-500 text-xs">Por favor selecciona una cilindrada</p>}
                     </div>
+                    )}
 
                     {/* ¿Qué tipo de motocicleta te interesa probar? */}
                     <div className="mb-8">
