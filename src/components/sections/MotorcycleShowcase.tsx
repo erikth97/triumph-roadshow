@@ -206,7 +206,7 @@ const MotorcycleShowcase: React.FC = () => {
                         </div>
 
                         {/* En desktop, mostrar los 3 nombres (anterior, actual, siguiente) */}
-                        <div className="hidden md:flex justify-center items-center space-x-16 lg:space-x-24 w-full relative">
+                        <div className="hidden md:flex justify-center items-center lg:space-x-6 w-full relative">
                             {motorcycles.map((moto, index) => (
                                 <div
                                     key={moto.id}
