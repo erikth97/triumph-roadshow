@@ -7,9 +7,9 @@ const Footer = () => {
 
                 {/* Columna 1 - 25% */}
                 <div className="col-span-1 flex justify-center">
-                    <img 
-                        src="../../public/Demo_Road_Show.png" 
-                        alt="Evento Triumph Demo Road Show" 
+                    <img
+                        src="/Demo_Road_Show.png"
+                        alt="Evento Triumph Demo Road Show"
                         className="w-45 h-auto object-contain"
                     />
                 </div>
@@ -35,9 +35,9 @@ const Footer = () => {
 
                 {/* Columna 4 - 25% */}
                 <div className="col-span-1 text-center">
-                    <img 
-                        src="../../public/Motomex.png" 
-                        alt="Contact Us" 
+                    <img
+                        src="/Motomex.png"
+                        alt="Contact Us"
                         className="w-60 h-auto object-contain mx-auto"
                     />
                     <div className="flex justify-end space-x-4 mt-4">

@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { agencies } from '../../lib/constants/Agencies';
-import customMarkerImg from '../../../public/FAVICON TRIUMPH 64x64.png';
+import customMarkerImg from '/FAVICON TRIUMPH 64x64.png';
 import MapAtribution from '../ui/MapAtribution';
 import '../../styles/MapTriumph.css';
 
