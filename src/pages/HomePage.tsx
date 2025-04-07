@@ -8,6 +8,7 @@ import RegistrationForm from '@/components/sections/RegistrationForm';
 import TriumphExperienceGallery from '@/components/sections/TriumphExperienceGallery';
 import TipSection from '@/components/sections/TIpSection';
 import Footer from '@/components/layout/Footer';
+import CtaSection from '@/components/sections/CtaSection';
 
 const HomePage = () => {
     return (
@@ -21,6 +22,7 @@ const HomePage = () => {
             <MapTriumph />
             <RegistrationForm />
             <TipSection />
+            <CtaSection />
             <Footer />
         </>
     );
