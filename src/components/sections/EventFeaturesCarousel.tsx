@@ -1,10 +1,6 @@
-// src/components/sections/EventFeaturesCarousel.tsx
 import { useEffect } from "react";
-// Añadimos una declaración de módulo para evitar el error de TypeScript
 declare module '@glidejs/glide';
 import Glide from "@glidejs/glide";
-
-// Importamos las imágenes correctamente con rutas relativas
 import slide01 from "../../assets/images/features/SLIDE_01.jpg";
 import slide02 from "../../assets/images/features/SLIDE_02.jpg";
 import slide03 from "../../assets/images/features/SLIDE_03.jpg";
@@ -40,7 +36,6 @@ const carouselItems = [
 
 const EventFeaturesCarousel = () => {
     useEffect(() => {
-        // Asegurarse que el DOM está listo antes de inicializar Glide
         try {
             const slider = new Glide(".features-carousel", {
                 type: "carousel",
@@ -49,6 +44,8 @@ const EventFeaturesCarousel = () => {
                 autoplay: 4000,
                 animationDuration: 700,
                 gap: 0,
+                swipeThreshold: 80, // Hacemos más sensible el swipe para móviles
+                dragThreshold: 120, // Mejoramos la respuesta al drag
                 classNames: {
                     nav: {
                         active: "[&>*]:bg-red-600",
@@ -84,7 +81,6 @@ const EventFeaturesCarousel = () => {
                                         alt={item.title}
                                         className="w-full h-full object-cover"
                                     />
-                                    {/* Overlay para mejorar legibilidad del texto */}
                                     <div className="absolute inset-0 bg-opacity-50"></div>
                                 </div>
 
@@ -99,57 +95,6 @@ const EventFeaturesCarousel = () => {
                         ))}
                     </ul>
                 </div>
-
-                {/* Controles - Aseguramos que estén por encima con z-index */}
-                <div
-                    className="absolute left-0 top-1/2 flex h-0 w-full items-center justify-between px-4 z-20"
-                    data-glide-el="controls"
-                >
-                    <button
-                        className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white bg-black/20 text-white transition duration-300 hover:bg-red-600 hover:border-red-600 focus-visible:outline-none"
-                        data-glide-dir="<"
-                        aria-label="slide anterior"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth="2"
-                            stroke="currentColor"
-                            className="h-6 w-6"
-                        >
-                            <title>slide anterior</title>
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M15.75 19.5L8.25 12l7.5-7.5"
-                            />
-                        </svg>
-                    </button>
-                    <button
-                        className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white bg-black/20 text-white transition duration-300 hover:bg-red-600 hover:border-red-600 focus-visible:outline-none"
-                        data-glide-dir=">"
-                        aria-label="siguiente slide"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth="2"
-                            stroke="currentColor"
-                            className="h-6 w-6"
-                        >
-                            <title>siguiente slide</title>
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                            />
-                        </svg>
-                    </button>
-                </div>
-
-                {/* Indicadores - Aseguramos que estén por encima con z-index */}
                 <div
                     className="absolute bottom-8 flex w-full items-center justify-center gap-2 z-20"
                     data-glide-el="controls[nav]"
