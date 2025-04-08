@@ -11,9 +11,6 @@
     scrollbar-width: none;
 }
 
-
-/* Agregar estos estilos al archivo global CSS o crear un nuevo archivo a importar en App.tsx */
-
 /* Establece el fondo negro por defecto para el documento completo */
 html,
 body {
@@ -23,14 +20,12 @@ body {
     min-height: 100vh;
 }
 
-/* Asegura que no hay borde blanco en ningún momento */
 #root,
 #__next {
     background-color: #000000;
     min-height: 100vh;
 }
 
-/* Para animación de transición más suave */
 .fade-in {
     animation: fadeIn 0.8s ease-in-out forwards;
 }
@@ -59,7 +54,6 @@ body {
     }
 }
 
-/* Para animar el logo */
 .logo-transition {
     transition: transform 0.8s ease-in-out;
 }
