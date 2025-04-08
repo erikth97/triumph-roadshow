@@ -2,15 +2,15 @@ import { FaFacebook, FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
     return (
-        <footer className="bg-white text-black py-12 px-10">
+        <footer className="bg-white text-black py-5 px-10">
             <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
 
                 {/* Columna 1 - 25% */}
                 <div className="col-span-1 flex justify-center">
-                    <img
-                        src="/Demo_Road_Show.png"
-                        alt="Evento Triumph Demo Road Show"
-                        className="w-45 h-auto object-contain"
+                    <img 
+                        src="../../public/Demo_Road_Show.png" 
+                        alt="Evento Triumph Demo Road Show" 
+                        className="w-64 h-auto object-contain"
                     />
                 </div>
 
