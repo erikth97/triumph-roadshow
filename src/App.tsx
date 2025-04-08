@@ -1,7 +1,13 @@
-import HomePage from './pages/HomePage'
+import { LoadingProvider } from '@/context/LoadingContext';
+import MainContent from './components/MainContent';
+import './styles/global.css';
 
 function App() {
-  return <HomePage />
+  return (
+    <LoadingProvider>
+      <MainContent />
+    </LoadingProvider>
+  );
 }
 
-export default App
+export default App;
