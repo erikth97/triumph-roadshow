@@ -7,17 +7,10 @@ const Footer = () => {
 
                 {/* Columna 1 - 25% */}
                 <div className="col-span-1 flex justify-center">
-<<<<<<< HEAD
                     <img 
                         src="../../public/Demo_Road_Show.png" 
                         alt="Evento Triumph Demo Road Show" 
                         className="w-64 h-auto object-contain"
-=======
-                    <img
-                        src="/Demo_Road_Show.png"
-                        alt="Evento Triumph Demo Road Show"
-                        className="w-45 h-auto object-contain"
->>>>>>> db3896563b90c852de2e229a87ba94347a140a8f
                     />
                 </div>
 
