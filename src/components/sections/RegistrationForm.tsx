@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
+import { ShimmerButton } from "@/components/magicui/shimmer-button";
+import confetti from "canvas-confetti";
+import { Confetti } from '../magicui/confetti';
 // Tipos para los datos del formulario
 type FormInputs = {
     nombreCompleto: string;
@@ -65,6 +68,16 @@ const RegistrationForm: React.FC = () => {
 
             // Mostrar modal de éxito
             setShowSuccessModal(true);
+
+            // Lanzar el confetti después de que el modal aparezca
+            setTimeout(() => {
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#FF0000', '#FFFFFF', '#000000'] // Colores de Triumph
+                });
+            }, 300);
 
             // Resetear formulario
             reset();
@@ -223,40 +236,40 @@ const RegistrationForm: React.FC = () => {
 
                     {/* Cilindrada - Select */}
                     {tieneMotocicleta === 'si' && (
-                    <div className="mb-8">
-                        <div className="relative">
-                            <select
-                                id="cilindrada"
-                                className="peer relative h-10 w-full appearance-none border-b border-white bg-transparent px-4 text-sm text-white outline-none transition-all focus:border-yellow-500"
-                                defaultValue=""
-                                {...register('cilindrada', { required: true })}
-                            >
-                                <option value="" disabled>Selecciona una cilindrada</option>
-                                {cilindradasOptions.map(option => (
-                                    <option key={option.value} value={option.value} className="bg-black">{option.label}</option>
-                                ))}
-                            </select>
-                            <label
-                                htmlFor="cilindrada"
-                                className="absolute left-2 -top-2 z-[1] px-2 text-xs text-white/70 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-black before:transition-all peer-focus:text-yellow-500"
-                            >
-                                ¿Qué cilindrada manejas? *
-                            </label>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="pointer-events-none absolute top-2.5 right-2 h-5 w-5 fill-white transition-all peer-focus:fill-yellow-500"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                            >
-                                <path
-                                    fillRule="evenodd"
-                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                    clipRule="evenodd"
-                                />
-                            </svg>
+                        <div className="mb-8">
+                            <div className="relative">
+                                <select
+                                    id="cilindrada"
+                                    className="peer relative h-10 w-full appearance-none border-b border-white bg-transparent px-4 text-sm text-white outline-none transition-all focus:border-yellow-500"
+                                    defaultValue=""
+                                    {...register('cilindrada', { required: true })}
+                                >
+                                    <option value="" disabled>Selecciona una cilindrada</option>
+                                    {cilindradasOptions.map(option => (
+                                        <option key={option.value} value={option.value} className="bg-black">{option.label}</option>
+                                    ))}
+                                </select>
+                                <label
+                                    htmlFor="cilindrada"
+                                    className="absolute left-2 -top-2 z-[1] px-2 text-xs text-white/70 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-black before:transition-all peer-focus:text-yellow-500"
+                                >
+                                    ¿Qué cilindrada manejas? *
+                                </label>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="pointer-events-none absolute top-2.5 right-2 h-5 w-5 fill-white transition-all peer-focus:fill-yellow-500"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clipRule="evenodd"
+                                    />
+                                </svg>
+                            </div>
+                            {errors.cilindrada && <p className="mt-1 text-red-500 text-xs">Por favor selecciona una cilindrada</p>}
                         </div>
-                        {errors.cilindrada && <p className="mt-1 text-red-500 text-xs">Por favor selecciona una cilindrada</p>}
-                    </div>
                     )}
 
                     {/* ¿Qué tipo de motocicleta te interesa probar? */}
@@ -670,13 +683,13 @@ const RegistrationForm: React.FC = () => {
 
                     {/* Botón de envío */}
                     <div className="flex justify-center mt-10">
-                        <button
+                        <ShimmerButton
                             type="submit"
-                            className="px-10 py-3 bg-transparent border-2 border-white text-white text-lg font-medium rounded-sm hover:bg-white hover:text-black transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-auto px-8 py-2 mx-auto text-white bg-gradient-to-br from-red-500 to-red-700 text-base font-medium uppercase tracking-wider shadow-lg hover:shadow-xl transition-all"
                             disabled={isSubmitting}
                         >
                             {isSubmitting ? 'Enviando...' : 'Enviar'}
-                        </button>
+                        </ShimmerButton>
                     </div>
                 </form>
             </div>
