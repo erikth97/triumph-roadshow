@@ -33,22 +33,22 @@ const Countdown = ({ targetDate }: CountdownProps) => {
     }, [targetDate]);
 
     return (
-        <div className="flex justify-between text-center">
-            <div className="flex-1">
-                <div className="text-5xl font-bold">{timeLeft.days}</div>
-                <div className="text-sm uppercase">Días</div>
+        <div className="grid grid-cols-4 gap-2 w-full text-center">
+            <div className="w-full">
+                <div className="text-4xl sm:text-5xl font-bold">{timeLeft.days}</div>
+                <div className="text-xs sm:text-sm uppercase">Días</div>
             </div>
-            <div className="flex-1">
-                <div className="text-5xl font-bold">{timeLeft.hours}</div>
-                <div className="text-sm uppercase">Horas</div>
+            <div className="w-full">
+                <div className="text-4xl sm:text-5xl font-bold">{timeLeft.hours}</div>
+                <div className="text-xs sm:text-sm uppercase">Horas</div>
             </div>
-            <div className="flex-1">
-                <div className="text-5xl font-bold">{timeLeft.minutes}</div>
-                <div className="text-sm uppercase">Minutos</div>
+            <div className="w-full">
+                <div className="text-4xl sm:text-5xl font-bold">{timeLeft.minutes}</div>
+                <div className="text-xs sm:text-sm uppercase">Minutos</div>
             </div>
-            <div className="flex-1">
-                <div className="text-5xl font-bold">{timeLeft.seconds}</div>
-                <div className="text-sm uppercase">Segundos</div>
+            <div className="w-full">
+                <div className="text-4xl sm:text-5xl font-bold">{timeLeft.seconds}</div>
+                <div className="text-xs sm:text-sm uppercase">Segundos</div>
             </div>
         </div>
     );
