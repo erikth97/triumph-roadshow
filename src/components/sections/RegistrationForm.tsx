@@ -131,7 +131,7 @@ const RegistrationForm: React.FC = () => {
                             >
                                 Edad *
                             </label>
-                            {errors.edad && <p className="mt-1 text-red-500 text-xs">Por favor ingresa una edad válida (18-99)</p>}
+                            {errors.edad && <p className="mt-1 text-red-500 text-xs">Por favor ingresa una edad válida (+18)</p>}
                         </div>
 
                         {/* Teléfono */}
@@ -152,7 +152,7 @@ const RegistrationForm: React.FC = () => {
                             >
                                 Teléfono *
                             </label>
-                            {errors.telefono && <p className="mt-1 text-red-500 text-xs">Por favor ingresa un número de 10 dígitos</p>}
+                            {errors.telefono && <p className="mt-1 text-red-500 text-xs">Por favor ingresa un número valido</p>}
                         </div>
                     </div>
 
