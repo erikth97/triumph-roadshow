@@ -8,18 +8,42 @@ const HeroSection = () => {
     const { setResourceLoaded } = useLoading();
 
     useEffect(() => {
-        if (videoRef.current) {
-            console.log("Intentando reproducir video...");
-            videoRef.current.play()
-                .then(() => {
-                    console.log("Video reproduciendo correctamente");
-                    setResourceLoaded('video');
-                })
-                .catch(error => {
-                    console.error("Error al reproducir el video:", error);
-                    setResourceLoaded('video');
-                });
-        }
+        const video = videoRef.current;
+        if (!video) return;
+
+        // Una función para manejar la carga exitosa
+        const handleVideoLoaded = () => {
+            console.log("Video cargado correctamente");
+            setResourceLoaded('video');
+        };
+
+        // Una función para manejar errores
+        const handleVideoError = (error: any) => {
+            console.error("Error al reproducir el video:", error);
+            setResourceLoaded('video'); // Marcar como cargado aún en error para no bloquear la UI
+        };
+
+        // Agregar event listeners
+        video.addEventListener('loadeddata', handleVideoLoaded);
+        video.addEventListener('error', handleVideoError);
+
+        // Intentar reproducir respetando políticas de autoplay
+        const playVideo = async () => {
+            try {
+                await video.play();
+                console.log("Video reproduciendo correctamente");
+            } catch (error) {
+                handleVideoError(error);
+            }
+        };
+
+        playVideo();
+
+        // Limpiar event listeners
+        return () => {
+            video.removeEventListener('loadeddata', handleVideoLoaded);
+            video.removeEventListener('error', handleVideoError);
+        };
     }, [setResourceLoaded]);
 
     const scrollToRegistration = () => {
@@ -45,15 +69,11 @@ const HeroSection = () => {
                         muted
                         loop
                         playsInline
-                        onLoadedData={() => {
-                            console.log("Video cargado correctamente");
-                            setResourceLoaded('video');
-                        }}
-                        onError={(e) => {
-                            console.error("Error al cargar el video", e);
-                            setResourceLoaded('video');
-                        }}
+                        preload="auto"
+                        poster="/images/hero-poster.jpg" // Imagen estática mientras el video carga
+                        crossOrigin="anonymous"
                     >
+                        <source src="/videos/triumph-hero.webm" type="video/webm" />
                         <source src="/videos/triumph-hero.mp4" type="video/mp4" />
                         Tu navegador no soporta videos.
                     </video>
@@ -112,6 +132,9 @@ const HeroSection = () => {
                         <CgArrowDownO className="w-8 h-8" />
                     </motion.div>
                 </motion.button>
+
+                {/* Gradiente suave de transición al final de la sección */}
+                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-black pointer-events-none"></div>
             </div>
         </section>
     );
