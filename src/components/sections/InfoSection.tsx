@@ -73,11 +73,11 @@ const InfoSection: React.FC = () => {
     return (
         <section className="relative py-20 bg-black text-white overflow-hidden">
             <div className="container-custom mx-0 px-0">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
                     {/* Contenido (Título y Descripción) */}
-                    <div className="order-2 lg:order-1 lg:pr-12 flex flex-col justify-center lg:pl-8 xl:pl-16">
+                    <div className="order-2 lg:order-1 lg:pr-6 flex flex-col justify-center lg:pl-4 xl:pl-8">
                         <motion.h2
-                            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 uppercase italic leading-tight"
+                            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 uppercase italic leading-tight"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
@@ -87,7 +87,7 @@ const InfoSection: React.FC = () => {
                         </motion.h2>
 
                         <motion.p
-                            className="text-base md:text-lg text-gray-300 max-w-xl"
+                            className="text-base md:text-lg text-gray-300 max-w-xl mx-4"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
@@ -144,8 +144,8 @@ const InfoSection: React.FC = () => {
                                             style={{
                                                 width: "100%",
                                                 height: "100%",
-                                                objectFit: "cover",
-                                                objectPosition: "center 40%", // Ajusta esto para mostrar la parte correcta
+                                                objectFit: "contain", // Cambiado de "cover" a "contain" para evitar recorte
+                                                objectPosition: "center center", // Centrado completo
                                                 display: "block",
                                                 margin: 0,
                                                 padding: 0
@@ -227,9 +227,24 @@ const InfoSection: React.FC = () => {
                     
                     /* Asegurar que el texto tenga márgenes adecuados */
                     .order-2.lg\\:order-1 {
-                        padding-left: 2rem;
-                        padding-right: 2rem;
+                        padding-left: 1.5rem; /* Reducido de 3rem a 1.5rem */
+                        padding-right: 1.5rem; /* Reducido de 3rem a 1.5rem */
+                        margin-bottom: 1.5rem;
                     }
+
+                    /* Opción alternativa para mantener objectFit: "cover" con proporción ajustada (descomentar si es necesario) */
+                    /*
+                    .relative {
+                        aspect-ratio: 16 / 9;
+                        height: auto !important;
+                    }
+                    @media (max-width: 768px) {
+                        .order-1.lg\\:order-2 .relative {
+                            aspect-ratio: 16 / 9;
+                            height: auto !important;
+                        }
+                    }
+                    */
                 `
             }} />
         </section>
