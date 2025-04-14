@@ -1,5 +1,5 @@
 // src/components/sections/MotorcycleShowcase.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 // Datos de las motocicletas
 const motorcycles = [
@@ -137,201 +137,248 @@ const motorcycles = [
     }
 ];
 
-const MotorcycleShowcase: React.FC = () => {
-    const [selectedIndex, setSelectedIndex] = useState(3);
+// Estilos CSS para el gradiente radial
+const radialGradientStyle: React.CSSProperties = {
+    background: 'radial-gradient(circle at center, rgba(75, 75, 75, 0.7) 0%, rgba(0, 0, 0, 0) 70%)'
+};
 
+// Estilo para el efecto de reflector (solo sombras, sin cuadro)
+const spotlightEffect: React.CSSProperties = {
+    filter: 'drop-shadow(0 0 30px rgba(255, 255, 255, 0.15))'
+};
+
+const MotorcycleShowcase: React.FC = () => {
+    const [selectedIndex, setSelectedIndex] = useState(0);
+    const [fadeTransition, setFadeTransition] = useState(false);
+    const carouselRef = useRef<HTMLDivElement>(null);
+
+    // Estado para seguir el gesto de deslizamiento
+    const [touchStart, setTouchStart] = useState<number | null>(null);
+    const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+    // Configuración de sensibilidad - ajustar según necesidad
+    const minSwipeDistance = 50;
+
+    // Función para seleccionar una motocicleta
     const selectMotorcycle = (index: number) => {
-        if (index >= 0 && index < motorcycles.length) setSelectedIndex(index);
+        setFadeTransition(true);
+
+        // Manejar el loop (circular)
+        let newIndex = index;
+        if (newIndex < 0) {
+            newIndex = motorcycles.length - 1;
+        } else if (newIndex >= motorcycles.length) {
+            newIndex = 0;
+        }
+
+        // Pequeño retraso para la animación de fade
+        setTimeout(() => {
+            setSelectedIndex(newIndex);
+            setFadeTransition(false);
+        }, 300);
     };
 
-    const goToPrevious = () => selectedIndex > 0 && selectMotorcycle(selectedIndex - 1);
+    // Iniciar autoplay
+    useEffect(() => {
+        const interval = setInterval(() => {
+            selectMotorcycle(selectedIndex + 1);
+        }, 5000);
 
-    const goToNext = () => selectedIndex < motorcycles.length - 1 && selectMotorcycle(selectedIndex + 1);
+        return () => clearInterval(interval);
+    }, [selectedIndex]);
 
-    // Obtener índices visibles para mostrar siempre 3 elementos (anterior, actual, siguiente)
-    const getVisibleIndices = () => {
+    // Gestión de eventos táctiles
+    const onTouchStart = (e: React.TouchEvent) => {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e: React.TouchEvent) => {
+        setTouchEnd(e.targetTouches[0].clientX);
+    };
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+
+        if (isLeftSwipe) {
+            selectMotorcycle(selectedIndex + 1);
+        } else if (isRightSwipe) {
+            selectMotorcycle(selectedIndex - 1);
+        }
+    };
+
+    // Gestión de eventos de mouse
+    const [isDragging, setIsDragging] = useState(false);
+    const [startX, setStartX] = useState(0);
+    const [currentX, setCurrentX] = useState(0);
+
+    const onMouseDown = (e: React.MouseEvent) => {
+        setIsDragging(true);
+        setStartX(e.clientX);
+        setCurrentX(e.clientX);
+
+        // Prevenir selección de texto durante el arrastre
+        e.preventDefault();
+    };
+
+    const onMouseMove = (e: React.MouseEvent) => {
+        if (!isDragging) return;
+        setCurrentX(e.clientX);
+    };
+
+    const onMouseUp = () => {
+        if (!isDragging) return;
+
+        const distance = startX - currentX;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+
+        if (isLeftSwipe) {
+            selectMotorcycle(selectedIndex + 1);
+        } else if (isRightSwipe) {
+            selectMotorcycle(selectedIndex - 1);
+        }
+
+        setIsDragging(false);
+    };
+
+    const onMouseLeave = () => {
+        if (isDragging) {
+            onMouseUp();
+        }
+    };
+
+    // Función para obtener los índices visibles para la navegación por puntos
+    const getVisibleDotIndices = () => {
+        // Ahora mostramos 5 puntos: el actual, 3 siguientes y 1 pequeño
         const indices = [];
 
-        // Anterior
-        if (selectedIndex > 0) {
-            indices.push(selectedIndex - 1);
-        }
-
-        // Actual
+        // Punto actual
         indices.push(selectedIndex);
 
-        // Siguiente
-        if (selectedIndex < motorcycles.length - 1) {
-            indices.push(selectedIndex + 1);
+        // Siguientes 3 puntos
+        for (let i = 1; i <= 3; i++) {
+            const nextIndex = (selectedIndex + i) % motorcycles.length;
+            indices.push(nextIndex);
         }
+
+        // Último punto (más pequeño)
+        const lastDotIndex = (selectedIndex + 4) % motorcycles.length;
+        indices.push(lastDotIndex);
 
         return indices;
     };
 
-    const visibleIndices = getVisibleIndices();
+    const visibleDotIndices = getVisibleDotIndices();
 
-    const getTitleClass = (index: number) => {
-        if (index === selectedIndex) {
-            return "text-white text-2xl md:text-3xl font-bold";
-        } else if (index === selectedIndex - 1 || index === selectedIndex + 1) {
-            return "text-gray-500 text-lg md:text-xl";
-        }
-        return "hidden";
+    // Determinar si un punto debe ser pequeño (el último visible)
+    const isDotSmall = (index: number) => {
+        return index === visibleDotIndices[visibleDotIndices.length - 1];
     };
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            selectMotorcycle((selectedIndex + 1) % motorcycles.length);
-        }, 5000);
-        return () => clearInterval(interval);
-    }, [selectedIndex]);
-
     return (
-        <section id="motorcycles" className="py-12 md:py-20 bg-black text-white overflow-hidden">
+        <section id="motorcycles" className="py-12 md:py-20 bg-black text-white">
             <div className="container mx-auto px-4">
                 {/* Título principal */}
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-12 md:mb-16 italic">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-16 md:mb-20">
                     ¡DESCÚBRELAS EN EL DEMO ROAD SHOW!
                 </h2>
 
-                {/* Slider de nombres de motocicletas - solo 3 visibles */}
-                <div className="relative mb-16">
-                    <div className="flex justify-center items-center text-center">
-                        {/* En móvil, mostrar solo el nombre actual */}
-                        <div className="block md:hidden w-full text-center">
-                            <div className="text-white text-2xl font-bold">
-                                {motorcycles[selectedIndex].name}
-                                <div className="h-1 bg-white w-24 mx-auto mt-2"></div>
-                            </div>
-                        </div>
-
-                        {/* En desktop, mostrar los 3 nombres (anterior, actual, siguiente) */}
-                        <div className="hidden md:flex justify-center items-center lg:space-x-6 w-full relative">
-                            {motorcycles.map((moto, index) => (
-                                <div
-                                    key={moto.id}
-                                    className={`cursor-pointer transition-all duration-500 px-2 ${getTitleClass(index)}`}
-                                    onClick={() => selectMotorcycle(index)}
-                                    style={{
-                                        display: visibleIndices.includes(index) ? 'block' : 'none',
-                                        opacity: index === selectedIndex ? 1 : 0.5,
-                                        transform: `translateX(${(index - selectedIndex) * 150}px)`
-                                    }}
-                                >
-                                    {moto.name}
-                                    {index === selectedIndex && (
-                                        <div className="h-1 bg-white w-full mt-2"></div>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
                 {/* Carrusel principal */}
-                <div className="relative h-[600px] overflow-hidden">
-                    {motorcycles.map((moto, index) => {
-                        const position = index - selectedIndex;
-                        const isActive = position === 0;
-                        const styles = {
-                            transform: `translateX(${position * 80}%) scale(${isActive ? 1 : 0.8})`,
-                            opacity: isActive ? 1 : 0.4,
-                            zIndex: isActive ? 30 : 20,
-                            filter: isActive ? 'brightness(1)' : 'brightness(0.6)',
-                            boxShadow: isActive ? '0 10px 30px rgba(255, 255, 255, 0.1)' : 'none'
-                        };
+                <div
+                    ref={carouselRef}
+                    className="relative cursor-grab"
+                    onTouchStart={onTouchStart}
+                    onTouchMove={onTouchMove}
+                    onTouchEnd={onTouchEnd}
+                    onMouseDown={onMouseDown}
+                    onMouseMove={onMouseMove}
+                    onMouseUp={onMouseUp}
+                    onMouseLeave={onMouseLeave}
+                >
+                    <div
+                        className={`transition-opacity duration-300 ${fadeTransition ? 'opacity-0' : 'opacity-100'}`}
+                    >
+                        {/* Estructura distinta para móvil y desktop */}
+                        <div className="flex flex-col lg:flex-row lg:items-center">
+                            {/* Versión móvil: Nombre de la moto arriba (visible solo en móvil/tablet) */}
+                            <div className="lg:hidden w-full text-center mb-6">
+                                <h3 className="text-2xl md:text-3xl font-bold">
+                                    {motorcycles[selectedIndex].name.toUpperCase()}
+                                </h3>
+                            </div>
 
-                        return (
-                            <div
-                                key={moto.id}
-                                className="absolute top-0 left-1/2 transition-all duration-700 ease-in-out"
-                                style={{
-                                    ...styles,
-                                    width: '800px',
-                                    marginLeft: '-400px',
-                                    pointerEvents: isActive ? 'auto' : 'none'
-                                }}
-                            >
-                                {/* Card sin bordes redondeados */}
-                                <div className="h-full bg-gradient-to-r from-[#2b2b2b] via-[#3c3c3c] to-[#2b2b2b] overflow-hidden p-4 shadow-lg">
-                                    <div className="flex flex-col md:flex-row h-full items-center">
-                                        {/* Lado izquierdo - Imagen destacada (invertido) */}
-                                        <div className="w-full md:w-3/4 flex items-center justify-center order-1 -ml-6 -mr-6">
-                                            <div className="relative w-full h-full flex items-center justify-center">
-                                                {/* Efecto de brillo sutil detrás de la imagen */}
-                                                <div className="absolute inset-0 bg-radial-gradient opacity-30 pointer-events-none"></div>
+                            {/* Imagen de la moto (centrada) */}
+                            <div className="w-full lg:w-3/5 relative flex justify-center">
+                                <div className="w-full h-full flex items-center justify-center py-4 lg:py-0">
+                                    {/* Efecto de iluminación detrás de la moto */}
+                                    <div className="absolute inset-0 rounded-full opacity-70" style={radialGradientStyle}></div>
 
-                                                <img
-                                                    src={moto.image}
-                                                    alt={moto.name}
-                                                    className="w-full h-auto object-contain max-h-[350px] md:max-h-[550px]"
-                                                    style={{ transform: "scale(1.2)" }}
-                                                />
-                                            </div>
-                                        </div>
-
-                                        {/* Lado derecho - Especificaciones técnicas (invertido) */}
-                                        <div className="w-full md:w-1/4 space-y-4 order-2 mt-4 md:mt-0 md:pl-6">
-                                            <div>
-                                                <span className="font-semibold text-white">Tipo:</span>{' '}
-                                                <span className="text-gray-300 text-sm">{moto.specs.tipo}</span>
-                                            </div>
-                                            <div>
-                                                <span className="font-semibold text-white">Cilindrada:</span>{' '}
-                                                <span className="text-gray-300 text-sm">{moto.specs.cilindrada}</span>
-                                            </div>
-                                            <div>
-                                                <span className="font-semibold text-white">Par máximo CE:</span>{' '}
-                                                <span className="text-gray-300 text-sm">{moto.specs.parMaximo}</span>
-                                            </div>
-                                            <div>
-                                                <span className="font-semibold text-white">Caja de cambios:</span>{' '}
-                                                <span className="text-gray-300 text-sm">{moto.specs.cajaCambios}</span>
-                                            </div>
-                                            <div>
-                                                <span className="font-semibold text-white">Consumo de combustible:</span>{' '}
-                                                <span className="text-gray-300 text-sm">{moto.specs.consumo}</span>
-                                            </div>
-                                        </div>
+                                    {/* Imagen de la moto con efecto de sombra sutil, sin cuadro */}
+                                    <div style={spotlightEffect}>
+                                        <img
+                                            src={motorcycles[selectedIndex].image}
+                                            alt={motorcycles[selectedIndex].name}
+                                            className="w-full h-auto object-contain max-h-[280px] md:max-h-[480px]"
+                                        />
                                     </div>
                                 </div>
                             </div>
-                        );
-                    })}
 
-                    {/* Botones de navegación */}
-                    <button
-                        onClick={goToPrevious}
-                        className={`absolute left-4 top-1/2 -translate-y-1/2 z-40 p-3 text-white transition-all duration-300 ${selectedIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-80 hover:opacity-100 hover:scale-110'
-                            }`}
-                        aria-label="Anterior motocicleta"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 md:h-10 md:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                        </svg>
-                    </button>
+                            {/* Especificaciones técnicas */}
+                            <div className="w-full lg:w-2/5 mt-6 lg:mt-0 lg:flex lg:flex-col lg:justify-center lg:pl-12 lg:pr-6">
+                                {/* Nombre de la moto - Solo visible en desktop */}
+                                <h3 className="hidden lg:block text-2xl md:text-3xl font-bold mb-10">
+                                    {motorcycles[selectedIndex].name.toUpperCase()}
+                                </h3>
 
-                    <button
-                        onClick={goToNext}
-                        className={`absolute right-4 top-1/2 -translate-y-1/2 z-40 p-3 text-white transition-all duration-300 ${selectedIndex === motorcycles.length - 1 ? 'opacity-30 cursor-not-allowed' : 'opacity-80 hover:opacity-100 hover:scale-110'
-                            }`}
-                        aria-label="Siguiente motocicleta"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 md:h-10 md:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
+                                {/* Especificaciones */}
+                                <div className="space-y-4 lg:space-y-7">
+                                    <div>
+                                        <span className="font-semibold text-white">Tipo:</span>{' '}
+                                        <span className="text-gray-300">{motorcycles[selectedIndex].specs.tipo}</span>
+                                    </div>
+                                    <div>
+                                        <span className="font-semibold text-white">Cilindrada:</span>{' '}
+                                        <span className="text-gray-300">{motorcycles[selectedIndex].specs.cilindrada}</span>
+                                    </div>
+                                    <div>
+                                        <span className="font-semibold text-white">Par máximo CE:</span>{' '}
+                                        <span className="text-gray-300">{motorcycles[selectedIndex].specs.parMaximo}</span>
+                                    </div>
+                                    <div>
+                                        <span className="font-semibold text-white">Caja de cambios:</span>{' '}
+                                        <span className="text-gray-300">{motorcycles[selectedIndex].specs.cajaCambios}</span>
+                                    </div>
+                                    <div>
+                                        <span className="font-semibold text-white">Consumo de combustible:</span>{' '}
+                                        <span className="text-gray-300">{motorcycles[selectedIndex].specs.consumo}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Indicadores de navegación (5 puntos visibles, último pequeño) */}
+                    <div className="flex justify-center mt-8 space-x-3">
+                        {visibleDotIndices.map((dotIndex) => (
+                            <button
+                                key={dotIndex}
+                                onClick={() => selectMotorcycle(dotIndex)}
+                                className={`rounded-full transition-all duration-300 focus:outline-none flex items-center justify-center
+                                    ${isDotSmall(dotIndex) ? 'h-2 w-2' : 'h-2.5 w-2.5'}
+                                    ${selectedIndex === dotIndex ? 'bg-white' : 'bg-gray-500'}
+                                `}
+                                aria-label={`Ver motocicleta ${dotIndex + 1}`}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
-
-            {/* Estilos adicionales para el gradiente radial */}
-            <style>
-                {`
-        .bg-radial-gradient {
-          background: radial-gradient(circle, rgba(30, 41, 59, 0.5) 0%, rgba(0, 0, 0, 0) 70%);
-        }
-        `}
-            </style>
         </section>
     );
 };
