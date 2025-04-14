@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { experienceGalleryImages, videoPosterPath } from '../../lib/constants/galleryData';
+import { experienceGalleryImages } from '../../lib/constants/galleryData';
 import { preloadImageBatch } from '../../lib/utils/imageUtils';
 import { GalleryImage } from '../../lib/constants/galleryData';
 
@@ -54,12 +54,12 @@ const TriumphExperienceGallery: React.FC = () => {
     return (
         <section className="w-full bg-black text-white py-12">
             {/* Video component */}
-            <div className="container mx-auto px-6 md:px-12 mb-12">
+            <div className="container mx-auto px-6 md:px-12 mb-12 max-w-7xl">
                 <h2 className="text-4xl md:text-5xl font-bold text-center mb-10">
                     Así se vive la <span className="italic">#EXPERIENCIATRIUMPH</span>
                 </h2>
 
-                <div className="relative w-full max-w-6xl mx-auto aspect-video overflow-hidden rounded-lg cursor-pointer group">
+                <div className="relative w-full mx-auto aspect-video overflow-hidden rounded-lg cursor-pointer group">
                     <div
                         className="absolute inset-0 flex items-center justify-center z-10 bg-opacity-40 group-hover:bg-opacity-20 transition-all"
                         onClick={handleVideoToggle}
@@ -105,19 +105,22 @@ const TriumphExperienceGallery: React.FC = () => {
 
             {/* Gallery */}
             <div className="container mx-auto px-6 md:px-12 max-w-7xl">
-                {/* Simplified grid structure to avoid vibration */}
-                <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+                {/* Grid con tamaños fijos y gaps exactos */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 w-full">
                     {imagesToShow.map((image) => (
                         <div
                             key={image.id}
-                            style={{ height: '350px' }}
-                            className="relative overflow-hidden cursor-pointer rounded-md"
+                            className="relative cursor-pointer rounded-md overflow-hidden w-full"
+                            style={{
+                                height: "280px",
+                                aspectRatio: "16/9"
+                            }}
                             onClick={() => handleImageClick(image)}
                         >
                             <img
                                 src={image.src}
                                 alt={image.alt}
-                                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                                 loading="lazy"
                             />
                         </div>
