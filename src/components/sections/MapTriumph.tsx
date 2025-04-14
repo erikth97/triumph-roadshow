@@ -34,7 +34,27 @@ const MapTriumph: React.FC = () => {
               {agencies.map((agency, index) => (
                 <div key={index} className="mb-10">
                   <h2 className="text-xl font-semibold">{agency.name}</h2>
-                  <p className="text-sm">{agency.address}</p>
+                  <p className="text-sm mb-2">{agency.address}</p>
+                  <a
+                    href={agency.googleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-sm text-gray-400 hover:text-gray-200 transition-colors duration-300"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 mr-1"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Ver en Google Maps
+                  </a>
                 </div>
               ))}
             </div>
