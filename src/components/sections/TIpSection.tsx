@@ -57,7 +57,8 @@ const TipSection: React.FC = () => {
                             // Card:
                             // - Aumentado el padding (p-8 lg:p-10) para hacerlas más largas.
                             // - Eliminado rounded-lg.
-                            className="bg-[#292929] p-8 lg:p-10 flex flex-col items-center text-center /* rounded-lg eliminado */ transition-transform duration-300 hover:scale-105 h-full"
+                            // - Añadido cursor-pointer para cambiar el cursor a una mano
+                            className="bg-[#292929] p-8 lg:p-10 flex flex-col items-center text-center cursor-pointer transition-transform duration-300 hover:scale-105 h-full"
                         >
                             <img
                                 src={card.icon}

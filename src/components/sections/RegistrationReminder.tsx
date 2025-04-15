@@ -1,4 +1,30 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback, ReactNode } from "react";
+
+// Definición de tipos para las props del componente FadeInElement
+interface FadeInElementProps {
+    children: ReactNode;
+    isVisible: boolean;
+    delay?: number;
+    yOffset?: number;
+    className?: string;
+}
+
+// Componente reutilizable para animaciones de entrada
+const FadeInElement = ({
+    children,
+    isVisible,
+    delay = 0,
+    yOffset = 5,
+    className = ""
+}: FadeInElementProps) => (
+    <div
+        className={`transition-all duration-800 ${isVisible ? 'opacity-100 translate-y-0' : `opacity-0 translate-y-${yOffset}`
+            } ${className}`}
+        style={{ transitionDelay: `${delay}ms` }}
+    >
+        {children}
+    </div>
+);
 
 export default function RegistrationReminder() {
     const [isVisible, setIsVisible] = useState(false);
@@ -35,62 +61,80 @@ export default function RegistrationReminder() {
         };
     }, []);
 
-    const scrollToForm = () => {
+    // Optimizado con useCallback para evitar recreaciones innecesarias
+    const scrollToForm = useCallback(() => {
         // Scroll hacia la sección del formulario usando el ID existente "registro"
         const formElement = document.getElementById('registro');
         if (formElement) {
             formElement.scrollIntoView({ behavior: 'smooth' });
         }
-    };
+    }, []);
 
     return (
-        <section className="w-full bg-black text-white py-16 overflow-hidden" ref={sectionRef}>
+        <section
+            className="w-full bg-black text-white py-16 overflow-hidden"
+            ref={sectionRef}
+            aria-labelledby="registration-reminder-title"
+        >
             <div className="container px-6 m-auto max-w-6xl">
                 <div className="grid grid-cols-4 gap-6 md:grid-cols-8 lg:grid-cols-12">
                     <div className="col-span-4 md:col-span-8 lg:col-span-12 text-center">
-                        <h2
-                            className={`text-3xl md:text-4xl font-bold mb-6 transition-all duration-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-5'}`}
-                            style={{ transitionDelay: '100ms' }}
+                        <FadeInElement
+                            isVisible={isVisible}
+                            delay={100}
+                            yOffset={-5}
+                            className="mb-6"
                         >
-                            ¡NO PIERDAS LA OPORTUNIDAD!
-                        </h2>
-
-                        <div
-                            className={`mb-2 transition-all duration-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
-                            style={{ transitionDelay: '300ms' }}
-                        >
-                            <span
-                                className="text-xl md:text-2xl cursor-pointer hover:text-red-500 transition-colors"
-                                onClick={scrollToForm}
+                            <h2
+                                id="registration-reminder-title"
+                                className="text-3xl md:text-4xl font-bold"
                             >
-                                <span className="underline">Regístrate ahora</span> para asegurar tu lugar en el Demo Road Show Triumph en tu ciudad.
+                                ¡NO PIERDAS LA OPORTUNIDAD!
+                            </h2>
+                        </FadeInElement>
+
+                        <FadeInElement isVisible={isVisible} delay={300} className="mb-2">
+                            <span className="text-xl md:text-2xl" onClick={scrollToForm}>
+                                <span
+                                    className="underline cursor-pointer hover:text-red-500 transition-colors"
+                                    role="button"
+                                    tabIndex={0}
+                                    aria-label="Ir al formulario de registro"
+                                    onKeyDown={(e) => e.key === 'Enter' && scrollToForm()}
+                                >
+                                    Regístrate ahora
+                                </span>
+                                {" "}para asegurar tu lugar en el Demo Road Show Triumph en tu ciudad.
                             </span>
-                        </div>
+                        </FadeInElement>
 
-                        <p
-                            className={`text-xl md:text-2xl mb-6 transition-all duration-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
-                            style={{ transitionDelay: '500ms' }}
-                        >
-                            Las plazas son limitadas, ¡así que no esperes más!
-                        </p>
+                        <FadeInElement isVisible={isVisible} delay={500} className="mb-6">
+                            <p className="text-xl md:text-2xl">
+                                Las plazas son limitadas, ¡así que no esperes más!
+                            </p>
+                        </FadeInElement>
 
-                        <p
-                            className={`text-sm text-gray-400 italic mb-10 transition-all duration-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
-                            style={{ transitionDelay: '700ms' }}
-                        >
-                            Máximo 1 registro por persona.
-                        </p>
+                        <FadeInElement isVisible={isVisible} delay={700} className="mb-10">
+                            <p className="text-sm text-gray-400 italic">
+                                Máximo 1 registro por persona.
+                            </p>
+                        </FadeInElement>
 
-                        <p
-                            ref={textRef}
-                            className={`text-xl md:text-2xl font-medium relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                            style={{
-                                transitionDelay: '900ms',
-                                transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)'
-                            }}
+                        <FadeInElement
+                            isVisible={isVisible}
+                            delay={900}
+                            yOffset={10}
                         >
-                            ¡Nos vemos en el Demo Road Show!
-                        </p>
+                            <p
+                                ref={textRef}
+                                className="text-xl md:text-2xl font-medium relative"
+                                style={{
+                                    transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)'
+                                }}
+                            >
+                                ¡Nos vemos en el Demo Road Show!
+                            </p>
+                        </FadeInElement>
                     </div>
                 </div>
             </div>
