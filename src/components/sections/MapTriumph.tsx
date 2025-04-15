@@ -22,24 +22,27 @@ const MapTriumph: React.FC = () => {
       : [25.6866, -100.3161];
 
   return (
-    <section className="bg-black text-white py-20 relative overflow-hidden">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="p-25">
-            <h1 className="text-3xl font-bold mb-8 leading-tight">
+    <section className="bg-black text-white py-12 md:py-20 relative overflow-hidden">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-4">
+          {/* Contenido de agencias - ahora aparece primero en móvil */}
+          <div className="p-4 md:p-6 lg:p-8 order-2 md:order-1">
+            <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 leading-tight">
               Visita tu tienda <br />
               Triumph más cercana
             </h1>
-            <div className="scroll-container pl-5">
+
+            {/* Contenedor de scroll con altura máxima en móvil */}
+            <div className="scroll-container pl-0 md:pl-5 max-h-[300px] md:max-h-[450px] overflow-y-auto pr-2 mb-6 md:mb-0">
               {agencies.map((agency, index) => (
-                <div key={index} className="mb-10">
-                  <h2 className="text-xl font-semibold">{agency.name}</h2>
-                  <p className="text-sm mb-2">{agency.address}</p>
+                <div key={index} className="mb-6 md:mb-10">
+                  <h2 className="text-lg md:text-xl font-semibold">{agency.name}</h2>
+                  <p className="text-xs md:text-sm mb-2">{agency.address}</p>
                   <a
                     href={agency.googleMapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center text-sm text-gray-400 hover:text-gray-200 transition-colors duration-300"
+                    className="inline-flex items-center text-xs md:text-sm text-gray-400 hover:text-gray-200 transition-colors duration-300"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -59,12 +62,19 @@ const MapTriumph: React.FC = () => {
               ))}
             </div>
           </div>
-          <div className="p-15">
+
+          {/* Mapa - ahora aparece segundo en móvil pero tiene mayor altura */}
+          <div className="p-4 md:p-6 lg:p-8 order-1 md:order-2">
             <MapContainer
               center={defaultPosition}
               zoom={10}
-              style={{ minHeight: '35svw', width: '100%' }}
+              style={{
+                height: '350px',
+                width: '100%',
+                borderRadius: '8px'
+              }}
               attributionControl={false}
+              className="shadow-lg"
             >
               <TileLayer
                 url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
