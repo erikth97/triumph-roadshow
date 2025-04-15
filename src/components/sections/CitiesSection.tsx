@@ -35,8 +35,9 @@ const CitiesSection = () => {
                     Ciudades participantes
                 </motion.h2>
 
+                {/* Subtítulo visible solo en desktop */}
                 <motion.h3
-                    className="text-xl md:text-2xl font-medium mb-4 text-center"
+                    className="text-xl md:text-2xl font-medium mb-4 text-center hidden lg:block"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
@@ -46,9 +47,9 @@ const CitiesSection = () => {
                 </motion.h3>
 
                 <div className="flex flex-col lg:flex-row items-center lg:items-center lg:justify-between gap-10 lg:gap-12">
-                    {/* Mapa con puntos interactivos */}
+                    {/* Mapa con puntos interactivos - Tamaño aumentado */}
                     <div className="relative w-full lg:w-1/2 flex justify-center mt-2 lg:mt-4">
-                        <div className="w-full max-w-md md:max-w-lg lg:max-w-2xl">
+                        <div className="w-full max-w-lg md:max-w-xl lg:max-w-3xl">
                             <img
                                 src="/images/mexico-map.png"
                                 alt="Mapa de México"
@@ -68,6 +69,17 @@ const CitiesSection = () => {
                         </div>
                     </div>
 
+                    {/* Subtítulo visible solo en mobile, debajo del mapa */}
+                    <motion.h3
+                        className="text-xl md:text-2xl font-medium my-4 text-center w-full lg:hidden"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        viewport={{ once: true }}
+                    >
+                        Selecciona tu ciudad
+                    </motion.h3>
+
                     {/* Área del lado derecho con calendario y countdown */}
                     <div className="w-full lg:w-1/2 flex flex-col items-center justify-start">
                         <div className="w-full px-2 sm:px-0" style={{ maxWidth: "520px" }}>
@@ -75,7 +87,10 @@ const CitiesSection = () => {
                                 {cities.map((city) => (
                                     <button
                                         key={city.id}
-                                        className={`text-center p-3 sm:p-4 md:p-5 transition-all duration-300 ${selectedCity === city.id ? 'bg-white text-black' : 'bg-transparent border border-gray-700 hover:bg-gray-800 hover:scale-105'}`}
+                                        className={`text-center p-3 sm:p-4 md:p-5 transition-all duration-300 ${selectedCity === city.id
+                                            ? 'bg-white text-black'
+                                            : 'bg-transparent border border-gray-700 hover:bg-gray-800 hover:scale-105'
+                                            }`}
                                         onClick={() => setSelectedCity(city.id)}
                                     >
                                         <div className="text-xs sm:text-sm font-medium truncate">{city.name}</div>
@@ -89,7 +104,7 @@ const CitiesSection = () => {
                             <div className="w-full mt-10 min-h-[280px]">
                                 {selectedCityData && (
                                     <motion.div
-                                        className="border border-gray-700 p-5 md:p-6 w-full"
+                                        className="border border-gray-700 p-5 md:p-6 w-full bg-transparent"
                                         initial={{ opacity: 0, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.5 }}
