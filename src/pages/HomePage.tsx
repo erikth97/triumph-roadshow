@@ -1,3 +1,4 @@
+import ScrollProgressBar from '@/components/ui/ScrollProgressBar';
 import CitiesSection from '@/components/sections/CitiesSection';
 import EventFeaturesCarousel from '@/components/sections/EventFeaturesCarousel';
 import HeroSection from '@/components/sections/HeroSection';
@@ -15,6 +16,7 @@ import RegistrationReminder from '@/components/sections/RegistrationReminder';
 const HomePage = () => {
     return (
         <>
+            <ScrollProgressBar />
             <HeroSection />
             <InfoSection />
             <CitiesSection />
