@@ -105,8 +105,8 @@ const TriumphExperienceGallery: React.FC = () => {
 
             {/* Gallery */}
             <div className="container mx-auto px-6 md:px-12 max-w-7xl">
-                {/* Grid con tamaños fijos y gaps exactos */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 w-full">
+                {/* Grid modificado: 2 columnas en móvil, 3 en md y mayores */}
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2 w-full">
                     {imagesToShow.map((image) => (
                         <div
                             key={image.id}
