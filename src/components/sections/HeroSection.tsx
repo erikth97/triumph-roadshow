@@ -1,9 +1,14 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, forwardRef, MutableRefObject } from 'react';
 import { motion } from 'framer-motion';
 import { CgArrowDownO } from "react-icons/cg";
 import { useLoading } from '@/context/LoadingContext';
 
-const HeroSection = () => {
+// Definimos los tipos de props con MutableRefObject
+interface HeroSectionProps {
+    logoRef?: MutableRefObject<HTMLDivElement | null>;
+}
+
+const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(({ logoRef }, ref) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const { setResourceLoaded } = useLoading();
 
@@ -90,11 +95,14 @@ const HeroSection = () => {
 
             {/* Contenido del hero */}
             <div className="relative z-10 container-custom h-full flex flex-col justify-center items-center text-center text-white">
-                <img
-                    src="/images/DRS-BLANCO.png"
-                    alt="Demo Road Show Triumph"
-                    className="w-64 md:w-80 mb-6"
-                />
+                {/* Imagen con la referencia para la animación de transición */}
+                <motion.div ref={logoRef}>
+                    <img
+                        src="/images/DRS-BLANCO.png"
+                        alt="Demo Road Show Triumph"
+                        className="w-64 md:w-80 mb-6"
+                    />
+                </motion.div>
 
                 <motion.h1
                     className="text-4xl md:text-6xl font-bold mb-8 uppercase tracking-wide"
@@ -138,6 +146,9 @@ const HeroSection = () => {
             </div>
         </section>
     );
-};
+});
+
+// Añadimos el displayName para cumplir con las buenas prácticas de React
+HeroSection.displayName = 'HeroSection';
 
 export default HeroSection;

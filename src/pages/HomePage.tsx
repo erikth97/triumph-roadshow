@@ -1,3 +1,4 @@
+import { forwardRef, MutableRefObject } from 'react';
 import ScrollProgressBar from '@/components/ui/ScrollProgressBar';
 import CitiesSection from '@/components/sections/CitiesSection';
 import EventFeaturesCarousel from '@/components/sections/EventFeaturesCarousel';
@@ -8,16 +9,19 @@ import MotorcycleShowcase from '@/components/sections/MotorcycleShowcase';
 import RegistrationForm from '@/components/sections/RegistrationForm';
 import TriumphFaqAccordion from '@/components/sections/TriumphFaqAccordion';
 import TriumphExperienceGallery from '@/components/sections/TriumphExperienceGallery';
-import TipSection from '@/components/sections/TIpSection';
+import TipSection from '@/components/sections/TipSection';
 import Footer from '@/components/layout/Footer';
 import RegistrationReminder from '@/components/sections/RegistrationReminder';
 
+interface HomePageProps {
+    logoRef?: MutableRefObject<HTMLDivElement | null>;
+}
 
-const HomePage = () => {
+const HomePage = forwardRef<HTMLElement, HomePageProps>(({ logoRef }, ref) => {
     return (
         <>
             <ScrollProgressBar />
-            <HeroSection />
+            <HeroSection logoRef={logoRef} />
             <InfoSection />
             <CitiesSection />
             <EventFeaturesCarousel />
@@ -31,6 +35,8 @@ const HomePage = () => {
             <Footer />
         </>
     );
-};
+});
+
+HomePage.displayName = 'HomePage';
 
 export default HomePage;

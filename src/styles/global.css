@@ -126,6 +126,20 @@ body {
             transform: translateZ(0) rotate(360deg);
         }
     }
+
+    --animate-ripple: ripple var(--duration, 2s) ease calc(var(--i, 0)*.2s) infinite;
+
+    @keyframes ripple {
+
+        0%,
+        100% {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        50% {
+            transform: translate(-50%, -50%) scale(0.9);
+        }
+    }
 }
 
 :root {
@@ -205,4 +219,67 @@ body {
     body {
         @apply bg-background text-foreground;
     }
+}
+
+/* Añade esto a tu archivo global.css para asegurar que la animación Ripple funcione correctamente */
+
+@keyframes ripple {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: scale(1.3);
+        opacity: 0;
+    }
+}
+
+.animate-ripple {
+    animation: ripple 6s ease-in-out infinite;
+}
+
+/* También puedes agregar esta clase específica para el componente Ripple de Magic UI */
+.magicui-ripple-circle {
+    position: absolute;
+    border-radius: 50%;
+    background-color: currentColor;
+}
+
+/* Añade estas definiciones a tu archivo global.css */
+
+@keyframes rippleEffect {
+    0% {
+        transform: translate(-50%, -50%) scale(0.2);
+        opacity: 0;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(.5);
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.3);
+        opacity: 0;
+    }
+}
+
+/* Esto es importante para que las animaciones se vean correctamente */
+.ripple-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background-color: #333;
 }
