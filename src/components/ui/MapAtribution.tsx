@@ -14,7 +14,7 @@ const MapAtribution: React.FC = () => {
 
     // Agrega la atribución requerida por los proveedores de mapas
     attributionControl.addAttribution(
-      '© <a href="#">Erick Hemoza</a>'
+      '© <a href="#">Triumph® México</a>'
     );
 
     // Agrega el control al mapa
