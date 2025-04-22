@@ -24,12 +24,6 @@ export const agencies: Agency[] = [
         googleMapsUrl: "https://maps.app.goo.gl/aAAHMFxK1a8ciA2E9"
     },
     {
-        name: "Triumph CDMX Sur",
-        address: "Av. Insurgentes Sur 3838, Tlalpan Centro I, Tlalpan, 14000 Ciudad de México, CDMX",
-        coordinates: { lat: 19.292086572122145, lng: -99.17564496208519 },
-        googleMapsUrl: "https://maps.app.goo.gl/aAAHMFxK1a8ciA2E9"
-    },
-    {
         name: "Triumph Cuernavaca Autopista",
         address: "Cuernavaca - Cdad. de México KM 85.5, 62320 Cuernavaca, Mor.",
         coordinates: { lat: 18.95426055988873, lng: -99.19476104675078 },
