@@ -1,11 +1,10 @@
-import { useEffect, useRef, forwardRef, MutableRefObject } from 'react';
+import { useEffect, useRef, forwardRef, RefObject } from 'react';
 import { motion } from 'framer-motion';
 import { CgArrowDownO } from "react-icons/cg";
 import { useLoading } from '@/context/LoadingContext';
 
-// Definimos los tipos de props con MutableRefObject
 interface HeroSectionProps {
-    logoRef?: MutableRefObject<HTMLDivElement | null>;
+    logoRef?: RefObject<HTMLDivElement>;
 }
 
 const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(({ logoRef }, ref) => {
@@ -18,13 +17,13 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(({ logoRef }, ref)
 
         // Una función para manejar la carga exitosa
         const handleVideoLoaded = () => {
-            console.log("Video cargado correctamente");
             setResourceLoaded('video');
         };
 
         // Una función para manejar errores
-        const handleVideoError = (error: any) => {
-            console.error("Error al reproducir el video:", error);
+        const handleVideoError = () => {
+            // En producción, podemos omitir los logs de error o usar
+            // un servicio de monitoreo en lugar de console.error
             setResourceLoaded('video'); // Marcar como cargado aún en error para no bloquear la UI
         };
 
@@ -36,9 +35,8 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(({ logoRef }, ref)
         const playVideo = async () => {
             try {
                 await video.play();
-                console.log("Video reproduciendo correctamente");
-            } catch (error) {
-                handleVideoError(error);
+            } catch (err) {
+                handleVideoError();
             }
         };
 
@@ -59,7 +57,7 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(({ logoRef }, ref)
     };
 
     return (
-        <section className="relative h-screen overflow-hidden">
+        <section ref={ref} className="relative h-screen overflow-hidden">
             {/* Video de fondo con filtro */}
             <div className="absolute inset-0">
                 {/* Video con filtros aplicados */}
@@ -136,6 +134,7 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(({ logoRef }, ref)
                     <motion.div
                         animate={{ y: [0, 5, 0] }}
                         transition={{ repeat: Infinity, duration: 1.5 }}
+                        className="cursor-pointer" // Añadido cursor-pointer para cambiar a manita
                     >
                         <CgArrowDownO className="w-8 h-8" />
                     </motion.div>
