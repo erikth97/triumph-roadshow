@@ -8,7 +8,7 @@ interface PulsingDotProps {
 const PulsingDot = ({ x, y, selected, onClick }: PulsingDotProps) => {
     return (
         <button
-            className={`absolute w-4 h-4 rounded-full z-10 transform -translate-x-1/2 -translate-y-1/2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50`}
+            className={`absolute w-4 h-4 rounded-full z-10 transform -translate-x-1/2 -translate-y-1/2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 cursor-pointer`}
             style={{
                 left: `${x}%`,
                 top: `${y}%`,

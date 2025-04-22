@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 declare module '@glidejs/glide';
 import Glide from "@glidejs/glide";
 import { motion } from "framer-motion";
@@ -36,31 +36,54 @@ const carouselItems = [
 ];
 
 const EventFeaturesCarousel = () => {
-    useEffect(() => {
-        try {
-            const slider = new Glide(".features-carousel", {
-                type: "carousel",
-                focusAt: "center",
-                perView: 1,
-                autoplay: window.innerWidth < 768 ? 5000 : 4000,
-                animationDuration: window.innerWidth < 768 ? 500 : 700,
-                gap: 0,
-                swipeThreshold: 50,
-                dragThreshold: 100,
-                classNames: {
-                    nav: {
-                        active: "[&>*]:bg-red-600",
-                    },
-                }
-            }).mount();
+    // Estado para controlar la precarga de imágenes
+    const [imagesPreloaded, setImagesPreloaded] = useState(false);
 
-            return () => {
-                slider.destroy();
-            };
-        } catch (error) {
-            console.error("Error initializing Glide:", error);
+    useEffect(() => {
+        // Precarga de imágenes para evitar saltos visuales
+        const preloadImages = async () => {
+            const promises = carouselItems.map((item) => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.src = item.image;
+                    img.onload = () => resolve(true);
+                    img.onerror = () => resolve(false);
+                });
+            });
+
+            await Promise.all(promises);
+            setImagesPreloaded(true);
+        };
+
+        preloadImages();
+
+        // Solo inicializar el slider después de precargar las imágenes
+        if (imagesPreloaded) {
+            try {
+                const slider = new Glide(".features-carousel", {
+                    type: "carousel",
+                    focusAt: "center",
+                    perView: 1,
+                    autoplay: window.innerWidth < 768 ? 5000 : 4000,
+                    animationDuration: window.innerWidth < 768 ? 500 : 700,
+                    gap: 0,
+                    swipeThreshold: 50,
+                    dragThreshold: 100,
+                    classNames: {
+                        nav: {
+                            active: "[&>*]:bg-red-600",
+                        },
+                    }
+                }).mount();
+
+                return () => {
+                    slider.destroy();
+                };
+            } catch (error) {
+                console.error("Error initializing Glide:", error);
+            }
         }
-    }, []);
+    }, [imagesPreloaded]);
 
     return (
         <section id="evento" className="w-full bg-black text-white relative">
@@ -69,12 +92,12 @@ const EventFeaturesCarousel = () => {
             </div>
 
             {/* Carrusel */}
-            <div className="features-carousel relative w-full">
+            <div className="features-carousel relative w-full cursor-grab active:cursor-grabbing">
                 {/* Slides */}
-                <div className="overflow-hidden" data-glide-el="track">
-                    <ul className="relative flex w-full overflow-hidden p-0">
+                <div className="overflow-hidden cursor-grab active:cursor-grabbing" data-glide-el="track">
+                    <ul className="relative flex w-full overflow-hidden p-0 cursor-grab active:cursor-grabbing">
                         {carouselItems.map((item) => (
-                            <li key={item.id} className="relative w-full h-[60vh] md:h-[70vh]">
+                            <li key={item.id} className="relative w-full h-[60vh] md:h-[70vh] cursor-grab active:cursor-grabbing">
                                 {/* Imagen de fondo con degradado corregido */}
                                 <div className="absolute inset-0">
                                     <img
@@ -85,8 +108,9 @@ const EventFeaturesCarousel = () => {
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20 md:to-transparent"></div>
                                 </div>
 
-                                {/* Contenido con fade-in animación */}
+                                {/* Contenido con fade-in animación - Usando el mismo key para todas las slides para evitar recargas parciales */}
                                 <motion.div
+                                    key="slide-content"
                                     className="relative z-10 h-full flex items-center"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -114,7 +138,7 @@ const EventFeaturesCarousel = () => {
                     {carouselItems.map((_, index) => (
                         <button
                             key={index}
-                            className="group p-1 glide__bullet"
+                            className="group p-1 glide__bullet cursor-pointer"
                             data-glide-dir={`=${index}`}
                             aria-label={`ir a slide ${index + 1}`}
                         >

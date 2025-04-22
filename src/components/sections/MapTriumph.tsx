@@ -24,10 +24,19 @@ const MapTriumph: React.FC = () => {
   return (
     <section className="bg-black text-white py-12 md:py-20 relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
+        {/* Título que solo aparece en móvil, arriba del mapa */}
+        <div className="block md:hidden mb-4">
+          <h1 className="text-2xl font-bold leading-tight">
+            Visita tu tienda <br />
+            Triumph más cercana
+          </h1>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-4">
-          {/* Contenido de agencias - ahora aparece primero en móvil */}
+          {/* Contenido de agencias - sin título en móvil */}
           <div className="p-4 md:p-6 lg:p-8 order-2 md:order-1">
-            <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 leading-tight">
+            {/* Título solo visible en tablet/desktop */}
+            <h1 className="hidden md:block text-2xl md:text-3xl font-bold mb-6 md:mb-8 leading-tight">
               Visita tu tienda <br />
               Triumph más cercana
             </h1>

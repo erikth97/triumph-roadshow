@@ -50,72 +50,96 @@ const InfoSection: React.FC = () => {
     }, []);
 
     return (
-        <section className="relative py-20 bg-black text-white overflow-hidden">
-            <div className="container-custom mx-0 px-0">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
-                    {/* Texto más centrado con padding generoso */}
-                    <div className="order-2 lg:order-1 flex flex-col justify-center px-8 lg:pl-24 lg:pr-12">
-                        <motion.h2
-                            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 uppercase italic leading-tight"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                            viewport={{ once: true }}
-                        >
-                            ¡Únete a nosotros en<br />el Demo Road Show<br />de Triumph!
-                        </motion.h2>
+        <section className="relative py-12 md:py-20 bg-black text-white overflow-hidden w-full">
+            {/* Título móvil que aparece arriba de la imagen */}
+            <div className="block lg:hidden px-6 mb-6 w-full">
+                <motion.h2
+                    className="text-3xl md:text-4xl font-bold uppercase italic leading-tight text-center"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    viewport={{ once: true }}
+                >
+                    ¡Únete a nosotros en<br />el Demo Road Show<br />de Triumph!
+                </motion.h2>
+            </div>
 
-                        <motion.p
-                            className="text-base md:text-lg text-gray-300 max-w-xl"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                            viewport={{ once: true }}
-                        >
-                            Si eres un amante de las motocicletas, esta es tu oportunidad de <span className="font-bold text-white">experimentar</span> de primera mano la emoción y el rendimiento de nuestras motocicletas en el asfalto. Nos vamos a varias ciudades para que puedas probar nuestras motos más recientes en un ambiente seguro y controlado. <span className="font-bold italic">¡No te lo puedes perder!</span>
-                        </motion.p>
-                    </div>
+            <div className="flex flex-col lg:flex-row w-full">
+                {/* Texto para desktop - incluye título y descripción */}
+                <div className="hidden lg:flex lg:w-1/2 flex-col justify-center px-8 lg:pl-24 lg:pr-12">
+                    <motion.h2
+                        className="text-4xl lg:text-5xl font-bold mb-8 uppercase italic leading-tight"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
+                    >
+                        ¡Únete a nosotros en<br />el Demo Road Show<br />de Triumph!
+                    </motion.h2>
 
-                    {/* Imagen sin margen ni padding */}
-                    <div className="order-1 lg:order-2 relative w-full h-full p-0 m-0 overflow-hidden">
-                        <motion.div
-                            ref={containerRef}
-                            className="relative w-full h-[650px] m-0 p-0"
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            transition={{ duration: 0.8 }}
-                            viewport={{ once: true }}
-                            onMouseMove={handleMouseMove}
-                            onMouseLeave={handleMouseLeave}
-                            style={{ perspective: "1200px" }}
-                        >
-                            <motion.div
-                                className="relative w-full h-full"
-                                style={{
-                                    transformStyle: "preserve-3d",
-                                    overflow: "hidden",
-                                    scale: scaleOnScroll,
-                                    rotateX: isInView ? rotateXOnScroll : 0,
-                                    rotateY: isInView ? rotateYOnScroll : 0
-                                }}
-                            >
-                                <motion.img
-                                    src="/images/IMAGEN INTRO_FONDO.webp"
-                                    alt="Fondo Triumph"
-                                    className="absolute inset-0 w-full h-full object-cover"
-                                    style={{ y: backgroundYOffset }}
-                                />
-
-                                <motion.img
-                                    src="/images/IMAGEN INTRO_CHICA.webp"
-                                    alt="Motociclista Triumph en acción"
-                                    className="absolute inset-0 w-full h-full object-cover"
-                                    style={{ x: rotateYOnMouse, y: rotateXOnMouse }}
-                                />
-                            </motion.div>
-                        </motion.div>
-                    </div>
+                    <motion.p
+                        className="text-base md:text-lg text-gray-300 max-w-xl"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        viewport={{ once: true }}
+                    >
+                        Si eres un amante de las motocicletas, esta es tu oportunidad de <span className="font-bold text-white">experimentar</span> de primera mano la emoción y el rendimiento de nuestras motocicletas en el asfalto. Nos vamos a varias ciudades para que puedas probar nuestras motos más recientes en un ambiente seguro y controlado. <span className="font-bold italic">¡No te lo puedes perder!</span>
+                    </motion.p>
                 </div>
+
+                {/* Imagen pegada al borde para ambas versiones */}
+                <div className="w-full lg:w-1/2 h-full overflow-hidden m-0 p-0">
+                    <motion.div
+                        ref={containerRef}
+                        className="relative w-full h-[400px] md:h-[500px] lg:h-[650px] xl:h-[700px] 2xl:h-[800px] m-0 p-0"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 0.8 }}
+                        viewport={{ once: true }}
+                        onMouseMove={handleMouseMove}
+                        onMouseLeave={handleMouseLeave}
+                        style={{ perspective: "1200px" }}
+                    >
+                        <motion.div
+                            className="relative w-full h-full"
+                            style={{
+                                transformStyle: "preserve-3d",
+                                overflow: "hidden",
+                                scale: scaleOnScroll,
+                                rotateX: isInView ? rotateXOnScroll : 0,
+                                rotateY: isInView ? rotateYOnScroll : 0
+                            }}
+                        >
+                            <motion.img
+                                src="/images/IMAGEN INTRO_FONDO.webp"
+                                alt="Fondo Triumph"
+                                className="absolute inset-0 w-full h-full object-cover"
+                                style={{ y: backgroundYOffset }}
+                            />
+
+                            <motion.img
+                                src="/images/IMAGEN INTRO_CHICA.webp"
+                                alt="Motociclista Triumph en acción"
+                                className="absolute inset-0 w-full h-full object-cover"
+                                style={{ x: rotateYOnMouse, y: rotateXOnMouse }}
+                            />
+                        </motion.div>
+                    </motion.div>
+                </div>
+            </div>
+
+            {/* Descripción móvil que aparece debajo de la imagen */}
+            <div className="block lg:hidden px-6 mt-6 w-full">
+                <motion.p
+                    className="text-base text-gray-300"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    viewport={{ once: true }}
+                >
+                    Si eres un amante de las motocicletas, esta es tu oportunidad de <span className="font-bold text-white">experimentar</span> de primera mano la emoción y el rendimiento de nuestras motocicletas en el asfalto. Nos vamos a varias ciudades para que puedas probar nuestras motos más recientes en un ambiente seguro y controlado. <span className="font-bold italic">¡No te lo puedes perder!</span>
+                </motion.p>
             </div>
         </section>
     );
