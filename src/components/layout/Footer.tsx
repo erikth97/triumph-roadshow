@@ -41,10 +41,10 @@ const Footer = () => {
                         className="w-60 h-auto object-contain mx-auto"
                     />
                     <div className="flex justify-end space-x-4 mt-4">
-                        <a href="#" className="text-gray-400 hover:text-black">
+                        <a href="https://www.facebook.com/mexico.triumph/?locale=es_LA" className="text-gray-400 hover:text-black">
                             <FaFacebook className="w-8 h-8 rounded-full" />
                         </a>
-                        <a href="#" className="text-gray-400 hover:text-black">
+                        <a href="https://www.instagram.com/triumphmexico/" className="text-gray-400 hover:text-black">
                             <FaInstagram className="w-8 h-8 rounded-full" />
                         </a>
                     </div>
