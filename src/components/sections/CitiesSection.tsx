@@ -47,13 +47,13 @@ const CitiesSection = () => {
                 </motion.h3>
 
                 <div className="flex flex-col lg:flex-row items-center lg:items-center lg:justify-between gap-10 lg:gap-12">
-                    {/* Mapa con puntos interactivos - Tamaño aumentado */}
+                    {/* Mapa con puntos interactivos - Tamaño aumentado y cursor pointer */}
                     <div className="relative w-full lg:w-1/2 flex justify-center mt-2 lg:mt-4">
-                        <div className="w-full max-w-lg md:max-w-xl lg:max-w-3xl">
+                        <div className="w-full max-w-lg md:max-w-xl lg:max-w-3xl cursor-pointer">
                             <img
                                 src="/images/mexico-map.png"
                                 alt="Mapa de México"
-                                className="w-full"
+                                className="w-full cursor-pointer"
                             />
 
                             {/* Puntos interactivos */}
@@ -87,7 +87,7 @@ const CitiesSection = () => {
                                 {cities.map((city) => (
                                     <button
                                         key={city.id}
-                                        className={`text-center p-3 sm:p-4 md:p-5 transition-all duration-300 ${selectedCity === city.id
+                                        className={`text-center p-3 sm:p-4 md:p-5 transition-all duration-300 cursor-pointer ${selectedCity === city.id
                                             ? 'bg-white text-black'
                                             : 'bg-transparent border border-gray-700 hover:bg-gray-800 hover:scale-105'
                                             }`}
@@ -104,7 +104,7 @@ const CitiesSection = () => {
                             <div className="w-full mt-10 min-h-[280px]">
                                 {selectedCityData && (
                                     <motion.div
-                                        className="border border-gray-700 p-5 md:p-6 w-full bg-transparent"
+                                        className="border border-gray-700 p-5 md:p-6 w-full bg-transparent cursor-pointer"
                                         initial={{ opacity: 0, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.5 }}
