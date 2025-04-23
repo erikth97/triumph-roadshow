@@ -60,6 +60,15 @@ const EventFeaturesCarousel = () => {
         // Solo inicializar el slider después de precargar las imágenes
         if (imagesPreloaded) {
             try {
+                // Agregar estilos CSS personalizados para los bullets
+                const style = document.createElement('style');
+                style.textContent = `
+                    .glide__bullet--active span {
+                        background-color: white !important;
+                    }
+                `;
+                document.head.appendChild(style);
+
                 const slider = new Glide(".features-carousel", {
                     type: "carousel",
                     focusAt: "center",
@@ -68,16 +77,12 @@ const EventFeaturesCarousel = () => {
                     animationDuration: window.innerWidth < 768 ? 500 : 700,
                     gap: 0,
                     swipeThreshold: 50,
-                    dragThreshold: 100,
-                    classNames: {
-                        nav: {
-                            active: "[&>*]:bg-red-600",
-                        },
-                    }
+                    dragThreshold: 100
                 }).mount();
 
                 return () => {
                     slider.destroy();
+                    document.head.removeChild(style);
                 };
             } catch (error) {
                 console.error("Error initializing Glide:", error);
@@ -86,9 +91,9 @@ const EventFeaturesCarousel = () => {
     }, [imagesPreloaded]);
 
     return (
-        <section id="evento" className="w-full bg-black text-white relative">
-            <div className="container mx-auto px-4 py-6 md:py-10">
-                <h2 className="text-3xl md:text-5xl font-bold text-center mb-4 md:mb-6">¿Qué incluye el evento?</h2>
+        <section id="evento" className="w-full bg-black text-white relative -mt-16">
+            <div className="container mx-auto px-4 py-2 md:py-6">
+                <h2 className="text-3xl md:text-5xl font-bold text-center mb-2 md:mb-4 -mt-2">¿Qué incluye el evento?</h2>
             </div>
 
             {/* Carrusel */}
@@ -142,7 +147,7 @@ const EventFeaturesCarousel = () => {
                             data-glide-dir={`=${index}`}
                             aria-label={`ir a slide ${index + 1}`}
                         >
-                            <span className="block h-3 w-3 rounded-full bg-gray-500 transition-colors duration-300 group-hover:bg-white glide__bullet--active:bg-white"></span>
+                            <span className="block h-3 w-3 rounded-full bg-gray-500 transition-colors duration-300 group-hover:bg-white"></span>
                         </button>
                     ))}
                 </div>
