@@ -15,28 +15,31 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(({ logoRef }, ref)
         const video = videoRef.current;
         if (!video) return;
 
-        // Una función para manejar la carga exitosa
+        // función para manejar la carga exitosa
         const handleVideoLoaded = () => {
             setResourceLoaded('video');
         };
 
-        // Una función para manejar errores
-        const handleVideoError = () => {
-            // En producción, podemos omitir los logs de error o usar
-            // un servicio de monitoreo en lugar de console.error
+        // función para manejar errores
+        const handleVideoError = (error?: Error) => {
+            // En producción, podríamos enviar el error a un servicio de monitoreo
+            console.warn('Error al cargar el video:', error?.message || 'Error desconocido');
             setResourceLoaded('video'); // Marcar como cargado aún en error para no bloquear la UI
         };
 
         // Agregar event listeners
         video.addEventListener('loadeddata', handleVideoLoaded);
-        video.addEventListener('error', handleVideoError);
+        video.addEventListener('error', () => handleVideoError());
 
-        // Intentar reproducir respetando políticas de autoplay
+        // Intenta reproducir respetando políticas de autoplay
         const playVideo = async () => {
             try {
-                await video.play();
+                // Verificar si el navegador permite autoplay
+                if (video.paused) {
+                    await video.play();
+                }
             } catch (err) {
-                handleVideoError();
+                handleVideoError(err as Error);
             }
         };
 
@@ -45,7 +48,7 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(({ logoRef }, ref)
         // Limpiar event listeners
         return () => {
             video.removeEventListener('loadeddata', handleVideoLoaded);
-            video.removeEventListener('error', handleVideoError);
+            video.removeEventListener('error', () => handleVideoError());
         };
     }, [setResourceLoaded]);
 
@@ -57,7 +60,7 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(({ logoRef }, ref)
     };
 
     return (
-        <section ref={ref} className="relative h-screen overflow-hidden">
+        <section ref={ref} className="relative h-screen overflow-hidden bg-black">
             {/* Video de fondo con filtro */}
             <div className="absolute inset-0">
                 {/* Video con filtros aplicados */}
@@ -72,9 +75,9 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(({ logoRef }, ref)
                         muted
                         loop
                         playsInline
-                        preload="auto"
-                        poster="/images/hero-poster.jpg" // Imagen estática mientras el video carga
-                        crossOrigin="anonymous"
+                        preload="metadata"
+                        poster="/images/PORTADA_TRIUMP_DRS.webp"
+                        aria-hidden="true"
                     >
                         <source src="/videos/triumph-hero.webm" type="video/webm" />
                         <source src="/videos/triumph-hero.mp4" type="video/mp4" />
@@ -88,17 +91,20 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(({ logoRef }, ref)
                         background: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.5) 100%)',
                         mixBlendMode: 'multiply'
                     }}
+                    aria-hidden="true"
                 ></div>
             </div>
 
             {/* Contenido del hero */}
-            <div className="relative z-10 container-custom h-full flex flex-col justify-center items-center text-center text-white">
+            <div className="relative z-10 container-custom h-full flex flex-col justify-center items-center text-center text-white px-4">
                 {/* Imagen con la referencia para la animación de transición */}
                 <motion.div ref={logoRef}>
                     <img
                         src="/images/DRS-BLANCO.png"
                         alt="Demo Road Show Triumph"
-                        className="w-64 md:w-80 mb-6"
+                        className="w-64 md:w-80 mb-6 max-w-full"
+                        width="320"
+                        height="160"
                     />
                 </motion.div>
 
@@ -123,10 +129,11 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(({ logoRef }, ref)
 
                 <motion.button
                     onClick={scrollToRegistration}
-                    className="flex flex-col items-center"
+                    className="flex flex-col items-center hover:text-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 rounded-md p-2"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6, duration: 0.8 }}
+                    aria-label="Ir a formulario de registro"
                 >
                     <span className="uppercase font-bold text-lg tracking-wider mb-1">
                         Regístrate Ahora
@@ -134,14 +141,18 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(({ logoRef }, ref)
                     <motion.div
                         animate={{ y: [0, 5, 0] }}
                         transition={{ repeat: Infinity, duration: 1.5 }}
-                        className="cursor-pointer" // Añadido cursor-pointer para cambiar a manita
+                        className="cursor-pointer"
+                        aria-hidden="true"
                     >
                         <CgArrowDownO className="w-8 h-8" />
                     </motion.div>
                 </motion.button>
 
                 {/* Gradiente suave de transición al final de la sección */}
-                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-black pointer-events-none"></div>
+                <div
+                    className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-black pointer-events-none"
+                    aria-hidden="true"
+                ></div>
             </div>
         </section>
     );
