@@ -37,7 +37,7 @@ export default function TriumphFaqAccordion() {
     };
 
     return (
-        <section className="w-full bg-black text-white py-16">
+        <section id="faq-section" className="w-full bg-black text-white py-16">
             <div className="container mx-auto px-6 md:px-12 max-w-5xl">
                 <h2 className="text-4xl md:text-5xl font-bold text-center mb-10">
                     Preguntas Frecuentes

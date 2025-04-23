@@ -23,7 +23,7 @@ const CitiesSection = () => {
     };
 
     return (
-        <section className="py-20 bg-black text-white">
+        <section id="cities-section" className="py-20 bg-black text-white">
             <div className="container-custom">
                 <motion.h2
                     className="text-4xl md:text-5xl font-bold mb-4 text-center"

@@ -22,7 +22,7 @@ const MapTriumph: React.FC = () => {
       : [25.6866, -100.3161];
 
   return (
-    <section className="bg-black text-white py-12 md:py-20 relative overflow-hidden">
+    <section id="map-triumph" className="bg-black text-white py-12 md:py-20 relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
         {/* Título que solo aparece en móvil, arriba del mapa */}
         <div className="block md:hidden mb-4">
