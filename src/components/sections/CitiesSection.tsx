@@ -23,10 +23,10 @@ const CitiesSection = () => {
     };
 
     return (
-        <section id="cities-section" className="py-20 bg-black text-white">
+        <section id="cities-section" className="pt-12 pb-20 bg-black text-white">
             <div className="container-custom">
                 <motion.h2
-                    className="text-4xl md:text-5xl font-bold mb-4 text-center"
+                    className="text-4xl md:text-5xl font-bold mb-6 text-center -mt-6"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
@@ -37,7 +37,7 @@ const CitiesSection = () => {
 
                 {/* Subtítulo visible solo en desktop */}
                 <motion.h3
-                    className="text-xl md:text-2xl font-medium mb-4 text-center hidden lg:block"
+                    className="text-xl md:text-2xl font-medium mb-10 text-center hidden lg:block"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
@@ -46,14 +46,14 @@ const CitiesSection = () => {
                     Selecciona tu ciudad
                 </motion.h3>
 
-                <div className="flex flex-col lg:flex-row items-center lg:items-center lg:justify-between gap-10 lg:gap-12">
-                    {/* Mapa con puntos interactivos - Tamaño aumentado y cursor pointer */}
-                    <div className="relative w-full lg:w-1/2 flex justify-center mt-2 lg:mt-4">
+                <div className="flex flex-col lg:flex-row items-center lg:items-center justify-center gap-10 lg:gap-16">
+                    {/* Mapa con puntos interactivos - Ajustado para subir ligeramente la imagen */}
+                    <div className="relative w-full lg:w-1/2 flex justify-center mt-0 lg:mt-0 px-2 lg:px-4">
                         <div className="w-full max-w-lg md:max-w-xl lg:max-w-3xl cursor-pointer">
                             <img
                                 src="/images/mexico-map.png"
                                 alt="Mapa de México"
-                                className="w-full cursor-pointer"
+                                className="w-full cursor-pointer transform -translate-y-8"
                             />
 
                             {/* Puntos interactivos */}
@@ -81,13 +81,14 @@ const CitiesSection = () => {
                     </motion.h3>
 
                     {/* Área del lado derecho con calendario y countdown */}
-                    <div className="w-full lg:w-1/2 flex flex-col items-center justify-start">
-                        <div className="w-full px-2 sm:px-0" style={{ maxWidth: "520px" }}>
-                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full">
+                    <div className="w-full lg:w-1/2 flex flex-col items-center justify-center">
+                        <div className="w-full px-2 sm:px-0" style={{ maxWidth: "580px" }}>
+                            {/* Grid actualizado para 4 ciudades por fila */}
+                            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 w-full mt-4">
                                 {cities.map((city) => (
                                     <button
                                         key={city.id}
-                                        className={`text-center p-3 sm:p-4 md:p-5 transition-all duration-300 cursor-pointer ${selectedCity === city.id
+                                        className={`text-center p-2 sm:p-3 md:p-4 transition-all duration-300 cursor-pointer ${selectedCity === city.id
                                             ? 'bg-white text-black'
                                             : 'bg-transparent border border-gray-700 hover:bg-gray-800 hover:scale-105'
                                             }`}
@@ -95,21 +96,21 @@ const CitiesSection = () => {
                                     >
                                         <div className="text-xs sm:text-sm font-medium truncate">{city.name}</div>
                                         <div className="text-xs sm:text-sm text-gray-400">{getMonthName(city.date)}</div>
-                                        <div className="text-2xl sm:text-3xl font-bold">{formatDate(city.date)}</div>
+                                        <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">{formatDate(city.date)}</div>
                                     </button>
                                 ))}
                             </div>
 
                             {/* Countdown con espacio reservado y animación */}
-                            <div className="w-full mt-10 min-h-[280px]">
+                            <div className="w-full mt-8 min-h-[280px]">
                                 {selectedCityData && (
                                     <motion.div
-                                        className="border border-gray-700 p-5 md:p-6 w-full bg-transparent cursor-pointer"
+                                        className="border border-gray-700 p-4 md:p-6 w-full bg-transparent cursor-pointer"
                                         initial={{ opacity: 0, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.5 }}
                                     >
-                                        <div className="text-center mb-5 md:mb-6 text-base md:text-lg uppercase font-medium">COMIENZA EN</div>
+                                        <div className="text-center mb-4 md:mb-6 text-base md:text-lg uppercase font-medium">COMIENZA EN</div>
 
                                         <Countdown targetDate={selectedCityData.date} />
 

@@ -15,55 +15,73 @@ export const cities: City[] = [
     {
         id: "puebla",
         name: "PUEBLA",
-        date: new Date("2025-05-15T09:30:00"),
-        venue: "AUTÓDROMO MIGUEL E. ABED",
-        address: "Km 16.5 Autopista México-Puebla, Amozoc, Puebla",
+        date: new Date("2025-05-31T09:30:00"),
+        venue: "Próximamente",
+        address: "",
         schedule: "09:30 AM a 06:00 PM",
-        coordinates: { x: 64, y: 68 }
+        coordinates: { x: 64, y: 63 }
     },
     {
         id: "queretaro",
         name: "QUERÉTARO",
-        date: new Date("2025-05-19T09:30:00"),
-        venue: "CONSTITUYENTES QUERÉTARO",
-        address: "Av Constituyentes 57 Esq Fray Pedro, Col Cimatario, Queretaro, 76030",
+        date: new Date("2025-06-07T09:30:00"),
+        venue: "Próximamente",
+        address: "",
         schedule: "09:30 AM a 06:00 PM",
-        coordinates: { x: 58, y: 61 }
+        coordinates: { x: 58, y: 56 }
     },
     {
         id: "leon",
         name: "LEÓN",
-        date: new Date("2025-05-23T09:30:00"),
-        venue: "POLIFORUM LEÓN",
-        address: "Blvd. Adolfo López Mateos s/n, Oriental, León, Guanajuato",
+        date: new Date("2025-06-14T09:30:00"),
+        venue: "Próximamente",
+        address: "",
         schedule: "09:30 AM a 06:00 PM",
-        coordinates: { x: 55, y: 60 }
+        coordinates: { x: 55, y: 56 }
     },
     {
         id: "morelia",
         name: "MORELIA",
-        date: new Date("2025-05-26T09:30:00"),
-        venue: "CENTRO DE CONVENCIONES",
-        address: "Av. Camelinas 5000, Club Campestre, Morelia, Michoacán",
+        date: new Date("2025-06-21T09:30:00"),
+        venue: "Próximamente",
+        address: "",
         schedule: "09:30 AM a 06:00 PM",
-        coordinates: { x: 52, y: 66 }
+        coordinates: { x: 52, y: 62 }
     },
     {
         id: "guadalajara",
         name: "GUADALAJARA",
-        date: new Date("2025-05-29T09:30:00"),
-        venue: "EXPO GUADALAJARA",
-        address: "Av. Mariano Otero 1499, Verde Valle, Guadalajara, Jalisco",
+        date: new Date("2025-06-28T09:30:00"),
+        venue: "Próximamente",
+        address: "",
         schedule: "09:30 AM a 06:00 PM",
-        coordinates: { x: 46, y: 62 }
+        coordinates: { x: 46, y: 58 }
     },
     {
         id: "monterrey",
         name: "MONTERREY",
-        date: new Date("2025-06-01T09:30:00"),
-        venue: "CINTERMEX",
-        address: "Av. Fundidora 501, Obrera, Monterrey, Nuevo León",
+        date: new Date("2025-07-12T09:30:00"),
+        venue: "Próximamente",
+        address: "",
         schedule: "09:30 AM a 06:00 PM",
-        coordinates: { x: 59, y: 45 }
+        coordinates: { x: 59, y: 40 }
+    },
+    {
+        id: "aguascalientes",
+        name: "AGUASCALIENTES",
+        date: new Date("2025-07-05T09:30:00"),
+        venue: "Próximamente",
+        address: "",
+        schedule: "09:30 AM a 06:00 PM",
+        coordinates: { x: 51, y: 52 }
+    },
+    {
+        id: "cuernavaca",
+        name: "CUERNAVACA",
+        date: new Date("2025-05-25T09:30:00"),
+        venue: "Próximamente",
+        address: "",
+        schedule: "09:30 AM a 06:00 PM",
+        coordinates: { x: 61, y: 63 }
     }
 ];

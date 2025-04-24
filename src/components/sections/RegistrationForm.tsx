@@ -30,6 +30,8 @@ const ciudadesOptions = [
     { value: 'Morelia', label: 'Morelia' },
     { value: 'Guadalajara', label: 'Guadalajara' },
     { value: 'Monterrey', label: 'Monterrey' },
+    { value: 'Cuernavaca', label: 'Cuernavaca' },
+    { value: 'Aguascalientes', label: 'Aguascalientes' },
 ];
 
 const cilindradasOptions = [
