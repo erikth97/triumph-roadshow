@@ -1,9 +1,9 @@
 export interface MotorcycleSpec {
-    tipo: string;
-    cilindrada: string;
-    parMaximo: string;
-    cajaCambios: string;
-    consumo: string;
+    peso: string;
+    alturaAsiento: string;
+    motor: string;
+    torque: string;
+    potencia: string;
 }
 
 export interface Motorcycle {
@@ -20,11 +20,11 @@ export const motorcycles: Motorcycle[] = [
         name: "Speed 400",
         image: "/images/motorcycles/Speed 400_MY24_Caspian Blue_RHS_1200px-Climit.webp",
         specs: {
-            tipo: "Monocilíndrico con refrigeración líquida, 4 válvulas y doble árbol de levas en cabeza (DOHC)",
-            cilindrada: "398,15 cc",
-            parMaximo: "37,5 Nm a 6.500 rpm",
-            cajaCambios: "6 velocidades",
-            consumo: "3.5L/100km (80.7 mpg)"
+            peso: "170 kg",
+            alturaAsiento: "790 mm",
+            motor: "398,15 cc",
+            torque: "37,5 Nm a 6.500 rpm",
+            potencia: "40 CV a 8.000 rpm"
         }
     },
     {
@@ -32,119 +32,107 @@ export const motorcycles: Motorcycle[] = [
         name: "Scrambler 400 X",
         image: "/images/motorcycles/Scrambler 400 X_MY24_Matt Khaki Green_RHS_1200px-Climit.webp",
         specs: {
-            tipo: "Monocilíndrico con refrigeración líquida, 4 válvulas y doble árbol de levas en cabeza (DOHC)",
-            cilindrada: "398,15 cc",
-            parMaximo: "37,5 Nm a 6.500 rpm",
-            cajaCambios: "6 velocidades",
-            consumo: "3.5L/100km (80.7 mpg)"
+            peso: "179 kg",
+            alturaAsiento: "835 mm",
+            motor: "398,15 cc",
+            torque: "37,5 Nm a 6.500 rpm",
+            potencia: "40 CV a 8.000 rpm"
         }
     },
     {
         id: 3,
-        name: "Trident 660 2024",
+        name: "Trident 660",
         image: "/images/motorcycles/Trident_MY24_Sapphire Black_RHS_1200px-Climit.webp",
         specs: {
-            tipo: "Triple en línea con refrigeración líquida, 12 válvulas y DOHC",
-            cilindrada: "660 cc",
-            parMaximo: "64 Nm a 6.250 rpm",
-            cajaCambios: "6 velocidades",
-            consumo: "4.5L/100km (62.8 mpg)"
+            peso: "190 kg",
+            alturaAsiento: "805 mm",
+            motor: "660 cc",
+            torque: "64 Nm a 6.250 rpm",
+            potencia: "81 CV a 10.250 rpm"
         }
     },
     {
         id: 4,
-        name: "Trident 660 2025",
-        image: "/images/motorcycles/Trident 660_MY25_Cosmic Yellow_RHS_1200px-Climit.webp",
+        name: "Daytona 660",
+        image: "/images/motorcycles/Daytona 660_MY24_Snowdonia White_RHS_1200px-Climit.webp",
         specs: {
-            tipo: "Triple en línea con refrigeración líquida, 12 válvulas y DOHC",
-            cilindrada: "660 cc",
-            parMaximo: "64 Nm a 6.250 rpm",
-            cajaCambios: "6 velocidades",
-            consumo: "4.5L/100km (62.8 mpg)"
+            peso: "201 kg",
+            alturaAsiento: "810 mm",
+            motor: "660 cc",
+            torque: "69 Nm a 8.250 rpm",
+            potencia: "95 CV a 11.250 rpm"
         }
     },
     {
         id: 5,
-        name: "Daytona 660",
-        image: "/images/motorcycles/Daytona 660_MY24_Snowdonia White_RHS_1200px-Climit.webp",
+        name: "Tiger Sport 660",
+        image: "/images/motorcycles/Tiger Sport_MY24_Snowdonia White-Jet Black_RHS_1200px-Climit.webp",
         specs: {
-            tipo: "Triple en línea con refrigeración líquida, 12 válvulas y DOHC",
-            cilindrada: "660 cc",
-            parMaximo: "69 Nm a 8.250 rpm",
-            cajaCambios: "6 velocidades",
-            consumo: "4.3L/100km (65.7 mpg)"
+            peso: "207 kg",
+            alturaAsiento: "835 mm",
+            motor: "660 cc",
+            torque: "64 Nm a 6.250 rpm",
+            potencia: "81 PS a 10.250 rpm"
         }
     },
     {
         id: 6,
-        name: "Tiger Sport 660",
-        image: "/images/motorcycles/Tiger Sport_MY24_Snowdonia White-Jet Black_RHS_1200px-Climit.webp",
+        name: "Bonneville T120",
+        image: "/images/motorcycles/Bonneville T120_MY24_Jet Black-Fusion White_RHS_1200px-Climit.webp",
         specs: {
-            tipo: "Triple en línea con refrigeración líquida, 12 válvulas y DOHC",
-            cilindrada: "660 cc",
-            parMaximo: "64 Nm a 6.250 rpm",
-            cajaCambios: "6 velocidades",
-            consumo: "4.5L/100km (62.8 mpg)"
+            peso: "236 kg",
+            alturaAsiento: "790 mm",
+            motor: "1200 cc",
+            torque: "105 Nm a 3.500 rpm",
+            potencia: "80 CV a 6550 rpm"
         }
     },
     {
         id: 7,
-        name: "Bonneville T120",
-        image: "/images/motorcycles/Bonneville T120_MY24_Jet Black-Fusion White_RHS_1200px-Climit.webp",
+        name: "Speed Twin 900",
+        image: "/images/motorcycles/Speed Twin 900_MY24_Jet Black_RHS_1200px-Climit.webp",
         specs: {
-            tipo: "Bicilíndrico paralelo con refrigeración líquida, 8 válvulas y SOHC",
-            cilindrada: "1.200 cc",
-            parMaximo: "105 Nm a 3.500 rpm",
-            cajaCambios: "6 velocidades",
-            consumo: "4.7L/100km (60.1 mpg)"
+            peso: "216 kg",
+            alturaAsiento: "780 mm",
+            motor: "900 cc",
+            torque: "80 Nm a 3800 rpm",
+            potencia: "65 CV a 7500 rpm"
         }
     },
     {
         id: 8,
-        name: "Speed Twin 900",
-        image: "/images/motorcycles/Speed Twin 900_MY24_Jet Black_RHS_1200px-Climit.webp",
+        name: "Tiger 900 GT Pro",
+        image: "/images/motorcycles/Tiger 900 GT Pro_MY24_Carnival Red_RHS_1200px-Climit.webp",
         specs: {
-            tipo: "Bicilíndrico paralelo con refrigeración líquida, 8 válvulas y SOHC",
-            cilindrada: "900 cc",
-            parMaximo: "80 Nm a 3.800 rpm",
-            cajaCambios: "5 velocidades",
-            consumo: "4.2L/100km (67.3 mpg)"
+            peso: "198 kg",
+            alturaAsiento: "820-840 mm",
+            motor: "888 cc",
+            torque: "87 Nm a 7.250 rpm",
+            potencia: "95.2 CV a 8.750 rpm"
         }
     },
     {
         id: 9,
-        name: "Rocket 3 Storm GT",
-        image: "/images/motorcycles/Rocket 3 GT_MY24_Carnival Red_RHS_1200px-Climit.webp",
+        name: "Tiger 900 Rally Pro",
+        image: "/images/motorcycles/Tiger 900 Rally Pro_MY24_Ash Grey_RHS_1200px-Climit.webp",
         specs: {
-            tipo: "Tricilíndrico en línea con refrigeración líquida, 12 válvulas y DOHC",
-            cilindrada: "2.458 cc",
-            parMaximo: "221 Nm a 4.000 rpm",
-            cajaCambios: "6 velocidades",
-            consumo: "6.8L/100km (41.5 mpg)"
+            peso: "201 kg",
+            alturaAsiento: "860-880 mm",
+            motor: "888 cc",
+            torque: "87 Nm a 7.250 rpm",
+            potencia: "95.2 CV a 8.750 rpm"
         }
     },
     {
         id: 10,
-        name: "Tiger 900 GT Pro",
-        image: "/images/motorcycles/Tiger 900 GT Pro_MY24_Carnival Red_RHS_1200px-Climit.webp",
+        name: "Rocket 3 Storm GT",
+        image: "/images/motorcycles/Rocket 3 GT_MY24_Carnival Red_RHS_1200px-Climit.webp",
         specs: {
-            tipo: "Tricilíndrico en línea con refrigeración líquida, 12 válvulas y DOHC",
-            cilindrada: "888 cc",
-            parMaximo: "87 Nm a 7.250 rpm",
-            cajaCambios: "6 velocidades",
-            consumo: "5.2L/100km (54.3 mpg)"
-        }
-    },
-    {
-        id: 11,
-        name: "Tiger 900 Rally Pro",
-        image: "/images/motorcycles/Tiger 900 Rally Pro_MY24_Ash Grey_RHS_1200px-Climit.webp",
-        specs: {
-            tipo: "Tricilíndrico en línea con refrigeración líquida, 12 válvulas y DOHC",
-            cilindrada: "888 cc",
-            parMaximo: "87 Nm a 7.250 rpm",
-            cajaCambios: "6 velocidades",
-            consumo: "5.2L/100km (54.3 mpg)"
+            peso: "317 kg",
+            alturaAsiento: "773 mm",
+            motor: "2.458 cc",
+            torque: "225 Nm a 4.000 rpm",
+            potencia: "182 PS a 7.000 rpm"
         }
     }
 ];

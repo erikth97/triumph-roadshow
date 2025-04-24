@@ -10,6 +10,42 @@ const MotorcycleShowcase: React.FC = () => {
 
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
+    // Función para obtener la ruta del logo basada en el nombre del modelo
+    const getLogoPath = (modelName: string) => {
+        // Mapeamos los nombres de los modelos a los nombres exactos de los archivos de logo
+        const logoMap: Record<string, string> = {
+            "Speed 400": "/images/logo_models/SPEED 400 LOGO.webp",
+            "Scrambler 400 X": "/images/logo_models/SCRAMBLER 400 X.webp",
+            "Trident 660 2024": "/images/logo_models/TRIDENT 660.webp",
+            "Trident 660 2025": "/images/logo_models/TRIDENT 660.webp",
+            "Daytona 660": "/images/logo_models/Daytona 660.webp",
+            "Tiger Sport 660": "/images/logo_models/Tiger Sport 660.webp",
+            "Bonneville T120": "/images/logo_models/BONNEVILLE T120.webp",
+            "Speed Twin 900": "/images/logo_models/SpeedTwin900.webp",
+            "Rocket 3 Storm GT": "/images/logo_models/Rocket 3 Sotrm GT.webp",
+            "Tiger 900 GT Pro": "/images/logo_models/Tiger 900 GT PRO.webp",
+            "Tiger 900 Rally Pro": "/images/logo_models/Tiger 900 Rally PRO.webp",
+        };
+
+        // Devolvemos la ruta exacta del logo o una ruta genérica como fallback
+        return logoMap[modelName] || `/src/assets/images/logo_models/default-logo.webp`;
+    };
+
+    // Función para determinar si un modelo necesita un tamaño de logo especial (más grande)
+    const necesitaTamañoEspecial = (modelName: string) => {
+        // Lista de modelos que necesitan un logo más grande
+        const modelosConLogoPequeño = [
+            "Scrambler 400 X",
+            "Speed Twin 900",
+            "Daytona 660",
+            "Bonneville T120",
+            "Rocket 3 Storm GT"
+        ];
+
+        // Verificamos si el modelo actual está en la lista
+        return modelosConLogoPequeño.includes(modelName);
+    };
+
     const selectMotorcycle = (index: number) => {
         if (fadeTransition || index === current) return;
 
@@ -98,12 +134,17 @@ const MotorcycleShowcase: React.FC = () => {
                 {/* Versión móvil - Nueva estructura */}
                 <div className="block lg:hidden">
                     <div className="flex flex-col min-h-[600px]">
-                        {/* Título de la motocicleta arriba en móvil */}
+                        {/* Logo de la motocicleta arriba en móvil (reemplazando el título) */}
                         <div className="w-full text-center mb-4">
                             <div className={`transition-opacity duration-300 ${fadeTransition ? 'opacity-0' : 'opacity-100'}`}>
-                                <h3 className="text-3xl font-bold">
-                                    {motorcycles[current].name.toUpperCase()}
-                                </h3>
+                                {/* Reemplazamos el título de texto con la imagen del logo */}
+                                <div className="flex justify-center items-center h-24">
+                                    <img
+                                        src={getLogoPath(motorcycles[current].name)}
+                                        alt={`Logo de ${motorcycles[current].name}`}
+                                        className={`h-full ${necesitaTamañoEspecial(motorcycles[current].name) ? 'w-72 scale-110' : 'w-64'} object-contain`}
+                                    />
+                                </div>
                             </div>
                         </div>
 
@@ -193,7 +234,7 @@ const MotorcycleShowcase: React.FC = () => {
                                         key={index}
                                         onClick={() => selectMotorcycle(index)}
                                         className={`rounded-full transition-all duration-300 focus:outline-none focus:ring focus:ring-white/30
-                                        h-3 w-3 border border-white/70
+                                        h-3 w-3
                                         ${current === index ? 'bg-white scale-110' : 'bg-gray-600/80 hover:bg-gray-400/80'}
                                       `}
                                         aria-label={`Ver ${motorcycles[index].name}`}
@@ -234,16 +275,20 @@ const MotorcycleShowcase: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Versión desktop - Manteniendo la estructura original exactamente como estaba */}
+                {/* Versión desktop - Actualizando para mostrar logo en vez de texto */}
                 <div className="hidden lg:block">
                     <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-center min-h-[500px] md:min-h-[550px] lg:min-h-[600px]">
                         {/* --- Área de información de la motocicleta (izquierda) --- */}
                         <div className="w-full lg:w-[42%] px-4 order-2 lg:order-1 mt-8 lg:mt-0 lg:px-8 lg:py-4">
                             <div className={`transition-opacity duration-300 ${fadeTransition ? 'opacity-0' : 'opacity-100'}`}>
-                                {/* Título alineado a la izquierda en vez de al centro */}
-                                <h3 className="text-3xl md:text-4xl font-bold mb-8 text-center lg:text-left">
-                                    {motorcycles[current].name.toUpperCase()}
-                                </h3>
+                                {/* Logo reemplazando al título de texto */}
+                                <div className="mb-8 text-center lg:text-center">
+                                    <img
+                                        src={getLogoPath(motorcycles[current].name)}
+                                        alt={`Logo de ${motorcycles[current].name}`}
+                                        className={`h-24 ${necesitaTamañoEspecial(motorcycles[current].name) ? 'w-72 scale-110' : 'w-64'} object-contain mx-auto`}
+                                    />
+                                </div>
 
                                 <div className="space-y-5 md:space-y-7 text-sm md:text-base text-center lg:text-left max-w-md mx-auto lg:mx-0">
                                     <div>
@@ -361,7 +406,7 @@ const MotorcycleShowcase: React.FC = () => {
                                     key={index}
                                     onClick={() => selectMotorcycle(index)}
                                     className={`rounded-full transition-all duration-300 focus:outline-none focus:ring focus:ring-white/30
-                                h-3 w-3 border border-white/70
+                                h-3 w-3
                                 ${current === index ? 'bg-white scale-110' : 'bg-gray-600/80 hover:bg-gray-400/80'}
                               `}
                                     aria-label={`Ver ${motorcycles[index].name}`}
