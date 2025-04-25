@@ -2,7 +2,7 @@ import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { useLegalModals, PrivacyPolicyModal, TermsAndConditionsModal } from "../ui/LegalModals";
 
 const Footer = () => {
-    // Usar el hook para manejar los modales
+    // hook para manejar los modales
     const {
         showPrivacyModal,
         showTermsModal,

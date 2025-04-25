@@ -158,7 +158,7 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(({ logoRef }, ref)
     );
 });
 
-// Añadimos el displayName para cumplir con las buenas prácticas de React
+// displayName para cumplir con las buenas prácticas de React
 HeroSection.displayName = 'HeroSection';
 
 export default HeroSection;

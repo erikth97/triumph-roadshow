@@ -50,7 +50,7 @@ const InfoSection: React.FC = () => {
     }, []);
 
     return (
-        <section className="relative py-12 md:py-20 bg-black text-white overflow-hidden w-full">
+        <section className="relative py-12 md:py-18 bg-black text-white overflow-hidden w-full">
             {/* Título móvil que aparece arriba de la imagen */}
             <div className="block lg:hidden px-6 mb-6 w-full">
                 <motion.h2
