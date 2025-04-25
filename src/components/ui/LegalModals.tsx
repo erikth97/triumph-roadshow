@@ -172,7 +172,7 @@ export const PrivacyPolicyModal: React.FC<ModalProps> = ({ onClose }) => {
     );
 };
 
-// Modal de Términos y Condiciones
+// Modal de Términos y Condiciones (Actualizado)
 export const TermsAndConditionsModal: React.FC<ModalProps> = ({ onClose }) => {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto">
@@ -203,68 +203,65 @@ export const TermsAndConditionsModal: React.FC<ModalProps> = ({ onClose }) => {
 
                 {/* Contenido */}
                 <div className="p-6 text-gray-200">
-                    <h2 className="text-2xl font-bold mb-4">Términos y Condiciones del Demo Road Show</h2>
+                    <h2 className="text-2xl font-bold mb-4">Términos y Condiciones del Evento</h2>
 
                     <div className="space-y-4">
                         <p>
-                            Bienvenido a los Términos y Condiciones del Demo Road Show de Triumph. Al registrarte y participar en este evento, aceptas cumplir con los siguientes términos:
+                            Bienvenido a los Términos y Condiciones del Evento de Triumph. Al registrarte y participar en este evento, aceptas cumplir con los siguientes términos:
                         </p>
 
                         <section>
-                            <h3 className="text-xl font-semibold text-white mt-6 mb-3">1. Requisitos de participación</h3>
-                            <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
-                                <li>Ser mayor de 18 años</li>
-                                <li>Contar con licencia de conducir vigente y apropiada para motocicletas</li>
-                                <li>Utilizar el equipo de protección obligatorio (casco, guantes, chaqueta con protecciones, botas y pantalones adecuados)</li>
-                                <li>No presentarse en estado de ebriedad o bajo influencia de sustancias que afecten la capacidad de manejo</li>
-                            </ul>
-                        </section>
-
-                        <section>
-                            <h3 className="text-xl font-semibold text-white mt-6 mb-3">2. Responsabilidades del participante</h3>
+                            <h3 className="text-xl font-semibold text-white mt-6 mb-3">1. Reconocimiento de riesgos</h3>
                             <p>
-                                Al registrarte para el Demo Road Show, te comprometes a:
-                            </p>
-                            <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
-                                <li>Seguir todas las instrucciones proporcionadas por el personal de Triumph</li>
-                                <li>Conducir de manera responsable y segura durante la prueba</li>
-                                <li>Respetar los límites de velocidad y normas de tránsito</li>
-                                <li>No realizar maniobras peligrosas o acrobacias</li>
-                                <li>Reportar inmediatamente cualquier incidente o fallo mecánico</li>
-                            </ul>
-                        </section>
-
-                        <section>
-                            <h3 className="text-xl font-semibold text-white mt-6 mb-3">3. Limitación de responsabilidad</h3>
-                            <p>
-                                Triumph no se hace responsable por:
-                            </p>
-                            <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
-                                <li>Daños o lesiones causados por negligencia del participante</li>
-                                <li>Pérdida o daño de objetos personales durante el evento</li>
-                                <li>Accidentes derivados del incumplimiento de las normas de seguridad</li>
-                            </ul>
-                            <p className="mt-3">
-                                La participación en el Demo Road Show implica la aceptación de ciertos riesgos inherentes a la conducción de motocicletas. Es responsabilidad del participante evaluar sus propias capacidades y experiencia.
+                                Entiendo que la prueba de manejo de motocicletas implica ciertos riesgos inherentes, como caídas, accidentes de tránsito, lesiones personales y daños a la propiedad, los cuales pueden ocurrir durante la participación en el evento. Asumo plena responsabilidad por los riesgos mencionados y cualquier otro riesgo asociado con la actividad.
                             </p>
                         </section>
 
                         <section>
-                            <h3 className="text-xl font-semibold text-white mt-6 mb-3">4. Cancelación y modificaciones</h3>
+                            <h3 className="text-xl font-semibold text-white mt-6 mb-3">2. Condiciones físicas y habilidades</h3>
                             <p>
-                                Triumph se reserva el derecho de:
+                                Declaro que poseo la capacidad física, la experiencia y las habilidades necesarias para participar en la prueba de manejo. Además, aseguro que no tengo ninguna condición médica que me impida conducir de manera segura o que pueda empeorar debido a la actividad de prueba.
                             </p>
-                            <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
-                                <li>Modificar las fechas, horarios o ubicaciones del evento</li>
-                                <li>Cancelar el evento por condiciones climáticas adversas u otras circunstancias</li>
-                                <li>Negar la participación a personas que no cumplan con los requisitos establecidos</li>
-                            </ul>
                         </section>
 
                         <section>
-                            <h3 className="text-xl font-semibold text-white mt-6 mb-3">5. Uso de imagen</h3>
+                            <h3 className="text-xl font-semibold text-white mt-6 mb-3">3. Uso de equipo de protección</h3>
                             <p>
-                                Al participar en el Demo Road Show, autorizas a Triumph a utilizar fotografías y videos tomados durante el evento con fines promocionales en redes sociales, sitio web y otros medios de comunicación.
+                                Acepto utilizar el equipo de protección adecuado, como casco, guantes, chaleco, botas, entre otros, durante toda la duración de la prueba de manejo.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h3 className="text-xl font-semibold text-white mt-6 mb-3">4. Exoneración de responsabilidad</h3>
+                            <p>
+                                Liberamos de toda responsabilidad y exoneramos a Triumph Motorcycles y a Grupo Motomex, sus filiales, concesionarios, empleados, representantes y patrocinadores, de cualquier reclamo, demanda o acción legal que surja a raíz de accidentes, lesiones o daños sufridos durante el evento de prueba de manejo.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h3 className="text-xl font-semibold text-white mt-6 mb-3">5. Exclusión de reclamaciones por daños</h3>
+                            <p>
+                                Entiendo y acepto que Triumph Motorcycles y Grupo Motomex no serán responsables de ningún daño o pérdida que pueda ocurrir durante la prueba de manejo, ya sea que estos daños sean causados por negligencia o cualquier otro motivo. Acepto que cualquier accidente o daño que se produzca durante la prueba será de mi exclusiva responsabilidad.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h3 className="text-xl font-semibold text-white mt-6 mb-3">6. Permiso para uso de imagen</h3>
+                            <p>
+                                Acepto que durante el evento pueden tomarse fotografías y/o videos en los cuales pueda aparecer, y otorgo mi consentimiento para que dichas imágenes sean utilizadas con fines promocionales, publicitarios y comerciales de Triumph Motorcycles y Grupo Motomex sin derecho a compensación económica.
+                            </p>
+                        </section>
+
+                        <section>
+                            <h3 className="text-xl font-semibold text-white mt-6 mb-3">7. Cumplimiento de normas</h3>
+                            <p>
+                                Me comprometo a seguir todas las normas de seguridad y las instrucciones proporcionadas por los organizadores y responsables del evento durante la prueba de manejo. Asimismo, entiendo que cualquier conducta irresponsable o peligrosa puede resultar en la suspensión inmediata de mi participación en el evento.
+                            </p>
+                        </section>
+
+                        <section className="mt-8">
+                            <p className="italic">
+                                Al firmar esta carta, confirmo que he leído, comprendido y aceptado todos los términos y condiciones descritos anteriormente. Acepto participar voluntariamente en la prueba de manejo y asumo todos los riesgos asociados con la actividad.
                             </p>
                         </section>
                     </div>

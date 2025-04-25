@@ -42,7 +42,7 @@ export const motorcycles: Motorcycle[] = [
     {
         id: 3,
         name: "Trident 660",
-        image: "/images/motorcycles/Trident_MY24_Sapphire Black_RHS_1200px-Climit.webp",
+        image: "/images/motorcycles/Trident 660_MY25_Cosmic Yellow_RHS_1200px-Climit.webp",
         specs: {
             peso: "190 kg",
             alturaAsiento: "805 mm",
