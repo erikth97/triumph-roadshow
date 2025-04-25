@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { experienceGalleryImages } from '../../lib/constants/galleryData';
 import { preloadImageBatch } from '../../lib/utils/imageUtils';
 import { GalleryImage } from '../../lib/constants/galleryData';
@@ -7,28 +7,60 @@ const TriumphExperienceGallery: React.FC = () => {
     const [isVideoOpen, setIsVideoOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
     const [showAllImages, setShowAllImages] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     // YouTube video ID
     const youtubeVideoId = '2LyKT-TtBhI';
-    const youtubeThumbnail = `https://img.youtube.com/vi/${youtubeVideoId}/maxresdefault.jpg`;
+    // Imagen personalizada para la portada del video
+    const customVideoThumbnail = "/images/triumph-experience-video-cover.webp";
+
+    // Check if device is mobile
+    useEffect(() => {
+        const checkIfMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        checkIfMobile();
+        window.addEventListener('resize', checkIfMobile);
+
+        return () => window.removeEventListener('resize', checkIfMobile);
+    }, []);
 
     const initialImages = experienceGalleryImages.slice(0, 6);
     const imagesToShow = showAllImages ? experienceGalleryImages : initialImages;
 
     const handleVideoToggle = () => {
         setIsVideoOpen(!isVideoOpen);
+
+        // When closing the video, ensure the iframe is removed from DOM
+        if (isVideoOpen) {
+            document.body.style.overflow = 'auto';
+        } else {
+            document.body.style.overflow = 'hidden';
+        }
     };
 
     const handleImageClick = (image: GalleryImage) => {
         setSelectedImage(image);
+        document.body.style.overflow = 'hidden';
     };
 
     const handleCloseImage = () => {
         setSelectedImage(null);
+        document.body.style.overflow = 'auto';
     };
 
     const handleShowAllImages = () => {
+        // Start loading animation before images are loaded
         const remainingImageUrls = experienceGalleryImages.slice(6).map(img => img.src);
+
+        // Show loading state
+        const button = document.getElementById('load-more-button');
+        if (button) {
+            button.innerHTML = '<span class="flex items-center">Cargando...</span>';
+            button.classList.add('opacity-70');
+        }
+
         preloadImageBatch(remainingImageUrls, 3).then(() => {
             setShowAllImages(true);
         });
@@ -51,6 +83,24 @@ const TriumphExperienceGallery: React.FC = () => {
         setSelectedImage(experienceGalleryImages[newIndex]);
     }, [selectedImage]);
 
+    // Handle keyboard navigation
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (!selectedImage) return;
+
+            if (e.key === 'ArrowRight') {
+                navigateImage('next');
+            } else if (e.key === 'ArrowLeft') {
+                navigateImage('prev');
+            } else if (e.key === 'Escape') {
+                handleCloseImage();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [selectedImage, navigateImage]);
+
     return (
         <section className="w-full bg-black text-white py-12">
             {/* Video component */}
@@ -63,6 +113,9 @@ const TriumphExperienceGallery: React.FC = () => {
                     <div
                         className="absolute inset-0 flex items-center justify-center z-10 bg-opacity-40 group-hover:bg-opacity-20 transition-all"
                         onClick={handleVideoToggle}
+                        role="button"
+                        aria-label="Reproducir video"
+                        tabIndex={0}
                     >
                         <div className="w-20 h-20 rounded-full bg-white bg-opacity-80 flex items-center justify-center transition-transform duration-300 group-hover:scale-125">
                             <div className="border-t-8 border-b-8 border-l-[16px] border-t-transparent border-b-transparent border-l-black ml-2"></div>
@@ -71,8 +124,9 @@ const TriumphExperienceGallery: React.FC = () => {
 
                     <img
                         className="w-full h-full object-cover"
-                        src={youtubeThumbnail}
-                        alt="Experiencia Triumph video thumbnail"
+                        src={customVideoThumbnail}
+                        alt="Experiencia Triumph video cover"
+                        loading="lazy"
                     />
                 </div>
             </div>
@@ -96,6 +150,7 @@ const TriumphExperienceGallery: React.FC = () => {
                         <button
                             className="absolute top-4 right-4 text-white text-2xl bg-black bg-opacity-50 w-10 h-10 rounded-full flex items-center justify-center"
                             onClick={handleVideoToggle}
+                            aria-label="Cerrar video"
                         >
                             &times;
                         </button>
@@ -116,6 +171,9 @@ const TriumphExperienceGallery: React.FC = () => {
                                 aspectRatio: "16/9"
                             }}
                             onClick={() => handleImageClick(image)}
+                            role="button"
+                            aria-label={`Ver imagen: ${image.alt}`}
+                            tabIndex={0}
                         >
                             <img
                                 src={image.src}
@@ -140,8 +198,10 @@ const TriumphExperienceGallery: React.FC = () => {
                         />
                         <div className="absolute inset-x-0 bottom-0 pt-8 flex justify-center items-center">
                             <button
+                                id="load-more-button"
                                 className="px-8 py-3 rounded-full border-2 border-white text-white hover:bg-white hover:text-black transition-all duration-300 hover:scale-110"
                                 onClick={handleShowAllImages}
+                                aria-label="Ver más imágenes"
                             >
                                 <span className="flex items-center">
                                     Ver más
@@ -155,25 +215,17 @@ const TriumphExperienceGallery: React.FC = () => {
                 )}
             </div>
 
-            {/* Image modal with navigation */}
+            {/* Image modal with navigation - Optimized for mobile */}
             {selectedImage && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center">
+                <div className="fixed inset-0 z-50 flex flex-col items-center justify-center">
                     <div
                         className="absolute inset-0 bg-gradient-to-b from-transparent via-black to-black opacity-85 backdrop-blur-[8px]"
                         onClick={handleCloseImage}
                     />
-                    <div className="relative z-10 w-auto max-w-[95vw] max-h-[85vh] flex items-center justify-center">
-                        {/* Previous button */}
-                        <button
-                            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 md:-translate-x-16 text-white text-4xl hover:text-gray-300 w-12 h-12 rounded-full flex items-center justify-center transition-colors"
-                            onClick={() => navigateImage('prev')}
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </button>
 
-                        {/* Image container with close button */}
+                    {/* Image container with improved mobile navigation */}
+                    <div className="relative z-10 w-auto max-w-[95vw] max-h-[85vh] flex items-center justify-center">
+                        {/* Image with close button */}
                         <div className="relative">
                             <img
                                 src={selectedImage.src}
@@ -181,24 +233,73 @@ const TriumphExperienceGallery: React.FC = () => {
                                 className="max-w-full max-h-[85vh] object-contain"
                             />
 
-                            {/* Close button repositioned to top-right corner of the image */}
+                            {/* Close button repositioned to top-right corner */}
                             <button
-                                className="absolute top-2 right-2 text-white text-2xl hover:text-gray-300 w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+                                className="absolute top-2 right-2 text-white text-2xl bg-black bg-opacity-50 hover:bg-opacity-70 w-10 h-10 rounded-full flex items-center justify-center transition-colors"
                                 onClick={handleCloseImage}
+                                aria-label="Cerrar imagen"
                             >
                                 &times;
                             </button>
                         </div>
 
-                        {/* Next button */}
-                        <button
-                            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 md:translate-x-16 text-white text-4xl hover:text-gray-300 w-12 h-12 rounded-full flex items-center justify-center transition-colors"
-                            onClick={() => navigateImage('next')}
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
+                        {/* Desktop navigation buttons */}
+                        {!isMobile && (
+                            <>
+                                {/* Previous button */}
+                                <button
+                                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 md:-translate-x-16 text-white text-4xl hover:text-gray-300 w-12 h-12 rounded-full flex items-center justify-center transition-colors bg-black bg-opacity-50 hover:bg-opacity-70"
+                                    onClick={() => navigateImage('prev')}
+                                    aria-label="Imagen anterior"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
+
+                                {/* Next button */}
+                                <button
+                                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 md:translate-x-16 text-white text-4xl hover:text-gray-300 w-12 h-12 rounded-full flex items-center justify-center transition-colors bg-black bg-opacity-50 hover:bg-opacity-70"
+                                    onClick={() => navigateImage('next')}
+                                    aria-label="Siguiente imagen"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </>
+                        )}
+                    </div>
+
+                    {/* Mobile navigation buttons positioned at bottom of screen */}
+                    {isMobile && (
+                        <div className="fixed bottom-8 left-0 right-0 z-20 flex justify-center space-x-8">
+                            <button
+                                className="text-white text-4xl w-16 h-16 rounded-full flex items-center justify-center bg-black bg-opacity-70 hover:bg-opacity-90 border border-white/30"
+                                onClick={() => navigateImage('prev')}
+                                aria-label="Imagen anterior"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                </svg>
+                            </button>
+                            <button
+                                className="text-white text-4xl w-16 h-16 rounded-full flex items-center justify-center bg-black bg-opacity-70 hover:bg-opacity-90 border border-white/30"
+                                onClick={() => navigateImage('next')}
+                                aria-label="Siguiente imagen"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </div>
+                    )}
+
+                    {/* Image counter */}
+                    <div className="fixed bottom-2 left-0 right-0 z-20 flex justify-center">
+                        <div className="px-4 py-1 bg-black bg-opacity-70 rounded-full text-white text-sm">
+                            {experienceGalleryImages.findIndex(img => img.id === selectedImage.id) + 1} / {experienceGalleryImages.length}
+                        </div>
                     </div>
                 </div>
             )}
@@ -206,4 +307,4 @@ const TriumphExperienceGallery: React.FC = () => {
     );
 };
 
-export default TriumphExperienceGallery;
+export default React.memo(TriumphExperienceGallery);

@@ -1,4 +1,4 @@
-import { forwardRef, MutableRefObject } from 'react';
+import { forwardRef, RefObject } from 'react';
 import ScrollProgressBar from '@/components/ui/ScrollProgressBar';
 import CitiesSection from '@/components/sections/CitiesSection';
 import EventFeaturesCarousel from '@/components/sections/EventFeaturesCarousel';
@@ -14,14 +14,14 @@ import Footer from '@/components/layout/Footer';
 import RegistrationReminder from '@/components/sections/RegistrationReminder';
 
 interface HomePageProps {
-    logoRef?: MutableRefObject<HTMLDivElement | null>;
+    logoRef?: RefObject<HTMLDivElement | null>;
 }
 
-const HomePage = forwardRef<HTMLElement, HomePageProps>(({ logoRef }, ref) => {
+const HomePage = forwardRef<HTMLElement, HomePageProps>(({ logoRef }) => {
     return (
         <>
             <ScrollProgressBar />
-            <HeroSection logoRef={logoRef} />
+            <HeroSection logoRef={logoRef as RefObject<HTMLDivElement>} />
             <InfoSection />
             <CitiesSection />
             <EventFeaturesCarousel />

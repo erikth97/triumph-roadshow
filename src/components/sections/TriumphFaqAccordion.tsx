@@ -13,7 +13,7 @@ export default function TriumphFaqAccordion() {
         },
         {
             question: "¿Qué necesito llevar?",
-            answer: "Es importante que traigas tu equipo completo de protección: casco, guantes, chaqueta con protecciones, botas y pantalones adecuados para la conducción. Además, no olvides tu identificación oficial y licencia de conducir vigente. Si el clima es caluroso, te recomendamos traer agua para mantenerte hidratado."
+            answer: "Es importante que traigas tu equipo completo de protección: casco, guantes, chaqueta con protecciones, botas y pantalones adecuados para la conducción. Además, no olvides tu identificación oficial. Si el clima es caluroso, te recomendamos traer agua para mantenerte hidratado."
         },
         {
             question: "¿Qué incluye la experiencia?",
@@ -25,7 +25,7 @@ export default function TriumphFaqAccordion() {
         },
         {
             question: "¿Puedo llevar acompañantes?",
-            answer: "¡Por supuesto! Puedes traer acompañantes al evento, aunque solo las personas registradas con licencia válida podrán participar en las pruebas de manejo. En el formulario de registro puedes indicar con cuántas personas vendrás acompañado para que podamos preparar mejor el evento."
+            answer: "¡Por supuesto! Puedes traer acompañantes al evento, aunque solo las personas registradas con licencia válida podrán participar en las pruebas de manejo."
         }
     ];
 

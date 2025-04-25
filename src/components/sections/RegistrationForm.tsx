@@ -51,6 +51,8 @@ const RegistrationForm: React.FC = () => {
         }
     });
 
+    const [showTermsModal, setShowTermsModal] = useState(false);
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
 
@@ -60,16 +62,20 @@ const RegistrationForm: React.FC = () => {
 
     const onSubmit: SubmitHandler<FormInputs> = async (data) => {
         setIsSubmitting(true);
-
         try {
-            // Aquí enviarías los datos a tu backend
-            console.log('Datos del formulario:', data);
-
-            // Simular envío
-            await new Promise(resolve => setTimeout(resolve, 1500));
-
+            await fetch('https://hook.us2.make.com/3on83gxcig6s4pdea4dojp4glhb4r76o', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
             // Mostrar modal de éxito
             setShowSuccessModal(true);
+
+            // Aquí puedes manejar la respuesta del servidor si es necesario
+            console.log('Formulario enviado con éxito:', data
+            )
 
             // Lanzar el confetti después de que el modal aparezca
             setTimeout(() => {
@@ -77,10 +83,9 @@ const RegistrationForm: React.FC = () => {
                     particleCount: 150,
                     spread: 70,
                     origin: { y: 0.6 },
-                    colors: ['#FF0000', '#FFFFFF', '#000000'] // Colores de Triumph
+                    colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8800', '#8800ff']
                 });
             }, 300);
-
             // Resetear formulario
             reset();
         } catch (error) {
@@ -92,7 +97,6 @@ const RegistrationForm: React.FC = () => {
 
     return (
         <section id="registro" className="py-16 relative bg-black">
-
             <div className="container mx-auto px-4 relative z-10">
                 <h2 className="text-4xl font-bold text-center mb-12 text-white">¡Regístrate al Demo Road Show!</h2>
 
@@ -106,13 +110,13 @@ const RegistrationForm: React.FC = () => {
                 >
                     <form onSubmit={handleSubmit(onSubmit)} className="text-white relative z-10">
                         {/* Nombre Completo */}
-                        <div className="mb-6">
+                        <div className="mb-8">
                             <div className="relative">
                                 <input
                                     id="nombreCompleto"
                                     type="text"
                                     placeholder="Nombre Completo"
-                                    className={`peer relative h-10 w-full border-b border-white px-4 text-sm text-white placeholder-transparent outline-none transition-all autofill:bg-transparent ${errors.nombreCompleto ? 'border-red-500' : 'focus:border-gray-400'}`}
+                                    className={`peer relative h-10 w-full border-b border-white px-4 text-sm text-white placeholder-transparent outline-none transition-all bg-transparent autofill:bg-transparent autofill:shadow-[inset_0_0_0_1000px_transparent] ${errors.nombreCompleto ? 'border-red-500' : 'focus:border-gray-400'}`}
                                     {...register('nombreCompleto', { required: true })}
                                 />
                                 <label
@@ -126,14 +130,14 @@ const RegistrationForm: React.FC = () => {
                         </div>
 
                         {/* Fila: Edad y Teléfono */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                             {/* Edad */}
                             <div className="relative">
                                 <input
                                     id="edad"
                                     type="number"
                                     placeholder="Edad"
-                                    className={`peer relative h-10 w-full border-b border-white px-4 text-sm text-white placeholder-transparent outline-none transition-all autofill:bg-transparent ${errors.edad ? 'border-red-500' : 'focus:border-gray-400'}`}
+                                    className={`peer relative h-10 w-full border-b border-white px-4 text-sm text-white placeholder-transparent outline-none transition-all bg-transparent autofill:bg-transparent autofill:shadow-[inset_0_0_0_1000px_transparent] ${errors.edad ? 'border-red-500' : 'focus:border-gray-400'}`}
                                     {...register('edad', { required: true, min: 18, max: 99 })}
                                 />
                                 <label
@@ -151,7 +155,7 @@ const RegistrationForm: React.FC = () => {
                                     id="telefono"
                                     type="tel"
                                     placeholder="Teléfono"
-                                    className={`peer relative h-10 w-full border-b border-white px-4 text-sm text-white placeholder-transparent outline-none transition-all autofill:bg-transparent ${errors.telefono ? 'border-red-500' : 'focus:border-gray-400'}`}
+                                    className={`peer relative h-10 w-full border-b border-white px-4 text-sm text-white placeholder-transparent outline-none transition-all bg-transparent autofill:bg-transparent autofill:shadow-[inset_0_0_0_1000px_transparent] ${errors.telefono ? 'border-red-500' : 'focus:border-gray-400'}`}
                                     {...register('telefono', {
                                         required: true,
                                         pattern: /^[0-9]{10}$/
@@ -168,13 +172,13 @@ const RegistrationForm: React.FC = () => {
                         </div>
 
                         {/* Correo electrónico */}
-                        <div className="mb7 mt-6">
+                        <div className="mb-8 mt-6">
                             <div className="relative">
                                 <input
                                     id="correoElectronico"
                                     type="email"
                                     placeholder="Correo Electrónico"
-                                    className={`peer relative h-10 w-full border-b border-white px-4 text-sm text-white placeholder-transparent outline-none transition-all autofill:bg-transparent ${errors.correoElectronico ? 'border-red-500' : 'focus:border-gray-400'}`}
+                                    className={`peer relative h-10 w-full border-b border-white px-4 text-sm text-white placeholder-transparent outline-none transition-all bg-transparent autofill:bg-transparent autofill:shadow-[inset_0_0_0_1000px_transparent] ${errors.correoElectronico ? 'border-red-500' : 'focus:border-gray-400'}`}
                                     {...register('correoElectronico', {
                                         required: true,
                                         pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
@@ -191,7 +195,7 @@ const RegistrationForm: React.FC = () => {
                         </div>
 
                         {/* ¿Tienes motocicleta propia? */}
-                        <div className="mb-6">
+                        <div className="mb-8">
                             <p className="mb-3">¿Tienes motocicleta propia?</p>
                             <div className="flex gap-8">
                                 <div className="relative flex items-center">
@@ -226,13 +230,13 @@ const RegistrationForm: React.FC = () => {
 
                         {/* Marca y modelo - Condicional */}
                         {tieneMotocicleta === 'si' && (
-                            <div className="mb-6">
+                            <div className="mb-8">
                                 <div className="relative">
                                     <input
                                         id="marcaModelo"
                                         type="text"
                                         placeholder="Marca y modelo"
-                                        className="peer relative h-10 w-full border-b border-white px-4 text-sm text-white placeholder-transparent outline-none transition-all autofill:bg-transparent focus:border-gray-400"
+                                        className="peer relative h-10 w-full border-b border-white px-4 text-sm text-white placeholder-transparent outline-none transition-all bg-transparent autofill:bg-transparent autofill:shadow-[inset_0_0_0_1000px_transparent] focus:border-gray-400"
                                         {...register('marcaModelo')}
                                     />
                                     <label
@@ -580,7 +584,7 @@ const RegistrationForm: React.FC = () => {
                                             id="otroMedio"
                                             type="text"
                                             placeholder="Especificar"
-                                            className="peer relative h-10 w-full border-b border-white px-4 text-sm text-white placeholder-transparent outline-none transition-all autofill:bg-transparent focus:border-gray-400"
+                                            className="peer relative h-10 w-full border-b border-white px-4 text-sm text-white placeholder-transparent outline-none transition-all bg-transparent autofill:bg-transparent autofill:shadow-[inset_0_0_0_1000px_transparent] focus:border-gray-400"
                                             {...register('otroMedio')}
                                         />
                                         <label
@@ -636,7 +640,7 @@ const RegistrationForm: React.FC = () => {
                             <div className="space-y-3">
                                 <div className="relative flex items-center">
                                     <input
-                                        className="peer h-4 w-4 cursor-pointer appearance-none rounded border-2 border-white bg-transparent transition-colors checked:border-gray-400 checked:bg-gray-400"
+                                        className="peer h-5 w-5 md:h-4 md:w-4 cursor-pointer appearance-none rounded border-2 border-white bg-transparent transition-colors checked:border-gray-400 checked:bg-gray-400"
                                         type="checkbox"
                                         id="terminos"
                                         {...register('aceptaTerminos', { required: true })}
@@ -645,10 +649,13 @@ const RegistrationForm: React.FC = () => {
                                         className="cursor-pointer pl-2"
                                         htmlFor="terminos"
                                     >
-                                        Acepto los términos y condiciones del evento.
+                                        Acepto los <span
+                                            className="text-white underline hover:text-gray-300 cursor-pointer"
+                                            onClick={() => setShowTermsModal(true)}
+                                        >términos y condiciones</span> del evento.
                                     </label>
                                     <svg
-                                        className="pointer-events-none absolute left-0 h-4 w-4 -rotate-90 fill-white stroke-white opacity-0 transition-all duration-300 peer-checked:rotate-0 peer-checked:opacity-100"
+                                        className="pointer-events-none absolute left-0 h-5 w-5 md:h-4 md:w-4 -rotate-90 fill-white stroke-white opacity-0 transition-all duration-300 peer-checked:rotate-0 peer-checked:opacity-100"
                                         viewBox="0 0 16 16"
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -664,7 +671,7 @@ const RegistrationForm: React.FC = () => {
 
                                 <div className="relative flex items-center">
                                     <input
-                                        className="peer h-4 w-4 cursor-pointer appearance-none rounded border-2 border-white bg-transparent transition-colors checked:border-gray-400 checked:bg-gray-400"
+                                        className="peer h-5 w-5 md:h-4 md:w-4 cursor-pointer appearance-none rounded border-2 border-white bg-transparent transition-colors checked:border-gray-400 checked:bg-gray-400"
                                         type="checkbox"
                                         id="comunicaciones"
                                         {...register('aceptaComunicaciones')}
@@ -673,10 +680,10 @@ const RegistrationForm: React.FC = () => {
                                         className="cursor-pointer pl-2"
                                         htmlFor="comunicaciones"
                                     >
-                                        Acepto recibir comunicaciones sobre el evento, promociones y futuras oportunidades.
+                                        Acepto recibir promociones y futuras oportunidades.
                                     </label>
                                     <svg
-                                        className="pointer-events-none absolute left-0 h-4 w-4 -rotate-90 fill-white stroke-white opacity-0 transition-all duration-300 peer-checked:rotate-0 peer-checked:opacity-100"
+                                        className="pointer-events-none absolute left-0 h-5 w-5 md:h-4 md:w-4 -rotate-90 fill-white stroke-white opacity-0 transition-all duration-300 peer-checked:rotate-0 peer-checked:opacity-100"
                                         viewBox="0 0 16 16"
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -690,6 +697,9 @@ const RegistrationForm: React.FC = () => {
                                 </div>
                             </div>
                         </div>
+                        <p className="text-sm text-gray-400 italic mb-4">
+                            * Solo se permite un registro por persona.
+                        </p>
                     </form>
                 </div>
 
@@ -706,18 +716,26 @@ const RegistrationForm: React.FC = () => {
                 </div>
             </div>
 
-            {/* Modal de éxito */}
+            {/* Modal de éxito - Rediseñado */}
             {showSuccessModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center">
-                    <div className="absolute inset-0 bg-black bg-opacity-75" onClick={() => setShowSuccessModal(false)}></div>
-                    <div className="relative bg-black border border-white rounded-lg p-8 max-w-md w-full text-center">
-                        <svg className="mx-auto h-16 w-16 text-green-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        <h3 className="text-2xl font-bold mb-4">¡Registro Exitoso!</h3>
-                        <p className="mb-6">Gracias por registrarte al Demo Road Show de Triumph. Te contactaremos pronto con más detalles sobre el evento.</p>
+                    <div
+                        className="absolute inset-0 bg-black/70 backdrop-blur-sm transition-all"
+                        onClick={() => setShowSuccessModal(false)}
+                    ></div>
+                    <div className="relative bg-gray-900 border border-gray-700 rounded-xl p-8 max-w-md w-full text-center shadow-2xl transform transition-all">
+                        <div className="mb-6 flex justify-center">
+                            <div className="relative flex items-center justify-center h-24 w-24 rounded-full bg-gradient-to-br from-green-400 to-green-600 text-white">
+                                <svg className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span className="absolute w-full h-full rounded-full bg-green-400 opacity-50 animate-ping"></span>
+                            </div>
+                        </div>
+                        <h3 className="text-3xl font-bold mb-4 text-white">¡Registro Exitoso!</h3>
+                        <p className="mb-8 text-gray-200">Gracias por registrarte al Demo Road Show de Triumph. Te contactaremos pronto con más detalles sobre el evento.</p>
                         <button
-                            className="px-6 py-2 bg-transparent border-2 border-white text-white rounded-sm hover:bg-white hover:text-black transition-colors duration-300"
+                            className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-red-500 to-red-700 text-white rounded-lg font-medium transition-all shadow-lg hover:shadow-red-500/20 hover:scale-105"
                             onClick={() => setShowSuccessModal(false)}
                         >
                             Cerrar
@@ -725,6 +743,113 @@ const RegistrationForm: React.FC = () => {
                     </div>
                 </div>
             )}
+
+            {showTermsModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto">
+                    {/* Backdrop con blur */}
+                    <div
+                        className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+                        onClick={() => setShowTermsModal(false)}
+                    ></div>
+
+                    {/* Contenido del modal */}
+                    <div className="relative bg-gray-900 border border-gray-700 rounded-lg shadow-xl max-w-2xl w-full mx-4 my-8 max-h-[90vh] overflow-y-auto">
+                        {/* Header con logo */}
+                        <div className="bg-gray-800 flex justify-between items-center p-4 border-b border-gray-700 sticky top-0">
+                            <img
+                                src="/images/triumph-logo.png"
+                                alt="Triumph Logo"
+                                className="h-8"
+                            />
+                            <button
+                                onClick={() => setShowTermsModal(false)}
+                                className="p-1 rounded-full hover:bg-gray-700 transition-colors"
+                            >
+                                <svg className="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        {/* Contenido */}
+                        <div className="p-6 text-gray-200">
+                            <h2 className="text-2xl font-bold mb-4">Términos y Condiciones del Evento</h2>
+
+                            <div className="space-y-4">
+                                <p>
+                                    Bienvenido a los Términos y Condiciones del Evento de Triumph. Al registrarte y participar en este evento, aceptas cumplir con los siguientes términos:
+                                </p>
+
+                                <section>
+                                    <h3 className="text-xl font-semibold text-white mt-6 mb-3">1. Reconocimiento de riesgos</h3>
+                                    <p>
+                                        Entiendo que la prueba de manejo de motocicletas implica ciertos riesgos inherentes, como caídas, accidentes de tránsito, lesiones personales y daños a la propiedad, los cuales pueden ocurrir durante la participación en el evento. Asumo plena responsabilidad por los riesgos mencionados y cualquier otro riesgo asociado con la actividad.
+                                    </p>
+                                </section>
+
+                                <section>
+                                    <h3 className="text-xl font-semibold text-white mt-6 mb-3">2. Condiciones físicas y habilidades</h3>
+                                    <p>
+                                        Declaro que poseo la capacidad física, la experiencia y las habilidades necesarias para participar en la prueba de manejo. Además, aseguro que no tengo ninguna condición médica que me impida conducir de manera segura o que pueda empeorar debido a la actividad de prueba.
+                                    </p>
+                                </section>
+
+                                <section>
+                                    <h3 className="text-xl font-semibold text-white mt-6 mb-3">3. Uso de equipo de protección</h3>
+                                    <p>
+                                        Acepto utilizar el equipo de protección adecuado, como casco, guantes, chaleco, botas, entre otros, durante toda la duración de la prueba de manejo.
+                                    </p>
+                                </section>
+
+                                <section>
+                                    <h3 className="text-xl font-semibold text-white mt-6 mb-3">4. Exoneración de responsabilidad</h3>
+                                    <p>
+                                        Liberamos de toda responsabilidad y exoneramos a Triumph Motorcycles y a Grupo Motomex, sus filiales, concesionarios, empleados, representantes y patrocinadores, de cualquier reclamo, demanda o acción legal que surja a raíz de accidentes, lesiones o daños sufridos durante el evento de prueba de manejo.
+                                    </p>
+                                </section>
+
+                                <section>
+                                    <h3 className="text-xl font-semibold text-white mt-6 mb-3">5. Exclusión de reclamaciones por daños</h3>
+                                    <p>
+                                        Entiendo y acepto que Triumph Motorcycles y Grupo Motomex no serán responsables de ningún daño o pérdida que pueda ocurrir durante la prueba de manejo, ya sea que estos daños sean causados por negligencia o cualquier otro motivo. Acepto que cualquier accidente o daño que se produzca durante la prueba será de mi exclusiva responsabilidad.
+                                    </p>
+                                </section>
+
+                                <section>
+                                    <h3 className="text-xl font-semibold text-white mt-6 mb-3">6. Permiso para uso de imagen</h3>
+                                    <p>
+                                        Acepto que durante el evento pueden tomarse fotografías y/o videos en los cuales pueda aparecer, y otorgo mi consentimiento para que dichas imágenes sean utilizadas con fines promocionales, publicitarios y comerciales de Triumph Motorcycles y Grupo Motomex sin derecho a compensación económica.
+                                    </p>
+                                </section>
+
+                                <section>
+                                    <h3 className="text-xl font-semibold text-white mt-6 mb-3">7. Cumplimiento de normas</h3>
+                                    <p>
+                                        Me comprometo a seguir todas las normas de seguridad y las instrucciones proporcionadas por los organizadores y responsables del evento durante la prueba de manejo. Asimismo, entiendo que cualquier conducta irresponsable o peligrosa puede resultar en la suspensión inmediata de mi participación en el evento.
+                                    </p>
+                                </section>
+
+                                <section className="mt-8">
+                                    <p className="italic">
+                                        Al firmar esta carta, confirmo que he leído, comprendido y aceptado todos los términos y condiciones descritos anteriormente. Acepto participar voluntariamente en la prueba de manejo y asumo todos los riesgos asociados con la actividad.
+                                    </p>
+                                </section>
+                            </div>
+                        </div>
+
+                        {/* Footer con botón de cerrar */}
+                        <div className="bg-gray-800 border-t border-gray-700 p-4 sticky bottom-0">
+                            <button
+                                onClick={() => setShowTermsModal(false)}
+                                className="w-full py-2 bg-gray-700 hover:bg-gray-600 text-white rounded transition-colors"
+                            >
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
         </section>
     );
 };

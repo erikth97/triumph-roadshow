@@ -16,8 +16,7 @@ const MotorcycleShowcase: React.FC = () => {
         const logoMap: Record<string, string> = {
             "Speed 400": "/images/logo_models/SPEED 400 LOGO.webp",
             "Scrambler 400 X": "/images/logo_models/SCRAMBLER 400 X.webp",
-            "Trident 660 2024": "/images/logo_models/TRIDENT 660.webp",
-            "Trident 660 2025": "/images/logo_models/TRIDENT 660.webp",
+            "Trident 660": "/images/logo_models/TRIDENT 660.webp",
             "Daytona 660": "/images/logo_models/Daytona 660.webp",
             "Tiger Sport 660": "/images/logo_models/Tiger Sport 660.webp",
             "Bonneville T120": "/images/logo_models/BONNEVILLE T120.webp",
@@ -28,7 +27,7 @@ const MotorcycleShowcase: React.FC = () => {
         };
 
         // Devolvemos la ruta exacta del logo o una ruta genérica como fallback
-        return logoMap[modelName] || `/src/assets/images/logo_models/default-logo.webp`;
+        return logoMap[modelName] || `/images/logo_models/default-logo.webp`;
     };
 
     // Función para determinar si un modelo necesita un tamaño de logo especial (más grande)
@@ -248,26 +247,26 @@ const MotorcycleShowcase: React.FC = () => {
                             <div className={`transition-opacity duration-300 ${fadeTransition ? 'opacity-0' : 'opacity-100'}`}>
                                 <div className="space-y-4 text-sm max-w-md mx-auto">
                                     <div>
-                                        <p className="font-bold text-white">Tipo:</p>
-                                        <p className="text-gray-300">{motorcycles[current].specs.tipo}</p>
+                                        <p className="font-bold text-white">Peso:</p>
+                                        <p className="text-gray-300">{motorcycles[current].specs.peso}</p>
+                                    </div>
+                                    <div>
+                                        <p className="font-bold text-white">Altura del asiento:</p>
+                                        <p className="text-gray-300">{motorcycles[current].specs.alturaAsiento}</p>
                                     </div>
                                     <div className="flex flex-col items-center space-y-2">
                                         <div>
-                                            <span className="font-bold text-white">Cilindrada:</span>
-                                            <span className="text-gray-300 ml-2">{motorcycles[current].specs.cilindrada}</span>
+                                            <span className="font-bold text-white">Motor:</span>
+                                            <span className="text-gray-300 ml-2">{motorcycles[current].specs.motor}</span>
                                         </div>
                                         <div>
-                                            <span className="font-bold text-white">Par máximo CE:</span>
-                                            <span className="text-gray-300 ml-2">{motorcycles[current].specs.parMaximo}</span>
+                                            <span className="font-bold text-white">Torque:</span>
+                                            <span className="text-gray-300 ml-2">{motorcycles[current].specs.torque}</span>
                                         </div>
                                     </div>
                                     <div>
-                                        <span className="font-bold text-white">Caja de cambios:</span>
-                                        <span className="text-gray-300 ml-2">{motorcycles[current].specs.cajaCambios}</span>
-                                    </div>
-                                    <div>
-                                        <span className="font-bold text-white">Consumo de combustible:</span>
-                                        <span className="text-gray-300 ml-2">{motorcycles[current].specs.consumo}</span>
+                                        <span className="font-bold text-white">Potencia:</span>
+                                        <span className="text-gray-300 ml-2">{motorcycles[current].specs.potencia}</span>
                                     </div>
                                 </div>
                             </div>
@@ -292,26 +291,26 @@ const MotorcycleShowcase: React.FC = () => {
 
                                 <div className="space-y-5 md:space-y-7 text-sm md:text-base text-center lg:text-left max-w-md mx-auto lg:mx-0">
                                     <div>
-                                        <p className="font-bold text-white">Tipo:</p>
-                                        <p className="text-gray-300">{motorcycles[current].specs.tipo}</p>
+                                        <p className="font-bold text-white">Peso:</p>
+                                        <p className="text-gray-300">{motorcycles[current].specs.peso}</p>
+                                    </div>
+                                    <div>
+                                        <p className="font-bold text-white">Altura del asiento:</p>
+                                        <p className="text-gray-300">{motorcycles[current].specs.alturaAsiento}</p>
                                     </div>
                                     <div className="flex flex-col md:flex-row md:items-baseline md:space-x-4 justify-center lg:justify-start">
                                         <div className="mb-2 md:mb-0">
-                                            <span className="font-bold text-white">Cilindrada:</span>
-                                            <span className="text-gray-300 ml-2">{motorcycles[current].specs.cilindrada}</span>
+                                            <span className="font-bold text-white">Motor:</span>
+                                            <span className="text-gray-300 ml-2">{motorcycles[current].specs.motor}</span>
                                         </div>
                                         <div>
-                                            <span className="font-bold text-white">Par máximo CE:</span>
-                                            <span className="text-gray-300 ml-2">{motorcycles[current].specs.parMaximo}</span>
+                                            <span className="font-bold text-white">Torque:</span>
+                                            <span className="text-gray-300 ml-2">{motorcycles[current].specs.torque}</span>
                                         </div>
                                     </div>
                                     <div>
-                                        <span className="font-bold text-white">Caja de cambios:</span>
-                                        <span className="text-gray-300 ml-2">{motorcycles[current].specs.cajaCambios}</span>
-                                    </div>
-                                    <div>
-                                        <span className="font-bold text-white">Consumo de combustible:</span>
-                                        <span className="text-gray-300 ml-2">{motorcycles[current].specs.consumo}</span>
+                                        <span className="font-bold text-white">Potencia:</span>
+                                        <span className="text-gray-300 ml-2">{motorcycles[current].specs.potencia}</span>
                                     </div>
                                 </div>
                             </div>
