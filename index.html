@@ -4,29 +4,95 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="/FAVICON TRIUMPH 64x64.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="description"
     content="Demo Road Show de Triumph - Prueba las motocicletas más emblemáticas del mundo en un evento único. Regístrate ahora para vivir la experiencia Triumph en tu ciudad." />
   <meta name="keywords" content="Triumph, motocicletas, road show, evento, prueba de manejo, demostración" />
   <meta name="theme-color" content="#D11A2A" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow" />
+  <link rel="canonical" href="https://triumphgrandtour.mx/demo-road/" />
+
+  <!-- Preload de recursos críticos -->
+  <link rel="preload" href="/og-image.webp" as="image" type="image/webp" />
+  <link rel="preload" href="/FAVICON TRIUMPH 64x64.png" as="image" type="image/png" />
+
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://demo-roadshow.triumph.com/" />
+  <meta property="og:url" content="https://triumphgrandtour.mx/demo-road/" />
   <meta property="og:title" content="Triumph Demo Road Show" />
   <meta property="og:description" content="Prueba las motocicletas más emblemáticas del mundo en un evento único." />
   <meta property="og:image" content="/og-image.webp" />
+
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Triumph Demo Road Show" />
   <meta name="twitter:description" content="Prueba las motocicletas más emblemáticas del mundo en un evento único." />
   <meta name="twitter:image" content="/og-image.webp" />
-  <title>Triumph Demo Road Show</title>
+
+  <title>Triumph Demo Road Show | Prueba de Motocicletas Premium</title>
+
+  <!-- PWA Support -->
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
   <!-- Preload de fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap"
     rel="stylesheet">
+
+  <!-- Schema.org data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Triumph Demo Road Show",
+    "description": "Prueba las motocicletas más emblemáticas del mundo en un evento único. Regístrate ahora para vivir la experiencia Triumph en tu ciudad.",
+    "image": "https://demo-roadshow.triumph.com/og-image.webp",
+    "organizer": {
+      "@type": "Organization",
+      "name": "Triumph Motorcycles",
+      "url": "https://www.triumph.com/"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+  </script>
+
+  <style>
+    html,
+    body {
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
+      margin: 0;
+      padding: 0;
+      overscroll-behavior: none;
+      /* Previene el efecto de rebote en iOS */
+    }
+
+    /* Asegurar que el color de fondo sea consistente */
+    body {
+      background-color: #ffffff;
+    }
+
+    /* Manejar las safe areas en iOS */
+    @supports (padding: max(0px)) {
+      body {
+        padding-top: max(0px, env(safe-area-inset-top));
+        padding-bottom: max(0px, env(safe-area-inset-bottom));
+        padding-left: max(0px, env(safe-area-inset-left));
+        padding-right: max(0px, env(safe-area-inset-right));
+      }
+    }
+  </style>
 </head>
 
 <body class="bg-white text-triumph-darkgray">
