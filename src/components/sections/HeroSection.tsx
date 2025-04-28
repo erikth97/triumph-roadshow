@@ -20,21 +20,19 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(({ logoRef }, ref)
             setResourceLoaded('video');
         };
 
-        // función para manejar errores
         const handleVideoError = (error?: Error) => {
-            // En producción, podríamos enviar el error a un servicio de monitoreo
+
             console.warn('Error al cargar el video:', error?.message || 'Error desconocido');
             setResourceLoaded('video'); // Marcar como cargado aún en error para no bloquear la UI
         };
 
-        // Agregar event listeners
         video.addEventListener('loadeddata', handleVideoLoaded);
         video.addEventListener('error', () => handleVideoError());
 
-        // Intenta reproducir respetando políticas de autoplay
+        //  reproducir respetando políticas de autoplay
         const playVideo = async () => {
             try {
-                // Verificar si el navegador permite autoplay
+
                 if (video.paused) {
                     await video.play();
                 }
