@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="/FAVICON TRIUMPH 64x64.png" />
+  <!-- Meta viewport actualizado para mejor compatibilidad con Safari iOS -->
   <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no">
   <meta name="description"
     content="Demo Road Show de Triumph - Prueba las motocicletas más emblemáticas del mundo en un evento único. Regístrate ahora para vivir la experiencia Triumph en tu ciudad." />
   <meta name="keywords" content="Triumph, motocicletas, road show, evento, prueba de manejo, demostración" />
@@ -13,6 +14,10 @@
   <meta name="robots" content="index, follow" />
   <meta name="googlebot" content="index, follow" />
   <link rel="canonical" href="https://triumphgrandtour.mx/demo-road/" />
+
+  <!-- Meta tags adicionales para Safari iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <!-- Preload de recursos críticos -->
   <link rel="preload" href="/og-image.webp" as="image" type="image/webp" />
@@ -76,11 +81,13 @@
       padding: 0;
       overscroll-behavior: none;
       /* Previene el efecto de rebote en iOS */
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     }
 
     /* Asegurar que el color de fondo sea consistente */
     body {
-      background-color: #ffffff;
+      background-color: #000000;
     }
 
     /* Manejar las safe areas en iOS */
@@ -90,6 +97,31 @@
         padding-bottom: max(0px, env(safe-area-inset-bottom));
         padding-left: max(0px, env(safe-area-inset-left));
         padding-right: max(0px, env(safe-area-inset-right));
+      }
+    }
+
+    /* Reseteo inicial para evitar barras de desbordamiento en Safari */
+    @supports (-webkit-touch-callout: none) {
+
+      html,
+      body {
+        -webkit-font-smoothing: antialiased;
+        height: 100% !important;
+        width: 100% !important;
+      }
+
+      /* Prevenir los bordes rojos */
+      * {
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      /* Fix específico para el contenedor principal */
+      #root {
+        min-height: 100%;
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
       }
     }
   </style>
