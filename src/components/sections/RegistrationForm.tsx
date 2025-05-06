@@ -103,7 +103,7 @@ const RegistrationForm: React.FC = () => {
                 {/* Card del formulario */}
                 <div className="max-w-4xl mx-auto p-8 rounded-lg shadow-2xl relative"
                     style={{
-                        backgroundImage: 'url("/images/FONDO FORMULARIO.jpg")',
+                        backgroundImage: 'url("/images/FONDO_FORMULARIO.jpg")',
                         backgroundSize: 'cover',
                         backgroundPosition: 'center'
                     }}
@@ -309,10 +309,10 @@ const RegistrationForm: React.FC = () => {
                                         className="w-4 h-4 transition-colors bg-transparent border-2 rounded-full appearance-none cursor-pointer peer border-white checked:border-gray-400 checked:bg-gray-400"
                                         type="radio"
                                         id="tipo-classic"
-                                        value="Modern Classics"
+                                        value="Modern Classic"
                                         {...register('tipoMotocicleta', { required: true })}
                                     />
-                                    <label className="pl-2 cursor-pointer" htmlFor="tipo-classic">Modern Classics</label>
+                                    <label className="pl-2 cursor-pointer" htmlFor="tipo-classic">Modern Classic</label>
                                     <svg className="absolute left-0 w-4 h-4 transition-all duration-300 scale-50 opacity-0 pointer-events-none fill-white peer-checked:scale-100 peer-checked:opacity-100" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="8" cy="8" r="4" />
                                     </svg>
