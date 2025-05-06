@@ -10,41 +10,6 @@ const MotorcycleShowcase: React.FC = () => {
 
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-    // Función para obtener la ruta del logo basada en el nombre del modelo
-    const getLogoPath = (modelName: string) => {
-        // Mapeamos los nombres de los modelos a los nombres exactos de los archivos de logo
-        const logoMap: Record<string, string> = {
-            "Speed 400": "/images/logo_models/SPEED 400 LOGO.webp",
-            "Scrambler 400 X": "/images/logo_models/SCRAMBLER 400 X.webp",
-            "Trident 660": "/images/logo_models/TRIDENT 660.webp",
-            "Daytona 660": "/images/logo_models/Daytona 660.webp",
-            "Tiger Sport 660": "/images/logo_models/Tiger Sport 660.webp",
-            "Bonneville T120": "/images/logo_models/BONNEVILLE T120.webp",
-            "Speed Twin 900": "/images/logo_models/SpeedTwin900.webp",
-            "Rocket 3 Storm GT": "/images/logo_models/Rocket 3 Sotrm GT.webp",
-            "Tiger 900 GT Pro": "/images/logo_models/Tiger 900 GT PRO.webp",
-            "Tiger 900 Rally Pro": "/images/logo_models/Tiger 900 Rally PRO.webp",
-        };
-
-        // Devolvemos la ruta exacta del logo o una ruta genérica como fallback
-        return logoMap[modelName] || `/images/logo_models/default-logo.webp`;
-    };
-
-    // Función para determinar si un modelo necesita un tamaño de logo especial (más grande)
-    const necesitaTamañoEspecial = (modelName: string) => {
-        // Lista de modelos que necesitan un logo más grande
-        const modelosConLogoPequeño = [
-            "Scrambler 400 X",
-            "Speed Twin 900",
-            "Daytona 660",
-            "Bonneville T120",
-            "Rocket 3 Storm GT"
-        ];
-
-        // Verificamos si el modelo actual está en la lista
-        return modelosConLogoPequeño.includes(modelName);
-    };
-
     const selectMotorcycle = (index: number) => {
         if (fadeTransition || index === current) return;
 
@@ -139,9 +104,9 @@ const MotorcycleShowcase: React.FC = () => {
                                 {/* Reemplazamos el título de texto con la imagen del logo */}
                                 <div className="flex justify-center items-center h-24">
                                     <img
-                                        src={getLogoPath(motorcycles[current].name)}
+                                        src={motorcycles[current].logoPath}
                                         alt={`Logo de ${motorcycles[current].name}`}
-                                        className={`h-full ${necesitaTamañoEspecial(motorcycles[current].name) ? 'w-72 scale-110' : 'w-64'} object-contain`}
+                                        className={`h-full ${motorcycles[current].needsSpecialSize ? 'w-72 scale-110' : 'w-64'} object-contain`}
                                     />
                                 </div>
                             </div>
@@ -283,9 +248,9 @@ const MotorcycleShowcase: React.FC = () => {
                                 {/* Logo reemplazando al título de texto */}
                                 <div className="mb-8 text-center lg:text-center">
                                     <img
-                                        src={getLogoPath(motorcycles[current].name)}
+                                        src={motorcycles[current].logoPath}
                                         alt={`Logo de ${motorcycles[current].name}`}
-                                        className={`h-24 ${necesitaTamañoEspecial(motorcycles[current].name) ? 'w-72 scale-110' : 'w-64'} object-contain mx-auto`}
+                                        className={`h-24 ${motorcycles[current].needsSpecialSize ? 'w-72 scale-110' : 'w-64'} object-contain mx-auto`}
                                     />
                                 </div>
 
