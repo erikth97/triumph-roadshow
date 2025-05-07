@@ -43,7 +43,7 @@ export const motorcycles: Motorcycle[] = [
     {
         id: 1,
         name: "Speed 400",
-        image: "/images/motorcycles/Speed 400_MY24_Caspian Blue_RHS_1200px-Climit.webp",
+        image: "/images/motorcycles/Speed_400.webp",
         logoPath: logoPathMap["Speed 400"],
         needsSpecialSize: modelsWithSpecialSize.includes("Speed 400"),
         specs: {
@@ -57,7 +57,7 @@ export const motorcycles: Motorcycle[] = [
     {
         id: 2,
         name: "Scrambler 400 X",
-        image: "/images/motorcycles/Scrambler 400 X_MY24_Matt Khaki Green_RHS_1200px-Climit.webp",
+        image: "/images/motorcycles/Scrambler_400X.webp",
         logoPath: logoPathMap["Scrambler 400 X"],
         needsSpecialSize: modelsWithSpecialSize.includes("Scrambler 400 X"),
         specs: {
@@ -71,7 +71,7 @@ export const motorcycles: Motorcycle[] = [
     {
         id: 3,
         name: "Trident 660",
-        image: "/images/motorcycles/Trident 660_MY25_Cosmic Yellow_RHS_1200px-Climit.webp",
+        image: "/images/motorcycles/Trident.webp",
         logoPath: logoPathMap["Trident 660"],
         needsSpecialSize: modelsWithSpecialSize.includes("Trident 660"),
         specs: {
@@ -85,7 +85,7 @@ export const motorcycles: Motorcycle[] = [
     {
         id: 4,
         name: "Daytona 660",
-        image: "/images/motorcycles/Daytona 660_MY24_Snowdonia White_RHS_1200px-Climit.webp",
+        image: "/images/motorcycles/Daytona_660.webp",
         logoPath: logoPathMap["Daytona 660"],
         needsSpecialSize: modelsWithSpecialSize.includes("Daytona 660"),
         specs: {
@@ -99,7 +99,7 @@ export const motorcycles: Motorcycle[] = [
     {
         id: 5,
         name: "Tiger Sport 660",
-        image: "/images/motorcycles/Tiger Sport_MY24_Snowdonia White-Jet Black_RHS_1200px-Climit.webp",
+        image: "/images/motorcycles/Tiger_Sport660.webp",
         logoPath: logoPathMap["Tiger Sport 660"],
         needsSpecialSize: modelsWithSpecialSize.includes("Tiger Sport 660"),
         specs: {
@@ -113,7 +113,7 @@ export const motorcycles: Motorcycle[] = [
     {
         id: 6,
         name: "Bonneville T120",
-        image: "/images/motorcycles/Bonneville T120_MY24_Jet Black-Fusion White_RHS_1200px-Climit.webp",
+        image: "/images/motorcycles/Bonneville_T120.webp",
         logoPath: logoPathMap["Bonneville T120"],
         needsSpecialSize: modelsWithSpecialSize.includes("Bonneville T120"),
         specs: {
@@ -127,7 +127,7 @@ export const motorcycles: Motorcycle[] = [
     {
         id: 7,
         name: "Speed Twin 900",
-        image: "/images/motorcycles/Speed Twin 900_MY24_Jet Black_RHS_1200px-Climit.webp",
+        image: "/images/motorcycles/SpeedTwin_900.webp",
         logoPath: logoPathMap["Speed Twin 900"],
         needsSpecialSize: modelsWithSpecialSize.includes("Speed Twin 900"),
         specs: {
@@ -141,7 +141,7 @@ export const motorcycles: Motorcycle[] = [
     {
         id: 8,
         name: "Tiger 900 GT Pro",
-        image: "/images/motorcycles/Tiger 900 GT Pro_MY24_Carnival Red_RHS_1200px-Climit.webp",
+        image: "/images/motorcycles/Tiger_900GTPro.webp",
         logoPath: logoPathMap["Tiger 900 GT Pro"],
         needsSpecialSize: modelsWithSpecialSize.includes("Tiger 900 GT Pro"),
         specs: {
@@ -155,7 +155,7 @@ export const motorcycles: Motorcycle[] = [
     {
         id: 9,
         name: "Tiger 900 Rally Pro",
-        image: "/images/motorcycles/Tiger 900 Rally Pro_MY24_Ash Grey_RHS_1200px-Climit.webp",
+        image: "/images/motorcycles/Tiger_900Rally.webp",
         logoPath: logoPathMap["Tiger 900 Rally Pro"],
         needsSpecialSize: modelsWithSpecialSize.includes("Tiger 900 Rally Pro"),
         specs: {
@@ -169,7 +169,7 @@ export const motorcycles: Motorcycle[] = [
     {
         id: 10,
         name: "Rocket 3 Storm GT",
-        image: "/images/motorcycles/Rocket 3 GT_MY24_Carnival Red_RHS_1200px-Climit.webp",
+        image: "/images/motorcycles/Rocket_3StormGT.webp",
         logoPath: logoPathMap["Rocket 3 Storm GT"],
         needsSpecialSize: modelsWithSpecialSize.includes("Rocket 3 Storm GT"),
         specs: {
