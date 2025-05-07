@@ -112,14 +112,14 @@ const InfoSection: React.FC = () => {
                             }}
                         >
                             <motion.img
-                                src="/images/IMAGEN INTRO_FONDO.webp"
+                                src="/images/Fondo.webp"
                                 alt="Fondo Triumph"
                                 className="absolute inset-0 w-full h-full object-cover"
                                 style={{ y: backgroundYOffset }}
                             />
 
                             <motion.img
-                                src="/images/IMAGEN INTRO_CHICA.webp"
+                                src="/images/Motociclista.webp"
                                 alt="Motociclista Triumph en acción"
                                 className="absolute inset-0 w-full h-full object-cover"
                                 style={{ x: rotateYOnMouse, y: rotateXOnMouse }}
