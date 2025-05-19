@@ -22,6 +22,13 @@ const CitiesSection = () => {
         return date.getDate().toString().padStart(2, '0');
     };
 
+    // Función para abrir la URL de Google Maps en una nueva pestaña
+    const openGoogleMaps = (mapUrl?: string) => {
+        if (mapUrl) {
+            window.open(mapUrl, '_blank', 'noopener,noreferrer');
+        }
+    };
+
     return (
         <section id="cities-section" className="pt-12 pb-20 bg-black text-white">
             <div className="container-custom">
@@ -56,7 +63,7 @@ const CitiesSection = () => {
                                 className="w-full cursor-pointer transform -translate-y-8"
                             />
 
-                            {/* Puntos interactivos - Quitamos el punto de León ya que ahora es parte de Querétaro */}
+                            {/* Puntos interactivos */}
                             {cities.map((city) => (
                                 <PulsingDot
                                     key={city.id}
@@ -83,7 +90,7 @@ const CitiesSection = () => {
                     {/* Área del lado derecho con calendario y countdown */}
                     <div className="w-full lg:w-1/2 flex flex-col items-center justify-center">
                         <div className="w-full px-2 sm:px-0" style={{ maxWidth: "580px" }}>
-                            {/* Grid actualizado para 4 ciudades por fila - Las ciudades ya están ordenadas por fecha */}
+                            {/* Grid actualizado para 4 ciudades por fila */}
                             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 w-full mt-4">
                                 {cities.map((city) => (
                                     <button
@@ -118,14 +125,44 @@ const CitiesSection = () => {
                                         <Countdown targetDate={selectedCityData.date} />
 
                                         <div className="mt-6 md:mt-8">
-                                            <div className="flex items-center mb-4">
-                                                <svg className="w-5 h-5 mt-1 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            {/* Ubicación con link a Google Maps si hay mapUrl */}
+                                            <div
+                                                className={`flex items-center mb-4 ${selectedCityData.mapUrl ?
+                                                    'cursor-pointer group transition-all duration-300 hover:bg-gray-800 p-2 -mx-2 rounded' : ''}`}
+                                                onClick={() => openGoogleMaps(selectedCityData.mapUrl)}
+                                            >
+                                                <svg
+                                                    className={`w-5 h-5 mt-1 mr-2 flex-shrink-0 ${selectedCityData.mapUrl ? 'text-red-500 group-hover:animate-bounce' : ''
+                                                        }`}
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth={2}
+                                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                                    />
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth={2}
+                                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                                                    />
                                                 </svg>
-                                                <div className="min-w-0 w-full">
-                                                    <div className="font-bold text-base md:text-lg truncate">{selectedCityData.venue}</div>
-                                                    <div className="text-gray-400 text-sm break-words">{selectedCityData.address}</div>
+                                                <div className={`min-w-0 w-full ${selectedCityData.mapUrl ? 'group-hover:text-white' : ''}`}>
+                                                    <div className="font-bold text-base md:text-lg truncate">
+                                                        {selectedCityData.venue}
+                                                        {selectedCityData.mapUrl && (
+                                                            <span className="ml-2 text-xs font-normal text-blue-400 group-hover:underline">
+                                                                Ver en Maps
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                    <div className="text-gray-400 text-sm break-words group-hover:text-gray-300">
+                                                        {selectedCityData.address}
+                                                    </div>
                                                 </div>
                                             </div>
 

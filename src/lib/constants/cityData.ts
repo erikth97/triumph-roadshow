@@ -5,6 +5,7 @@ export interface City {
     venue: string;
     address: string;
     schedule: string;
+    mapUrl?: string; // URL de Google Maps, opcional para ciudades sin ubicación definida
     coordinates: {
         x: number; // Porcentaje en el mapa (0-100)
         y: number; // Porcentaje en el mapa (0-100)
@@ -19,6 +20,7 @@ export const cities: City[] = [
         venue: "Pista Cuautla Karts",
         address: "Liborio Martinez 5, 62766 Atlatlahucan, Mor.",
         schedule: "24 y 25 de Mayo - 09:30 AM a 06:00 PM",
+        mapUrl: "https://maps.app.goo.gl/DaWKzsfrPN6qZo2x7",
         coordinates: { x: 61, y: 63 }
     },
     {
@@ -37,6 +39,7 @@ export const cities: City[] = [
         venue: "Autódromo Ecocentro",
         address: "Km. 5, Prol. Constituyentes S/N, El Marqués, 76047 Santiago de Querétaro, Qro.",
         schedule: "09:30 AM a 06:00 PM",
+        mapUrl: "https://maps.app.goo.gl/gSXnXQTazcxXypmt5",
         coordinates: { x: 58, y: 56 }
     },
     {
