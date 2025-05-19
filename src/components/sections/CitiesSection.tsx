@@ -56,7 +56,7 @@ const CitiesSection = () => {
                                 className="w-full cursor-pointer transform -translate-y-8"
                             />
 
-                            {/* Puntos interactivos */}
+                            {/* Puntos interactivos - Quitamos el punto de León ya que ahora es parte de Querétaro */}
                             {cities.map((city) => (
                                 <PulsingDot
                                     key={city.id}
@@ -83,7 +83,7 @@ const CitiesSection = () => {
                     {/* Área del lado derecho con calendario y countdown */}
                     <div className="w-full lg:w-1/2 flex flex-col items-center justify-center">
                         <div className="w-full px-2 sm:px-0" style={{ maxWidth: "580px" }}>
-                            {/* Grid actualizado para 4 ciudades por fila */}
+                            {/* Grid actualizado para 4 ciudades por fila - Las ciudades ya están ordenadas por fecha */}
                             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 w-full mt-4">
                                 {cities.map((city) => (
                                     <button
@@ -96,7 +96,10 @@ const CitiesSection = () => {
                                     >
                                         <div className="text-xs sm:text-sm font-medium truncate">{city.name}</div>
                                         <div className="text-xs sm:text-sm text-gray-400">{getMonthName(city.date)}</div>
-                                        <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">{formatDate(city.date)}</div>
+                                        {/* Si es Cuernavaca, mostramos "24-25" en lugar de solo un día */}
+                                        <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">
+                                            {city.id === 'cuernavaca' ? '24-25' : formatDate(city.date)}
+                                        </div>
                                     </button>
                                 ))}
                             </div>
