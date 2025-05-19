@@ -20,6 +20,7 @@ type FormInputs = {
     ciudad: string;
     aceptaTerminos: boolean;
     aceptaComunicaciones: boolean;
+    fechaRegistro: string;
 };
 
 // Opciones para los selects
@@ -63,19 +64,41 @@ const RegistrationForm: React.FC = () => {
     const onSubmit: SubmitHandler<FormInputs> = async (data) => {
         setIsSubmitting(true);
         try {
+            // Crear fecha y hora actual formateada
+            const now = new Date();
+            const formatoHora = now.toLocaleTimeString('es-MX', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            const formatoFecha = now.toLocaleDateString('es-MX', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+            const fechaRegistro = `${formatoHora} - ${formatoFecha}`;
+
+            // Añadir la fecha formateada a los datos del formulario
+            const datosConFecha = {
+                ...data,
+                fechaRegistro
+            };
+
+            // Enviar los datos con la fecha incluida
             await fetch('https://hook.us2.make.com/3on83gxcig6s4pdea4dojp4glhb4r76o', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(datosConFecha),
             });
+
             // Mostrar modal de éxito
             setShowSuccessModal(true);
 
             // Aquí puedes manejar la respuesta del servidor si es necesario
-            console.log('Formulario enviado con éxito:', data
-            )
+            console.log('Formulario enviado con éxito:', datosConFecha);
 
             // Lanzar el confetti después de que el modal aparezca
             setTimeout(() => {
@@ -86,6 +109,7 @@ const RegistrationForm: React.FC = () => {
                     colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8800', '#8800ff']
                 });
             }, 300);
+
             // Resetear formulario
             reset();
         } catch (error) {
