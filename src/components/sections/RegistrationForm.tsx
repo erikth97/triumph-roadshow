@@ -4,6 +4,13 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import confetti from "canvas-confetti";
 
+// Declaración de tipos para Google Analytics
+declare global {
+    interface Window {
+        gtag: (...args: any[]) => void;
+    }
+}
+
 // Tipos para los datos del formulario
 type FormInputs = {
     nombreCompleto: string;
@@ -63,6 +70,21 @@ const RegistrationForm: React.FC = () => {
 
     const onSubmit: SubmitHandler<FormInputs> = async (data) => {
         setIsSubmitting(true);
+
+        // --- INICIO: Código para Google Analytics ---
+        if (typeof window.gtag === 'function') {
+            window.gtag('event', 'click', {
+                'event_category': 'Formulario Registro Demo Road',
+                'event_label': 'Clic Boton Enviar Formulario',
+                // Opcional: puedes añadir más datos relevantes aquí, por ejemplo:
+                // 'ciudad_seleccionada': data.ciudad 
+            });
+            console.log("Evento GA 'Clic Boton Enviar Formulario' enviado.");
+        } else {
+            console.warn("gtag no está disponible para enviar el evento de GA.");
+        }
+        // --- FIN: Código para Google Analytics ---
+
         try {
             // Crear fecha y hora actual formateada
             const now = new Date();
