@@ -19,7 +19,7 @@ export const cities: City[] = [
         date: new Date("2025-05-24T09:30:00"),
         venue: "Pista Cuautla Karts",
         address: "Liborio Martinez 5, 62766 Atlatlahucan, Mor.",
-        schedule: "24 y 25 de Mayo - 09:30 AM a 06:00 PM",
+        schedule: "09:30 AM a 06:00 PM",
         mapUrl: "https://maps.app.goo.gl/DaWKzsfrPN6qZo2x7",
         coordinates: { x: 61, y: 63 }
     },
