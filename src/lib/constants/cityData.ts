@@ -14,42 +14,14 @@ export interface City {
 
 export const cities: City[] = [
     {
-        id: "cuernavaca",
-        name: "CUERNAVACA",
-        date: new Date("2025-05-24T09:30:00"),
-        venue: "Pista Cuautla Karts",
-        address: "Liborio Martinez 5, 62766 Atlatlahucan, Mor.",
-        schedule: "09:30 AM a 06:00 PM",
-        mapUrl: "https://maps.app.goo.gl/DaWKzsfrPN6qZo2x7",
-        coordinates: { x: 61, y: 63 }
-    },
-    {
-        id: "puebla",
-        name: "PUEBLA",
-        date: new Date("2025-05-31T09:30:00"),
-        venue: "Próximamente",
-        address: "",
-        schedule: "09:30 AM a 06:00 PM",
-        coordinates: { x: 64, y: 63 }
-    },
-    {
-        id: "queretaro-leon",
-        name: "QRO Y LEÓN",
+        id: "querétaro",
+        name: "QUERÉTARO",
         date: new Date("2025-06-14T09:30:00"),
         venue: "Autódromo Ecocentro",
         address: "Km. 5, Prol. Constituyentes S/N, El Marqués, 76047 Santiago de Querétaro, Qro.",
-        schedule: "09:30 AM a 06:00 PM",
+        schedule: "09:30 AM a 02:00 PM",
         mapUrl: "https://maps.app.goo.gl/gSXnXQTazcxXypmt5",
         coordinates: { x: 58, y: 56 }
-    },
-    {
-        id: "morelia",
-        name: "MORELIA",
-        date: new Date("2025-06-21T09:30:00"),
-        venue: "Próximamente",
-        address: "",
-        schedule: "09:30 AM a 06:00 PM",
-        coordinates: { x: 52, y: 62 }
     },
     {
         id: "guadalajara",
@@ -57,7 +29,7 @@ export const cities: City[] = [
         date: new Date("2025-06-28T09:30:00"),
         venue: "Próximamente",
         address: "",
-        schedule: "09:30 AM a 06:00 PM",
+        schedule: "09:30 AM a 02:00 PM",
         coordinates: { x: 46, y: 58 }
     },
     {
@@ -66,7 +38,7 @@ export const cities: City[] = [
         date: new Date("2025-07-05T09:30:00"),
         venue: "Próximamente",
         address: "",
-        schedule: "09:30 AM a 06:00 PM",
+        schedule: "09:30 AM a 02:00 PM",
         coordinates: { x: 51, y: 52 }
     },
     {
@@ -75,7 +47,7 @@ export const cities: City[] = [
         date: new Date("2025-07-12T09:30:00"),
         venue: "Próximamente",
         address: "",
-        schedule: "09:30 AM a 06:00 PM",
+        schedule: "09:30 AM a 02:00 PM",
         coordinates: { x: 59, y: 40 }
     }
 ];
