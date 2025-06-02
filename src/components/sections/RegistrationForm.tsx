@@ -32,13 +32,10 @@ type FormInputs = {
 
 // Opciones para los selects
 const ciudadesOptions = [
-    { value: 'Puebla', label: 'Puebla' },
+
     { value: 'Querétaro', label: 'Querétaro' },
-    { value: 'León', label: 'León' },
-    { value: 'Morelia', label: 'Morelia' },
     { value: 'Guadalajara', label: 'Guadalajara' },
     { value: 'Monterrey', label: 'Monterrey' },
-    { value: 'Cuernavaca', label: 'Cuernavaca' },
     { value: 'Aguascalientes', label: 'Aguascalientes' },
 ];
 
@@ -64,26 +61,22 @@ const RegistrationForm: React.FC = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-    // Usar watch para observar valores específicos
     const tieneMotocicleta = watch('tieneMotocicleta');
     const enteradoPor = watch('enteradoPor', []);
 
     const onSubmit: SubmitHandler<FormInputs> = async (data) => {
         setIsSubmitting(true);
 
-        // --- INICIO: Código para Google Analytics ---
+        // --- Google Analytics ---
         if (typeof window.gtag === 'function') {
             window.gtag('event', 'click', {
                 'event_category': 'Formulario Registro Demo Road',
                 'event_label': 'Clic Boton Enviar Formulario',
-                // Opcional: puedes añadir más datos relevantes aquí, por ejemplo:
-                // 'ciudad_seleccionada': data.ciudad 
             });
             console.log("Evento GA 'Clic Boton Enviar Formulario' enviado.");
         } else {
             console.warn("gtag no está disponible para enviar el evento de GA.");
         }
-        // --- FIN: Código para Google Analytics ---
 
         try {
             // Crear fecha y hora actual formateada
