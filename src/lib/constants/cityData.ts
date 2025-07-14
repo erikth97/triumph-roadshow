@@ -14,39 +14,11 @@ export interface City {
 
 export const cities: City[] = [
     {
-        id: "querétaro",
-        name: "QUERÉTARO",
-        date: new Date("2025-06-14T09:30:00"),
-        venue: "Autódromo Ecocentro",
-        address: "Km. 5, Prol. Constituyentes S/N, El Marqués, 76047 Santiago de Querétaro, Qro.",
-        schedule: "09:30 AM a 02:00 PM",
-        mapUrl: "https://maps.app.goo.gl/gSXnXQTazcxXypmt5",
-        coordinates: { x: 58, y: 56 }
-    },
-    {
-        id: "guadalajara",
-        name: "GUADALAJARA",
-        date: new Date("2025-06-28T09:30:00"),
-        venue: "Próximamente",
-        address: "",
-        schedule: "09:30 AM a 02:00 PM",
-        coordinates: { x: 46, y: 58 }
-    },
-    {
-        id: "aguascalientes",
-        name: "AGUASCALIENTES",
-        date: new Date("2025-07-05T09:30:00"),
-        venue: "Próximamente",
-        address: "",
-        schedule: "09:30 AM a 02:00 PM",
-        coordinates: { x: 51, y: 52 }
-    },
-    {
         id: "monterrey",
         name: "MONTERREY",
-        date: new Date("2025-07-12T09:30:00"),
-        venue: "Próximamente",
-        address: "",
+        date: new Date("2025-07-26T09:30:00"),
+        venue: "SantiaGoBike renta de bicis \"Cielo Magico\"",
+        address: "Calle Juan Tamez, Los Cavazos 67318 Santiago NL",
         schedule: "09:30 AM a 02:00 PM",
         coordinates: { x: 59, y: 40 }
     }
