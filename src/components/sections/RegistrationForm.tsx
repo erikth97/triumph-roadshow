@@ -32,11 +32,7 @@ type FormInputs = {
 
 // Opciones para los selects
 const ciudadesOptions = [
-
-    { value: 'Querétaro', label: 'Querétaro' },
-    { value: 'Guadalajara', label: 'Guadalajara' },
     { value: 'Monterrey', label: 'Monterrey' },
-    { value: 'Aguascalientes', label: 'Aguascalientes' },
 ];
 
 const cilindradasOptions = [
