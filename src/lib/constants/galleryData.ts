@@ -25,5 +25,5 @@ export const experienceGalleryImages: GalleryImage[] = [
     { id: 18, src: '/images/experience-gallery/1O1A9951.webp', alt: 'Triumph experience image 18' }
 ];
 
-export const videoPath = '/videos/triumph-experience.mp4';
+export const videoPath = '/videos/triumph-hero.mp4';
 export const videoPosterPath = '/images/experience-gallery/1O1A0093.webp';

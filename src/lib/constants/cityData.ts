@@ -19,7 +19,8 @@ export const cities: City[] = [
         date: new Date("2025-07-26T09:30:00"),
         venue: "SantiaGoBike renta de bicis \"Cielo Magico\"",
         address: "Calle Juan Tamez, Los Cavazos 67318 Santiago NL",
-        schedule: "09:30 AM a 02:00 PM",
+        schedule: "9:00 AM a 5:00 PM",
+        mapUrl: "https://maps.app.goo.gl/UAXpF7bTceKiE3dh9",
         coordinates: { x: 59, y: 40 }
     }
 ];

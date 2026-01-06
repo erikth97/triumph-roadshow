@@ -77,7 +77,6 @@ const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(({ logoRef }, ref)
                         poster="/images/PORTADA_TRIUMP_DRS.webp"
                         aria-hidden="true"
                     >
-                        <source src="/videos/triumph-hero.webm" type="video/webm" />
                         <source src="/videos/triumph-hero.mp4" type="video/mp4" />
                         Tu navegador no soporta videos.
                     </video>
